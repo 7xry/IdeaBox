@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23F2B144-A8B5-4866-84B6-D38400CD357F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Sub Main</StartupObject>
+    <RootNamespace>IdeaBox</RootNamespace>
+    <AssemblyName>IdeaBox</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Publish\Debug\</OutputPath>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <DocumentationFile>
+    </DocumentationFile>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Publish\Release\</OutputPath>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <DocumentationFile>
+    </DocumentationFile>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4114.6375, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.BonusSkins.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.Data.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Images.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.Images.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.2.Core, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.Printing.v14.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.Utils.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraBars.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraEditors.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraGrid.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraNavBar.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraPrinting.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\DevExpress.XtraTreeList.v14.2.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.87.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Publish\Debug\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="IdeaBox.Utils.FileSystem" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IdeaBoxMod.vb" />
+    <Compile Include="Impl\DBImpl.vb" />
+    <Compile Include="Impl\FormImpl.vb" />
+    <Compile Include="Model\TabForm.vb" />
+    <Compile Include="View\Fr_BaseForm.Designer.vb">
+      <DependentUpon>Fr_BaseForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Fr_BaseForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Model\BaseVo.vb" />
+    <Compile Include="View\Fr_MainForm.Designer.vb">
+      <DependentUpon>Fr_MainForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Fr_MainForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StoryManage\API\IStory.vb" />
+    <Compile Include="StoryManage\Impl\FileDownImpl.vb" />
+    <Compile Include="StoryManage\Model\FileDown.vb" />
+    <Compile Include="StoryManage\Impl\StoryImpl.vb" />
+    <Compile Include="StoryManage\Model\BaseVo.vb" />
+    <Compile Include="StoryManage\Model\Story.vb" />
+    <Compile Include="StoryManage\Impl\AqtxtImpl.vb" />
+    <Compile Include="StoryManage\View\Fr_Aqtxt.Designer.vb">
+      <DependentUpon>Fr_Aqtxt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="StoryManage\View\Fr_Aqtxt.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\Controls\GridNum.vb" />
+    <Compile Include="Utils\Controls\Paging.vb" />
+    <Compile Include="Utils\Database\API\IDataAccess.vb" />
+    <Compile Include="Utils\Database\DBFactory.vb" />
+    <Compile Include="Utils\Database\Enum\DBTypeEnum.vb" />
+    <Compile Include="Utils\Database\Impl\AccessImpl.vb" />
+    <Compile Include="Utils\Database\Impl\MySqlImpl.vb" />
+    <Compile Include="Utils\Database\Impl\SqliteImpl.vb" />
+    <Compile Include="Utils\Database\Model\QueryParameter.vb" />
+    <Compile Include="Utils\FileSystem\Enum\MsgType.vb" />
+    <Compile Include="Utils\FileSystem\Files\Excel.vb" />
+    <Compile Include="Utils\FileSystem\Files\XmlDoc.vb" />
+    <Compile Include="Utils\FileSystem\Images\ImageOpt.vb" />
+    <Compile Include="Utils\FileSystem\Log.vb" />
+    <Compile Include="Utils\FileSystem\Media\MediaPlay.vb" />
+    <Compile Include="Utils\FileSystem\Path\AppPath.vb" />
+    <Compile Include="Utils\FileSystem\String\FileMd5.vb" />
+    <Compile Include="Utils\FileSystem\String\IDCard.vb" />
+    <Compile Include="Utils\FileSystem\String\JsDate.vb" />
+    <Compile Include="Utils\FileSystem\String\RandStr.vb" />
+    <Compile Include="Utils\FileSystem\String\StrConvert.vb" />
+    <Compile Include="Utils\Security\DES.vb" />
+    <Compile Include="Utils\Security\MD5.vb" />
+    <Compile Include="Utils\Windows\NetWork.vb" />
+    <Compile Include="Utils\Windows\SysOpt.vb" />
+    <EmbeddedResource Include="View\Fr_BaseForm.resx">
+      <DependentUpon>Fr_BaseForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="View\Fr_MainForm.resx">
+      <DependentUpon>Fr_MainForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StoryManage\View\Fr_Aqtxt.resx">
+      <DependentUpon>Fr_Aqtxt.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Dict\TabModEnum.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="API\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Logo.ico" />
+    <Content Include="Publish\Debug\Config\Global.xml" />
+    <Content Include="Publish\Debug\IdeaBox.exe" />
+    <Content Include="Publish\Debug\IdeaBox.pdb" />
+    <None Include="Publish\Debug\Log\2016-01-12\2016-01-12_18.log" />
+    <None Include="Publish\Debug\Log\2016-01-13\2016-01-13.log" />
+    <None Include="Publish\Debug\Log\2016-01-14\2016-01-14.log" />
+    <None Include="Publish\Debug\Log\2016-01-15\2016-01-15.log" />
+    <None Include="Publish\Debug\Log\2016-01-19\2016-01-19.log" />
+    <None Include="Publish\Debug\Log\2016-01-20\2016-01-20.log" />
+    <None Include="Publish\Debug\Log\2016-01-21\2016-01-21.log" />
+    <None Include="Publish\Debug\Log\2016-01-23\2016-01-23.log" />
+    <None Include="Publish\Debug\Log\2016-01-24\2016-01-24.log" />
+    <None Include="Publish\Debug\Log\2016-01-28\2016-01-28.log" />
+    <None Include="Resources\TopBanner.png" />
+    <None Include="Resources\MainBg.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
