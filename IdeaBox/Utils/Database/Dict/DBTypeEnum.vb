@@ -1,4 +1,4 @@
-﻿Namespace Utils.Database.Enum
+﻿Namespace Utils.Database.Dict
     Public Enum DBTypeEnum
         ACCESS = 1
         MYSQL = 2

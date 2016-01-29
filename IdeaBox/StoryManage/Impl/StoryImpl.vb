@@ -4,6 +4,9 @@ Imports IdeaBox.Utils.Database
 Imports IdeaBox.StoryManage.API
 Imports IdeaBox.StoryManage.Model
 Imports IdeaBox.Impl
+Imports System.Reflection
+Imports IdeaBox.Utils.FileSystem.Dict
+Imports IdeaBox.Utils.FileSystem.String
 
 Namespace StoryManage.Impl
     Public Class StoryImpl
@@ -18,7 +21,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -43,7 +46,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -73,7 +76,7 @@ Namespace StoryManage.Impl
                 data.ExecuteNonQuery(sql)
                 data.CommitTran()
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
                 data.RollBackTran()
             Finally
                 data.Close()
@@ -96,7 +99,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -122,7 +125,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -141,7 +144,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -165,11 +168,12 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 data.RollBackTran()
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
         End Sub
+
         Public Function ExplainStr(ByVal DbKey As String, ByVal GetStr As String) As String
             '解析关系条件
             Dim i As Integer
@@ -233,6 +237,7 @@ Namespace StoryManage.Impl
             Next i
             Return ExplainStr
         End Function
+
         Public Function GetList(ByVal s As Story, ByVal TableName As String) As List(Of Story) Implements IStory.GetList
             Dim dt As New DataTable
             Dim data As IDataAccess = DBFactory.Create
@@ -245,30 +250,30 @@ Namespace StoryManage.Impl
             sql += String.Format("     {0} ", TableName)
             sql += "Where "
             sql += "     1=1 "
-            If s.BookName <> String.Empty Then
+            Dim TmpStr As String = SqlConvert.GetSql("BookName", s.BookName)
+            If s.BookName <> String.Empty And TmpStr <> String.Empty Then
                 sql += "And "
-                'sql += String.Format("BookName like '%{0}%' ", s.BookName)
-                sql += ExplainStr("BookName", s.BookName)
+                sql += TmpStr
             End If
-            If s.Author <> String.Empty Then
+            TmpStr = SqlConvert.GetSql("Author", s.Author)
+            If s.Author <> String.Empty And TmpStr <> String.Empty Then
                 sql += "And "
-                'sql += String.Format("Author like '%{0}%' ", s.Author)
-                sql += ExplainStr("Author", s.Author)
+                sql += SqlConvert.GetSql("Author", s.Author)
             End If
             If s.Category <> "全部小说" Then
                 sql += "And "
-                sql += String.Format("(Category like '%{0}%') ", s.Category)
+                sql += String.Format("Category like '%{0}%' ", s.Category)
             End If
             If s.Rating <> String.Empty Then
                 sql += "And "
                 sql += String.Format("Rating = '{0}' ", s.Rating)
             End If
+            TmpStr = SqlConvert.GetSql("Abstract", s.Abstract)
             If s.Abstract <> String.Empty Then
                 sql += "And "
-                'sql += String.Format("Abstract like '%{0}%' ", s.Abstract)
-                sql += ExplainStr("Abstract", s.Abstract)
+                sql += SqlConvert.GetSql("Abstract", s.Abstract)
             End If
-            If s.IsRead <> String.Empty Then
+            If s.IsRead <> String.Empty And TmpStr <> String.Empty Then
                 sql += "And "
                 sql += String.Format("IsRead = '{0}' ", s.IsRead)
             End If
@@ -278,7 +283,7 @@ Namespace StoryManage.Impl
                 data.Open()
                 dt = data.GetTable(sql)
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -315,7 +320,7 @@ Namespace StoryManage.Impl
                 data.Open()
                 dt = data.GetTable(sql)
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try
@@ -353,7 +358,7 @@ Namespace StoryManage.Impl
                 data.Open()
                 dt = data.GetTable(sql)
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
             Finally
                 data.Close()
             End Try

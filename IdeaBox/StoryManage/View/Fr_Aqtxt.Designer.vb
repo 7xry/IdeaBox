@@ -215,6 +215,8 @@
             '
             Me.GBox.Appearance.BackColor = System.Drawing.Color.White
             Me.GBox.Appearance.Options.UseBackColor = True
+            Me.GBox.AppearanceCaption.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+            Me.GBox.AppearanceCaption.Options.UseFont = True
             Me.GBox.Controls.Add(Me.CategoryBox)
             Me.GBox.Controls.Add(Me.BookNameBox)
             Me.GBox.Controls.Add(Me.AuthorBox)
@@ -230,7 +232,7 @@
             Me.GBox.Name = "GBox"
             Me.GBox.Size = New System.Drawing.Size(1138, 129)
             Me.GBox.TabIndex = 4
-            Me.GBox.Text = "筛选条件    【书名】【作者】【简介】支持 "" ""或关系；""&""与关系；""！""非关系，连接符运算筛选。 "
+            Me.GBox.Text = String.Format("小说查询 —— 支持以下关系表达式：并且（{0}） > 或者（{1}） > 排除（{2}） ", "&&&&", "||", "!=")
             '
             'CategoryBox
             '
@@ -302,7 +304,7 @@
             '
             Me.CategoryLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.CategoryLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
-            Me.CategoryLbl.Location = New System.Drawing.Point(773, 44)
+            Me.CategoryLbl.Location = New System.Drawing.Point(773, 47)
             Me.CategoryLbl.Name = "CategoryLbl"
             Me.CategoryLbl.Size = New System.Drawing.Size(42, 19)
             Me.CategoryLbl.TabIndex = 4
@@ -312,7 +314,7 @@
             '
             Me.AbstractLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.AbstractLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
-            Me.AbstractLbl.Location = New System.Drawing.Point(57, 83)
+            Me.AbstractLbl.Location = New System.Drawing.Point(57, 86)
             Me.AbstractLbl.Name = "AbstractLbl"
             Me.AbstractLbl.Size = New System.Drawing.Size(42, 19)
             Me.AbstractLbl.TabIndex = 6
@@ -322,7 +324,7 @@
             '
             Me.BookNameLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.BookNameLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
-            Me.BookNameLbl.Location = New System.Drawing.Point(57, 44)
+            Me.BookNameLbl.Location = New System.Drawing.Point(57, 47)
             Me.BookNameLbl.Name = "BookNameLbl"
             Me.BookNameLbl.Size = New System.Drawing.Size(42, 19)
             Me.BookNameLbl.TabIndex = 0
@@ -332,7 +334,7 @@
             '
             Me.AuthorLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.AuthorLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
-            Me.AuthorLbl.Location = New System.Drawing.Point(415, 44)
+            Me.AuthorLbl.Location = New System.Drawing.Point(415, 47)
             Me.AuthorLbl.Name = "AuthorLbl"
             Me.AuthorLbl.Size = New System.Drawing.Size(42, 19)
             Me.AuthorLbl.TabIndex = 2
@@ -342,7 +344,7 @@
             '
             Me.RatingLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.RatingLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
-            Me.RatingLbl.Location = New System.Drawing.Point(415, 83)
+            Me.RatingLbl.Location = New System.Drawing.Point(415, 86)
             Me.RatingLbl.Name = "RatingLbl"
             Me.RatingLbl.Size = New System.Drawing.Size(42, 19)
             Me.RatingLbl.TabIndex = 8

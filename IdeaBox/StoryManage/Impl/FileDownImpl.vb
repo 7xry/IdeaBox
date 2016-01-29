@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports IdeaBox.StoryManage.Model
 Imports System.IO
+Imports IdeaBox.Utils.FileSystem.Dict
 
 Namespace StoryManage.Impl
     Public Class FileDownImpl
@@ -27,12 +28,13 @@ Namespace StoryManage.Impl
             Return sumLength
         End Function
 
-        ''' <summary> 
-        ''' 下载文件 
-        ''' </summary> 
-        ''' <param name="URL">下载文件地址</param> 
-        ''' <param name="Filename">下载后另存为（全路径）</param>         
-        Public Function DownloadFile(ByVal fDown As FileDown)
+        ''' <summary>
+        ''' 下载文件
+        ''' </summary>
+        ''' <param name="fDown">文件对象</param>
+        ''' <returns>成功与否</returns>
+        ''' <remarks>下载文件</remarks>
+        Public Function DownloadFile(ByVal fDown As FileDown) As Boolean
             Try
                 Dim request As System.Net.HttpWebRequest = CType(System.Net.HttpWebRequest.Create(fDown.SourceFile), System.Net.HttpWebRequest)
                 Dim response As System.Net.HttpWebResponse = CType(request.GetResponse(), System.Net.HttpWebResponse)
@@ -50,7 +52,7 @@ Namespace StoryManage.Impl
                 request.Abort()
                 Return True
             Catch ex As System.Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg)
                 Return False
             End Try
         End Function

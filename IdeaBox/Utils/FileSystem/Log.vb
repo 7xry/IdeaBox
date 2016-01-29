@@ -1,7 +1,7 @@
 ﻿Imports log4net
-Imports IdeaBox.Utils.FileSystem.Enum
 Imports IdeaBox.Utils.FileSystem.Path
 Imports IdeaBox.Utils.FileSystem.String
+Imports IdeaBox.Utils.FileSystem.Dict
 
 
 Namespace Utils.FileSystem

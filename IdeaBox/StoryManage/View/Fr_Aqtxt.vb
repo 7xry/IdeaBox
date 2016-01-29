@@ -1,6 +1,5 @@
 ﻿Imports DevExpress.XtraTreeList
 Imports DevExpress.XtraTreeList.Nodes
-Imports IdeaBox.Utils.FileSystem.Enum
 Imports DevExpress.XtraEditors
 Imports DevExpress.XtraBars
 Imports DevExpress.XtraEditors.Controls
@@ -8,6 +7,8 @@ Imports IdeaBox.StoryManage.Model
 Imports IdeaBox.Utils.FileSystem.Path
 Imports System.IO
 Imports IdeaBox.StoryManage.Impl
+Imports IdeaBox.Utils.FileSystem.Dict
+Imports IdeaBox.Utils.FileSystem.String
 
 Namespace StoryManage.View
     Public Class Fr_Aqtxt
@@ -36,7 +37,7 @@ Namespace StoryManage.View
         Private Sub DoScan()
             ThreadIsNotWork = False
             Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.Text, AbstractBox.Text, RatingBox.Text)
-            asyncResult = MainTree.BeginInvoke(New Showlist(AddressOf LoadList), xScan)
+            asyncResult = Me.BeginInvoke(New Showlist(AddressOf LoadList), xScan)
             ThreadIsNotWork = LoadListCallBack(asyncResult)
         End Sub
 
@@ -154,7 +155,7 @@ Namespace StoryManage.View
         '委托采集
         Private Sub DoReLoad()
             ThreadIsNotWork = False
-            asyncResult = MainTree.BeginInvoke(New SetReLoad(AddressOf ReLoad))
+            asyncResult = Me.BeginInvoke(New SetReLoad(AddressOf ReLoad))
             ThreadIsNotWork = LoadListCallBack(asyncResult)
         End Sub
         '采集

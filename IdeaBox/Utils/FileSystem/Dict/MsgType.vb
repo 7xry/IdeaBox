@@ -1,4 +1,4 @@
-﻿Namespace Utils.FileSystem.Enum
+﻿Namespace Utils.FileSystem.Dict
     Public Enum MsgType
         InfoMsg = 1
         DebugMsg = 2

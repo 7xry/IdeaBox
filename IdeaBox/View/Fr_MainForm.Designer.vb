@@ -170,9 +170,10 @@
             'BocimLogo
             '
             Me.BocimLogo.BackColor = System.Drawing.Color.Transparent
-            Me.BocimLogo.Location = New System.Drawing.Point(12, 23)
+            Me.BocimLogo.Image = Global.IdeaBox.My.Resources.Resources.Logo
+            Me.BocimLogo.Location = New System.Drawing.Point(12, 10)
             Me.BocimLogo.Name = "BocimLogo"
-            Me.BocimLogo.Size = New System.Drawing.Size(300, 40)
+            Me.BocimLogo.Size = New System.Drawing.Size(200, 60)
             Me.BocimLogo.TabIndex = 1
             Me.BocimLogo.TabStop = False
             '
@@ -328,7 +329,6 @@
             'ConfigGroup
             '
             Me.ConfigGroup.Caption = "电影管理"
-            Me.ConfigGroup.Expanded = True
             Me.ConfigGroup.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.LargeIconsText
             Me.ConfigGroup.ItemLinks.AddRange(New DevExpress.XtraNavBar.NavBarItemLink() {New DevExpress.XtraNavBar.NavBarItemLink(Me.UserManagerBtn), New DevExpress.XtraNavBar.NavBarItemLink(Me.DeptManager), New DevExpress.XtraNavBar.NavBarItemLink(Me.ExComManager), New DevExpress.XtraNavBar.NavBarItemLink(Me.StatusManager)})
             Me.ConfigGroup.LargeImageIndex = 0

@@ -1,6 +1,6 @@
 ﻿Imports System.Text
 Imports IdeaBox.Utils.Database
-Imports IdeaBox.Utils.Database.Enum
+Imports IdeaBox.Utils.Database.Dict
 
 Namespace Impl
     Public Class DBImpl

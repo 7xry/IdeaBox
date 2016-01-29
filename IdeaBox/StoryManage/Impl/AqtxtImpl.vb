@@ -5,6 +5,7 @@ Imports IdeaBox.StoryManage.API
 Imports IdeaBox.StoryManage.Model
 Imports System.Net
 Imports System.IO
+Imports IdeaBox.Utils.FileSystem.Dict
 
 Namespace StoryManage.Impl
     Public Class AqtxtImpl
@@ -16,7 +17,7 @@ Namespace StoryManage.Impl
                 Dim strm As StreamReader = New StreamReader(res.GetResponseStream(), Encoding.UTF8)
                 Return strm.ReadToEnd
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg)
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg)
                 Return String.Empty
             End Try
         End Function

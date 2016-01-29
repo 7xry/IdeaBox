@@ -1,7 +1,7 @@
-﻿Imports IdeaBox.Utils.Database.Enum
-Imports IdeaBox.Utils.Database.API
+﻿Imports IdeaBox.Utils.Database.API
 Imports IdeaBox.Utils.Database.Impl
 Imports IdeaBox.Utils.FileSystem.Path
+Imports IdeaBox.Utils.Database.Dict
 
 Namespace Utils.Database
     Public Class DBFactory

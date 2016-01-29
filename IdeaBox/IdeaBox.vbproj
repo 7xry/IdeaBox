@@ -30,8 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IdeaBox.xml</DocumentationFile>
     <WarningsAsErrors>
     </WarningsAsErrors>
   </PropertyGroup>
@@ -44,8 +43,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IdeaBox.xml</DocumentationFile>
     <WarningsAsErrors>
     </WarningsAsErrors>
   </PropertyGroup>
@@ -151,6 +149,7 @@
     <Compile Include="Impl\DBImpl.vb" />
     <Compile Include="Impl\FormImpl.vb" />
     <Compile Include="Model\TabForm.vb" />
+    <Compile Include="Utils\FileSystem\String\SqlConvert.vb" />
     <Compile Include="View\Fr_BaseForm.Designer.vb">
       <DependentUpon>Fr_BaseForm.vb</DependentUpon>
     </Compile>
@@ -183,12 +182,12 @@
     <Compile Include="Utils\Controls\Paging.vb" />
     <Compile Include="Utils\Database\API\IDataAccess.vb" />
     <Compile Include="Utils\Database\DBFactory.vb" />
-    <Compile Include="Utils\Database\Enum\DBTypeEnum.vb" />
+    <Compile Include="Utils\Database\Dict\DBTypeEnum.vb" />
     <Compile Include="Utils\Database\Impl\AccessImpl.vb" />
     <Compile Include="Utils\Database\Impl\MySqlImpl.vb" />
     <Compile Include="Utils\Database\Impl\SqliteImpl.vb" />
     <Compile Include="Utils\Database\Model\QueryParameter.vb" />
-    <Compile Include="Utils\FileSystem\Enum\MsgType.vb" />
+    <Compile Include="Utils\FileSystem\Dict\MsgType.vb" />
     <Compile Include="Utils\FileSystem\Files\Excel.vb" />
     <Compile Include="Utils\FileSystem\Files\XmlDoc.vb" />
     <Compile Include="Utils\FileSystem\Images\ImageOpt.vb" />
@@ -241,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <None Include="Resources\Logo.png" />
     <None Include="Resources\TopBanner.png" />
     <None Include="Resources\MainBg.png" />
   </ItemGroup>

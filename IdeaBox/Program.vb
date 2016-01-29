@@ -1,5 +1,6 @@
 ﻿Imports DevExpress.LookAndFeel
 Imports IdeaBox.View
+Imports IdeaBox.Utils.FileSystem.Dict
 
 Friend NotInheritable Class Program
     ''' <summary>
@@ -23,7 +24,7 @@ Friend NotInheritable Class Program
             frMain = New Fr_MainForm
             Application.Run(frMain)
         Catch ex As Exception
-            Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.FatalMsg)
+            Log.Showlog(ex.ToString, MsgType.FatalMsg)
             Return
         End Try
     End Sub

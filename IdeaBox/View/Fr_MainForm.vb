@@ -9,6 +9,7 @@ Imports IdeaBox.SignManage.View
 Imports IdeaBox.StoryManage.View
 Imports IdeaBox.Dict
 Imports IdeaBox.Model
+Imports IdeaBox.Utils.FileSystem.Dict
 
 Namespace View
     Partial Public Class Fr_MainForm
@@ -87,7 +88,7 @@ Namespace View
         Private Sub ManualBtn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ManualBtn.Click
             Dim manualPath As String = String.Format("{0}\Manual\进出件管理系统使用手册.pdf", Application.StartupPath)
             If File.Exists(manualPath) = False Then
-                Log.Showlog("帮助手册不存在！", Utils.FileSystem.Enum.MsgType.InfoMsg)
+                Log.Showlog("帮助手册不存在！", MsgType.InfoMsg)
                 Return
             End If
             Try
@@ -95,7 +96,7 @@ Namespace View
                 p.StartInfo.FileName = manualPath
                 p.Start()
             Catch ex As Exception
-                Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.InfoMsg)
+                Log.Showlog(ex.ToString, MsgType.InfoMsg)
             End Try
         End Sub
 
