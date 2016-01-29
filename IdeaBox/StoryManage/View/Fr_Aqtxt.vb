@@ -28,6 +28,7 @@ Namespace StoryManage.View
             Tree.Nodes.Clear()
             Dim parentForRootNodes As TreeListNode = Nothing
             Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.Text, AbstractBox.Text, RatingBox.Text)
+
             Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TableName)
             If ls IsNot Nothing Then
                 Dim Article As TreeListNode = Tree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, ls.Count)}, parentForRootNodes)
@@ -67,9 +68,16 @@ Namespace StoryManage.View
         End Sub
 
         Private Sub DoScanBtn_ItemClick(ByVal sender As Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles DoScanBtn.ItemClick
+            Dim ThreadTask As Threading.Thread
+            '创建线程加载showloadlist子程序加载内容
+            ThreadTask = New Threading.Thread(AddressOf showloadlist)
+            ThreadTask.Start()
+
+        End Sub
+        Private Sub showloadlist()
+            '加载显示列表内容
             LoadList(MainTree)
         End Sub
-
 
 
         Private Sub DoAddBtn_ItemClick(ByVal sender As Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles DoDownBtn.ItemClick
