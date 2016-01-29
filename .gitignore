@@ -16,13 +16,12 @@ Thumbs.db
 *.bak
 *.cache
 *.ilk
-*.log
-[Bb]in
-[Dd]ebug*/
 *.lib
 *.sbr
-obj/
-[Rr]elease*/
+*.log
+*.manifest
+[Bb]in
+[Oo]bj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc

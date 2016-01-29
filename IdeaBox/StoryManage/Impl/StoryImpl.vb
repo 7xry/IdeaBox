@@ -211,11 +211,8 @@ Namespace StoryManage.Impl
             sql += "     BookName "
             Try
                 data.Open()
-                data.BeginTran()
                 dt = data.GetTable(sql)
-                data.CommitTran()
             Catch ex As Exception
-                data.RollBackTran()
                 Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
             Finally
                 data.Close()
@@ -251,11 +248,8 @@ Namespace StoryManage.Impl
             sql += String.Format("     {0} ", TableName)
             Try
                 data.Open()
-                data.BeginTran()
                 dt = data.GetTable(sql)
-                data.CommitTran()
             Catch ex As Exception
-                data.RollBackTran()
                 Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
             Finally
                 data.Close()
@@ -292,11 +286,8 @@ Namespace StoryManage.Impl
             End If
             Try
                 data.Open()
-                data.BeginTran()
                 dt = data.GetTable(sql)
-                data.CommitTran()
             Catch ex As Exception
-                data.RollBackTran()
                 Log.Showlog(ex.ToString, Utils.FileSystem.Enum.MsgType.ErrorMsg, False)
             Finally
                 data.Close()

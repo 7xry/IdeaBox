@@ -1,0 +1,12 @@
+INSERT INTO ds_tb_user VALUES ('root', '系统管理员', '63a9f0ea7bb98050796b649e85481845', '00:00:00:00:00:00', '-1', '2016-01-01 08:00:00', '2016-01-20 17:02:36', '0', '系统管理员');
+INSERT INTO ds_tb_user VALUES ('yinjie.lu', '陆寅杰', '96e79218965eb72c92a549dd5a33112', '00:23:24:85:69:43', 'ds_tb_yinjie_lu', '2016-01-20 17:03:27', '2016-01-20 17:03:27', '0', '');
+INSERT INTO ds_tb_user VALUES ('liang.zhao', '赵亮', 'd41d8cd98f0b24e980998ecf8427e', '00:23:24:7F:7B:C5', 'ds_tb_liang_zhao', '2016-01-20 17:37:29', '2016-01-21 10:12:45', '0', '');
+INSERT INTO ds_tb_user VALUES ('xue.bai', '白雪', '74c1743ea4dbd44da494c9fe36d86d7', '00:23:24:80:A9:DB', 'ds_tb_xue_bai', '2016-01-21 10:43:13', '2016-01-21 10:43:13', '0', '');
+INSERT INTO ds_tb_user VALUES ('jingjun.chen', '陈晶军', '9accb8c75a4daeefd424d1325041d5f', '00:23:24:90:96:36', 'ds_tb_jingjun_chen', '2016-01-21 10:44:15', '2016-01-21 10:44:15', '0', '');
+INSERT INTO ds_tb_user VALUES ('lina.chen', '陈丽娜', '362eaa8988b85d4bf8e7fbcc3b16a06', '00:23:24:84:12:D0', 'ds_tb_lina_chen', '2016-01-21 10:44:45', '2016-01-21 10:44:45', '0', '');
+INSERT INTO ds_tb_user VALUES ('fang.li', '李芳', '6a5d36b553b320fcf1ca6a68f7df6ed7', '00:23:24:8C:17:E5', 'ds_tb_fang_li', '2016-01-21 10:45:21', '2016-01-21 10:45:21', '0', '');
+INSERT INTO ds_tb_user VALUES ('tengzhou.xu', '徐腾洲', 'baa855f01c41e8b252d950987cb6405e', '00:23:24:90:95:81', 'ds_tb_tengzhou_xu', '2016-01-21 10:46:19', '2016-01-21 10:46:19', '0', '');
+INSERT INTO ds_tb_user VALUES ('hao.yan', '闫浩', '5b8cac772131c75198c12d43d412f94', '00:23:24:85:6C:BF', 'ds_tb_hao_yan', '2016-01-21 10:46:46', '2016-01-21 10:46:46', '0', '');
+INSERT INTO ds_tb_user VALUES ('mingliang.yao', '姚明亮', '6913a6534fa2beaf7e235de8fd7b69de', '00:23:24:80:AA:DB', 'ds_tb_mingliang_yao', '2016-01-21 10:47:14', '2016-01-21 10:47:14', '0', '');
+INSERT INTO ds_tb_user VALUES ('changfeng.zhao', '赵常峰', '67ef9f589f5ed6a12b7db760259ca7af', '00:23:24:80:AA:B3', 'ds_tb_changfeng_zhao', '2016-01-21 10:48:24', '2016-01-21 10:48:24', '0', '');
+INSERT INTO ds_tb_user VALUES ('jie.zhang', '张杰', 'b705ab846c83ebdb68cf951e5e2116c', '00:23:24:85:68:E4', 'ds_tb_jie_zhang', '2016-01-21 10:50:03', '2016-01-21 10:50:03', '0', '');
