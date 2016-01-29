@@ -611,7 +611,7 @@
             Me.IsReadCol.OptionsColumn.ShowInCustomizationForm = False
             Me.IsReadCol.Width = 100
             '
-            'Fr_Story
+            'Fr_Aqtxt
             '
             Me.Appearance.BackColor = System.Drawing.Color.White
             Me.Appearance.Options.UseBackColor = True
@@ -630,7 +630,7 @@
             Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
             Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
             Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-            Me.Name = "Fr_Story"
+            Me.Name = "Fr_Aqtxt"
             Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
             Me.Text = "书籍管理"
             CType(Me.XtraBar, System.ComponentModel.ISupportInitialize).EndInit()

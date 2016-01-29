@@ -24,6 +24,7 @@ Namespace StoryManage.View
 
         Overloads Sub LoadList(ByVal Tree As TreeList)
             Tree.BeginUnboundLoad()
+            '清除列表显示
             Tree.Nodes.Clear()
             Dim parentForRootNodes As TreeListNode = Nothing
             Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.Text, AbstractBox.Text, RatingBox.Text)
@@ -32,11 +33,17 @@ Namespace StoryManage.View
                 Dim Article As TreeListNode = Tree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, ls.Count)}, parentForRootNodes)
                 '创建根节点
                 For Each xStory As Story In ls
-                    Tree.AppendNode(New Object() {xStory, xStory.BookName, xStory.Author,
-                                                  xStory.Category, xStory.FileSize,
-                                                  xStory.Rating, xStory.DownloadQuantity,
-                                                  xStory.Abstract, xStory.DownloadAddr,
-                                                  xStory.IsRead}, Article)
+                    Tree.AppendNode(New Object() {xStory,
+                                                  xStory.BookName,
+                                                  xStory.Author,
+                                                  xStory.Category,
+                                                  xStory.FileSize,
+                                                  xStory.Rating,
+                                                  xStory.DownloadQuantity,
+                                                  xStory.Abstract,
+                                                  xStory.DownloadAddr,
+                                                  xStory.IsRead
+                                                 }, Article)
                 Next
             Else
                 Tree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, ls.Count)}, parentForRootNodes)
@@ -116,6 +123,8 @@ Namespace StoryManage.View
             If CategoryBox.Properties.Items.Count > 0 Then
                 CategoryBox.SelectedItem = CategoryBox.Properties.Items(0)
             End If
+            '除了数据库中类型，新增全部小说筛选
+            CategoryBox.Properties.Items.Add("全部小说")
             AbstractBox.Properties.EndUpdate()
         End Sub
 

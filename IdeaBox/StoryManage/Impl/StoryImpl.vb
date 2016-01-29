@@ -191,7 +191,7 @@ Namespace StoryManage.Impl
                 sql += "And "
                 sql += String.Format("Author like '%{0}%' ", s.Author)
             End If
-            If s.Category <> String.Empty Then
+            If (s.Category <> String.Empty) And (s.Category <> "全部小说") Then
                 sql += "And "
                 sql += String.Format("Category like '%{0}%' ", s.Category)
             End If
