@@ -191,7 +191,7 @@ Namespace StoryManage.Impl
                 sql += "And "
                 sql += String.Format("Author like '%{0}%' ", s.Author)
             End If
-            If (s.Category <> String.Empty) And (s.Category <> "全部小说") Then
+            If s.Category <> "全部小说" Then
                 sql += "And "
                 sql += String.Format("Category like '%{0}%' ", s.Category)
             End If
@@ -208,7 +208,7 @@ Namespace StoryManage.Impl
                 sql += String.Format("IsRead = '{0}' ", s.IsRead)
             End If
             sql += "Order By "
-            sql += "     BookName "
+            sql += "     UploadDate desc, BookName "
             Try
                 data.Open()
                 dt = data.GetTable(sql)

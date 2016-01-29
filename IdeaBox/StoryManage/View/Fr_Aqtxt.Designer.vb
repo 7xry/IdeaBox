@@ -56,6 +56,7 @@
             Me.FileSizeCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             Me.RatingCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             Me.DownloadQuantityCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
+            Me.UploadDateCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             Me.AbstractCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             Me.DownloadAddrCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             Me.IsReadCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
@@ -350,7 +351,7 @@
             'MainTree
             '
             Me.MainTree.ColumnPanelRowHeight = 30
-            Me.MainTree.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() {Me.DataObjCol, Me.BookNameCol, Me.AuthorCol, Me.CategoryCol, Me.FileSizeCol, Me.RatingCol, Me.DownloadQuantityCol, Me.AbstractCol, Me.DownloadAddrCol, Me.IsReadCol})
+            Me.MainTree.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() {Me.DataObjCol, Me.BookNameCol, Me.AuthorCol, Me.CategoryCol, Me.FileSizeCol, Me.RatingCol, Me.DownloadQuantityCol, Me.UploadDateCol, Me.AbstractCol, Me.DownloadAddrCol, Me.IsReadCol})
             Me.MainTree.Cursor = System.Windows.Forms.Cursors.Hand
             Me.MainTree.Dock = System.Windows.Forms.DockStyle.Fill
             Me.MainTree.Location = New System.Drawing.Point(0, 0)
@@ -424,6 +425,7 @@
             Me.AuthorCol.AppearanceCell.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.AuthorCol.AppearanceCell.Options.UseFont = True
             Me.AuthorCol.AppearanceCell.Options.UseTextOptions = True
+            Me.AuthorCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Me.AuthorCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
             Me.AuthorCol.AppearanceHeader.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.AuthorCol.AppearanceHeader.Options.UseFont = True
@@ -442,13 +444,14 @@
             Me.AuthorCol.OptionsColumn.ShowInCustomizationForm = False
             Me.AuthorCol.Visible = True
             Me.AuthorCol.VisibleIndex = 1
-            Me.AuthorCol.Width = 150
+            Me.AuthorCol.Width = 100
             '
             'CategoryCol
             '
             Me.CategoryCol.AppearanceCell.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.CategoryCol.AppearanceCell.Options.UseFont = True
             Me.CategoryCol.AppearanceCell.Options.UseTextOptions = True
+            Me.CategoryCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Me.CategoryCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
             Me.CategoryCol.AppearanceHeader.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.CategoryCol.AppearanceHeader.Options.UseFont = True
@@ -474,6 +477,7 @@
             Me.FileSizeCol.AppearanceCell.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.FileSizeCol.AppearanceCell.Options.UseFont = True
             Me.FileSizeCol.AppearanceCell.Options.UseTextOptions = True
+            Me.FileSizeCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Me.FileSizeCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
             Me.FileSizeCol.AppearanceHeader.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.FileSizeCol.AppearanceHeader.Options.UseFont = True
@@ -492,11 +496,12 @@
             Me.FileSizeCol.OptionsColumn.ShowInCustomizationForm = False
             Me.FileSizeCol.Visible = True
             Me.FileSizeCol.VisibleIndex = 3
-            Me.FileSizeCol.Width = 150
+            Me.FileSizeCol.Width = 100
             '
             'RatingCol
             '
             Me.RatingCol.AppearanceCell.Options.UseTextOptions = True
+            Me.RatingCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Me.RatingCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
             Me.RatingCol.AppearanceHeader.Options.UseTextOptions = True
             Me.RatingCol.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
@@ -513,13 +518,14 @@
             Me.RatingCol.OptionsColumn.ShowInCustomizationForm = False
             Me.RatingCol.Visible = True
             Me.RatingCol.VisibleIndex = 4
-            Me.RatingCol.Width = 150
+            Me.RatingCol.Width = 80
             '
             'DownloadQuantityCol
             '
             Me.DownloadQuantityCol.AppearanceCell.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.DownloadQuantityCol.AppearanceCell.Options.UseFont = True
             Me.DownloadQuantityCol.AppearanceCell.Options.UseTextOptions = True
+            Me.DownloadQuantityCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
             Me.DownloadQuantityCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
             Me.DownloadQuantityCol.AppearanceHeader.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
             Me.DownloadQuantityCol.AppearanceHeader.Options.UseFont = True
@@ -538,7 +544,33 @@
             Me.DownloadQuantityCol.OptionsColumn.ShowInCustomizationForm = False
             Me.DownloadQuantityCol.Visible = True
             Me.DownloadQuantityCol.VisibleIndex = 5
-            Me.DownloadQuantityCol.Width = 150
+            Me.DownloadQuantityCol.Width = 100
+            '
+            'UploadDateCol
+            '
+            Me.UploadDateCol.AppearanceCell.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.UploadDateCol.AppearanceCell.Options.UseFont = True
+            Me.UploadDateCol.AppearanceCell.Options.UseTextOptions = True
+            Me.UploadDateCol.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+            Me.UploadDateCol.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+            Me.UploadDateCol.AppearanceHeader.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.UploadDateCol.AppearanceHeader.Options.UseFont = True
+            Me.UploadDateCol.AppearanceHeader.Options.UseTextOptions = True
+            Me.UploadDateCol.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+            Me.UploadDateCol.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
+            Me.UploadDateCol.Caption = "更新时间"
+            Me.UploadDateCol.FieldName = "更新时间"
+            Me.UploadDateCol.Name = "UploadDateCol"
+            Me.UploadDateCol.OptionsColumn.AllowEdit = False
+            Me.UploadDateCol.OptionsColumn.AllowFocus = False
+            Me.UploadDateCol.OptionsColumn.AllowMove = False
+            Me.UploadDateCol.OptionsColumn.AllowMoveToCustomizationForm = False
+            Me.UploadDateCol.OptionsColumn.AllowSize = False
+            Me.UploadDateCol.OptionsColumn.AllowSort = False
+            Me.UploadDateCol.OptionsColumn.ShowInCustomizationForm = False
+            Me.UploadDateCol.Visible = True
+            Me.UploadDateCol.VisibleIndex = 6
+            Me.UploadDateCol.Width = 100
             '
             'AbstractCol
             '
@@ -562,8 +594,8 @@
             Me.AbstractCol.OptionsColumn.AllowSort = False
             Me.AbstractCol.OptionsColumn.ShowInCustomizationForm = False
             Me.AbstractCol.Visible = True
-            Me.AbstractCol.VisibleIndex = 6
-            Me.AbstractCol.Width = 150
+            Me.AbstractCol.VisibleIndex = 7
+            Me.AbstractCol.Width = 260
             '
             'DownloadAddrCol
             '
@@ -678,6 +710,7 @@
         Friend WithEvents FileSizeCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents RatingCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents DownloadQuantityCol As DevExpress.XtraTreeList.Columns.TreeListColumn
+        Friend WithEvents UploadDateCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents AbstractCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents DownloadAddrCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents IsReadCol As DevExpress.XtraTreeList.Columns.TreeListColumn
