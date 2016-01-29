@@ -170,7 +170,69 @@ Namespace StoryManage.Impl
                 data.Close()
             End Try
         End Sub
-
+        Public Function ExplainStr(ByVal DbKey As String, ByVal GetStr As String) As String
+            '解析关系条件
+            Dim i As Integer
+            Dim tempstr As String
+            GetStr = Trim(GetStr) '出去GetStr字符串头尾非法空格
+            If Len(GetStr) < 1 Then Return ""
+            '首字符过滤
+            tempstr = String.Empty
+            ExplainStr = String.Empty
+            For i = 1 To Len(GetStr)
+                If i = 1 Or i = Len(GetStr) Then
+                    '首字符或末字符过滤
+                    Select Case Mid(GetStr, i, 1)
+                        Case "&"
+                            If i = 1 Then
+                                ExplainStr = String.Empty
+                            Else
+                                '尾字符!
+                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
+                            End If
+                        Case "!", "！"
+                            If i = 1 Then
+                                '首字符!
+                                ExplainStr += String.Format("(({0} Not like ", DbKey)
+                            Else
+                                '尾字符!
+                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
+                            End If
+                        Case Else
+                            If i = 1 Then
+                                '开头
+                                ExplainStr += String.Format("(({0} like ", DbKey)
+                                tempstr += Mid(GetStr, i, 1)
+                            Else
+                                '结尾
+                                tempstr += Mid(GetStr, i, 1)
+                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
+                            End If
+                    End Select
+                Else
+                    Select Case Mid(GetStr, i, 1)
+                        Case " "
+                            If Trim(tempstr) <> "" Then
+                                ExplainStr += String.Format("'%{0}%') or ({1} like ", tempstr, DbKey)
+                                tempstr = String.Empty
+                            End If
+                        Case "&"
+                            If Trim(tempstr) <> "" Then
+                                ExplainStr += String.Format("'%{0}%') and ({1} like ", tempstr, DbKey)
+                                tempstr = String.Empty
+                            End If
+                        Case "!", "！"
+                            If Trim(tempstr) <> "" Then
+                                ExplainStr += String.Format("'%{0}%') and ({1} Not like ", tempstr, DbKey)
+                                tempstr = String.Empty
+                            End If
+                        Case Else
+                            tempstr += Mid(GetStr, i, 1)
+                    End Select
+                End If
+            Next i
+            Return ExplainStr
+        End Function
         Public Function GetList(ByVal s As Story, ByVal TableName As String) As List(Of Story) Implements IStory.GetList
             Dim dt As New DataTable
             Dim data As IDataAccess = DBFactory.Create
@@ -185,15 +247,17 @@ Namespace StoryManage.Impl
             sql += "     1=1 "
             If s.BookName <> String.Empty Then
                 sql += "And "
-                sql += String.Format("BookName like '%{0}%' ", s.BookName)
+                'sql += String.Format("BookName like '%{0}%' ", s.BookName)
+                sql += ExplainStr("BookName", s.BookName)
             End If
             If s.Author <> String.Empty Then
                 sql += "And "
-                sql += String.Format("Author like '%{0}%' ", s.Author)
+                'sql += String.Format("Author like '%{0}%' ", s.Author)
+                sql += ExplainStr("Author", s.Author)
             End If
             If s.Category <> "全部小说" Then
                 sql += "And "
-                sql += String.Format("Category like '%{0}%' ", s.Category)
+                sql += String.Format("(Category like '%{0}%') ", s.Category)
             End If
             If s.Rating <> String.Empty Then
                 sql += "And "
@@ -201,7 +265,8 @@ Namespace StoryManage.Impl
             End If
             If s.Abstract <> String.Empty Then
                 sql += "And "
-                sql += String.Format("Abstract like '%{0}%' ", s.Abstract)
+                'sql += String.Format("Abstract like '%{0}%' ", s.Abstract)
+                sql += ExplainStr("Abstract", s.Abstract)
             End If
             If s.IsRead <> String.Empty Then
                 sql += "And "

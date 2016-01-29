@@ -230,7 +230,7 @@
             Me.GBox.Name = "GBox"
             Me.GBox.Size = New System.Drawing.Size(1138, 129)
             Me.GBox.TabIndex = 4
-            Me.GBox.Text = "签到管理"
+            Me.GBox.Text = "筛选条件    【书名】【作者】【简介】支持 "" ""或关系；""&""与关系；""！""非关系，连接符运算筛选。 "
             '
             'CategoryBox
             '
