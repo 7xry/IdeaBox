@@ -6,48 +6,7 @@ IdeaBox
 </name>
 </assembly>
 <members>
-<member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
-	<summary>
- 根据条件表达式，获取SQL语句
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>根据条件表达式，获取SQL语句</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByExact(System.String,System.String,System.Boolean)">
-	<summary>
- 根据条件表达式，获取SQL语句（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<param name="IsExact">是否精确查找</param>
-	<returns>转换后的SQL</returns>
-	<remarks>根据条件表达式，获取SQL语句（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByAnd(System.String,System.String)">
-	<summary>
- 01、拼接AND条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>01、拼接AND条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByOr(System.String,System.String)">
-	<summary>
- 02、拼接Or条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>02、拼接Or条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByNot(System.String,System.String)">
-	<summary>
- 03、拼接Not条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>03、拼接Not条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
+<member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
 	<summary>
  生成缩略图
  </summary>
@@ -146,6 +105,190 @@ IdeaBox
 	<param name="filePath">文件的绝对路径</param>
 	<returns>返回32位MD5值</returns>
 	<remarks></remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
+	<summary>
+ 根据条件表达式，获取SQL语句
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>根据条件表达式，获取SQL语句</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByExact(System.String,System.String,System.Boolean)">
+	<summary>
+ 根据条件表达式，获取SQL语句（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<param name="IsExact">是否精确查找</param>
+	<returns>转换后的SQL</returns>
+	<remarks>根据条件表达式，获取SQL语句（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByOr(System.String,System.String)">
+	<summary>
+ 01、拼接Or条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>01、拼接Or条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByAnd(System.String,System.String)">
+	<summary>
+ 02、拼接AND条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>02、拼接AND条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByNot(System.String,System.String)">
+	<summary>
+ 03、拼接Not条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>03、拼接Not条件（私有）</remarks>
+</member><member name="P:IdeaBox.StoryManage.View.Fr_Aqtxt.TableName">
+	<summary>
+ 表名属性
+ </summary>
+	<value>表名</value>
+	<returns>表名</returns>
+	<remarks>表名属性</remarks>
+</member><member name="F:IdeaBox.StoryManage.View.Fr_Aqtxt.ThreadTask">
+	<summary>
+ 线程任务
+ </summary>
+	<remarks>线程任务</remarks>
+</member><member name="F:IdeaBox.StoryManage.View.Fr_Aqtxt.asyncResult">
+	<summary>
+ 异步结果
+ </summary>
+	<remarks>异步结果</remarks>
+</member><member name="F:IdeaBox.StoryManage.View.Fr_Aqtxt.ThreadIsNotWork">
+	<summary>
+ 线程不在工作
+ </summary>
+	<remarks>线程不在工作</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.#ctor(System.String)">
+	<summary>
+ 构造方法
+ </summary>
+	<param name="TName">表名</param>
+	<remarks>构造方法</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoThread(System.Threading.ParameterizedThreadStart)">
+	<summary>
+ 执行线程
+ </summary>
+	<param name="addrOf">线程事件</param>
+	<remarks>执行线程</remarks>
+</member><member name="T:IdeaBox.StoryManage.View.Fr_Aqtxt.SetLoadList">
+	<summary>
+ 委托显示列表
+ </summary>
+	<param name="xScan">查询条件</param>
+	<returns>成功与否</returns>
+	<remarks>委托显示列表</remarks>
+</member><member name="T:IdeaBox.StoryManage.View.Fr_Aqtxt.SetDownLoad">
+	<summary>
+ 委托下载文件
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>委托下载文件</remarks>
+</member><member name="T:IdeaBox.StoryManage.View.Fr_Aqtxt.SetCollect">
+	<summary>
+ 委托采集
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>委托采集</remarks>
+</member><member name="T:IdeaBox.StoryManage.View.Fr_Aqtxt.SetShield">
+	<summary>
+ 委托屏蔽
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>委托屏蔽</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.GetCallBack(System.IAsyncResult)">
+	<summary>
+ 获取委托结果
+ </summary>
+	<param name="myIar">委托返回值</param>
+	<returns>成功与否</returns>
+	<remarks>获取委托结果</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoScan">
+	<summary>
+ 委托显示列表事件
+ </summary>
+	<remarks>委托显示列表事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoDownLoad">
+	<summary>
+ 委托下载事件
+ </summary>
+	<remarks>委托下载事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoCollect">
+	<summary>
+ 委托采集事件
+ </summary>
+	<remarks>委托采集事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoShield">
+	<summary>
+ 委托屏蔽事件
+ </summary>
+	<remarks>委托屏蔽事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.LoadList(IdeaBox.StoryManage.Model.Story)">
+	<summary>
+ 加载列表事件
+ </summary>
+	<param name="xScan">查询条件</param>
+	<returns>成功与否</returns>
+	<remarks>加载列表事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DownLoadFile">
+	<summary>
+ 下载文件事件
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>下载文件事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Collect">
+	<summary>
+ 采集事件
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>采集事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Shield">
+	<summary>
+ 屏蔽事件
+ </summary>
+	<returns>成功与否</returns>
+	<remarks>屏蔽事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.GetSelectFiles">
+	<summary>
+ 获取选择的记录
+ </summary>
+	<returns>选择文件信息</returns>
+	<remarks>获取选择的记录</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.LoadCategoryList">
+	<summary>
+ 加载小说分类
+ </summary>
+	<remarks>加载小说分类</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Fr_User_Load(System.Object,System.EventArgs)">
+	<summary>
+ 窗体初始化
+ </summary>
+	<param name="sender">发送方</param>
+	<param name="e">事件</param>
+	<remarks>窗体初始化</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Btn_ItemClick(System.Object,DevExpress.XtraBars.ItemClickEventArgs)">
+	<summary>
+ 按钮事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>按钮事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.ClearBtn_ButtonClick(System.Object,DevExpress.XtraEditors.Controls.ButtonPressedEventArgs)">
+	<summary>
+ 清除按钮事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>清除按钮事件</remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
 	<summary>
  IP地址输入格式化

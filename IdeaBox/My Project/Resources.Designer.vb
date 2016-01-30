@@ -60,6 +60,41 @@ Namespace My.Resources
             End Set
         End Property
         
+        Friend ReadOnly Property Book() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Book", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property CloseWindow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("CloseWindow", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Collect() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Collect", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property DownLoad() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("DownLoad", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Help() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Help", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property Logo() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Logo", resourceCulture)
@@ -70,6 +105,34 @@ Namespace My.Resources
         Friend ReadOnly Property MainBg() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("MainBg", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Moive() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Moive", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Register() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Register", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Scan() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Scan", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Shield() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Shield", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

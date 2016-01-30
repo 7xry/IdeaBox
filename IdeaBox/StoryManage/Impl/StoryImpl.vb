@@ -174,70 +174,6 @@ Namespace StoryManage.Impl
             End Try
         End Sub
 
-        Public Function ExplainStr(ByVal DbKey As String, ByVal GetStr As String) As String
-            '解析关系条件
-            Dim i As Integer
-            Dim tempstr As String
-            GetStr = Trim(GetStr) '出去GetStr字符串头尾非法空格
-            If Len(GetStr) < 1 Then Return ""
-            '首字符过滤
-            tempstr = String.Empty
-            ExplainStr = String.Empty
-            For i = 1 To Len(GetStr)
-                If i = 1 Or i = Len(GetStr) Then
-                    '首字符或末字符过滤
-                    Select Case Mid(GetStr, i, 1)
-                        Case "&"
-                            If i = 1 Then
-                                ExplainStr = String.Empty
-                            Else
-                                '尾字符!
-                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
-                            End If
-                        Case "!", "！"
-                            If i = 1 Then
-                                '首字符!
-                                ExplainStr += String.Format("(({0} Not like ", DbKey)
-                            Else
-                                '尾字符!
-                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
-                            End If
-                        Case Else
-                            If i = 1 Then
-                                '开头
-                                ExplainStr += String.Format("(({0} like ", DbKey)
-                                tempstr += Mid(GetStr, i, 1)
-                            Else
-                                '结尾
-                                tempstr += Mid(GetStr, i, 1)
-                                ExplainStr += String.Format(" '%{0}%')) ", tempstr)
-                            End If
-                    End Select
-                Else
-                    Select Case Mid(GetStr, i, 1)
-                        Case " "
-                            If Trim(tempstr) <> "" Then
-                                ExplainStr += String.Format("'%{0}%') or ({1} like ", tempstr, DbKey)
-                                tempstr = String.Empty
-                            End If
-                        Case "&"
-                            If Trim(tempstr) <> "" Then
-                                ExplainStr += String.Format("'%{0}%') and ({1} like ", tempstr, DbKey)
-                                tempstr = String.Empty
-                            End If
-                        Case "!", "！"
-                            If Trim(tempstr) <> "" Then
-                                ExplainStr += String.Format("'%{0}%') and ({1} Not like ", tempstr, DbKey)
-                                tempstr = String.Empty
-                            End If
-                        Case Else
-                            tempstr += Mid(GetStr, i, 1)
-                    End Select
-                End If
-            Next i
-            Return ExplainStr
-        End Function
-
         Public Function GetList(ByVal s As Story, ByVal TableName As String) As List(Of Story) Implements IStory.GetList
             Dim dt As New DataTable
             Dim data As IDataAccess = DBFactory.Create
@@ -264,21 +200,22 @@ Namespace StoryManage.Impl
                 sql += "And "
                 sql += String.Format("Category like '%{0}%' ", s.Category)
             End If
+            TmpStr = SqlConvert.GetSql("Rating", s.Rating)
             If s.Rating <> String.Empty Then
                 sql += "And "
-                sql += String.Format("Rating = '{0}' ", s.Rating)
+                sql += SqlConvert.GetSql("Rating", s.Rating)
             End If
             TmpStr = SqlConvert.GetSql("Abstract", s.Abstract)
-            If s.Abstract <> String.Empty Then
+            If s.Abstract <> String.Empty And TmpStr <> String.Empty Then
                 sql += "And "
                 sql += SqlConvert.GetSql("Abstract", s.Abstract)
             End If
-            If s.IsRead <> String.Empty And TmpStr <> String.Empty Then
+            If s.IsRead <> String.Empty Then
                 sql += "And "
                 sql += String.Format("IsRead = '{0}' ", s.IsRead)
             End If
             sql += "Order By "
-            sql += "     UploadDate desc, BookName "
+            sql += "     UploadDate desc, Rating desc, BookName "
             Try
                 data.Open()
                 dt = data.GetTable(sql)

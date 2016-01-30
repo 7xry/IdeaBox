@@ -43,86 +43,42 @@ Namespace Utils.FileSystem.String
                     ExStr = String.Format("{0} = '{1}'", DbKey, ExStr)
                     Return ExStr
                 Case Else
-                    Return GetSqlByAnd(DbKey, ExStr)
-            End Select
-        End Function
-        ''' <summary>
-        ''' 01、拼接AND条件（私有）
-        ''' </summary>
-        ''' <param name="DbKey">字段名</param>
-        ''' <param name="ExStr">待转换表达式</param>
-        ''' <returns>转换后的SQL</returns>
-        ''' <remarks>01、拼接AND条件（私有）</remarks>
-        Private Shared Function GetSqlByAnd(ByVal DbKey As String, ByVal ExStr As String) As String
-            Dim SpliteByAnd() As String = ExStr.Trim.Split(New String() {"&&"}, StringSplitOptions.None)
-            Dim TmpStr As String = String.Empty
-            '判断是否存在And条件
-            Select Case SpliteByAnd.Length
-                Case 1
-                    ExStr = GetSqlByOr(DbKey, SpliteByAnd(0))
-                    Return ExStr
-                Case Else
-                    Dim OrStr As String = GetSqlByOr(DbKey, SpliteByAnd(0))
-                    '判断第一位是否为空
-                    If OrStr <> String.Empty Then
-                        ExStr = String.Format("{0} And ", OrStr)
-                        If SpliteByAnd.Length > 2 Then
-                            ExStr += " "
-                            For i As Integer = 1 To SpliteByAnd.Length - 1
-                                TmpStr += String.Format("{0} And ", String.Format("{0} ", GetSqlByOr(DbKey, SpliteByAnd(i))))
-                            Next
-                            ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 4))
-                        Else
-                            ExStr += String.Format("{0} ", GetSqlByOr(DbKey, SpliteByAnd(1)))
-                        End If
-                    Else
-                        ExStr = String.Empty
-                        For i As Integer = 1 To SpliteByAnd.Length - 1
-                            TmpStr += String.Format("{0} And ", String.Format("{0} ", GetSqlByOr(DbKey, SpliteByAnd(i))))
-                        Next
-                        If TmpStr.Length > 4 Then
-                            ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 4))
-                        End If
-                    End If
-                    If ExStr.Trim <> String.Empty Then
-                        ExStr = String.Format("({0})", ExStr.Trim)
-                    End If
-                    Return ExStr.Trim
+                    Return GetSqlByOr(DbKey, ExStr)
             End Select
         End Function
 
         ''' <summary>
-        ''' 02、拼接Or条件（私有）
+        ''' 01、拼接Or条件（私有）
         ''' </summary>
         ''' <param name="DbKey">字段名</param>
         ''' <param name="ExStr">待转换表达式</param>
         ''' <returns>转换后的SQL</returns>
-        ''' <remarks>02、拼接Or条件（私有）</remarks>
+        ''' <remarks>01、拼接Or条件（私有）</remarks>
         Private Shared Function GetSqlByOr(ByVal DbKey As String, ByVal ExStr As String) As String
-            Dim SpliteByOr() As String = ExStr.Trim.Split(New String() {"||"}, StringSplitOptions.None)
+            Dim SpliteByOr() As String = ExStr.Trim.Split(New String() {"||", "｜｜", "｜|", "|｜"}, StringSplitOptions.None)
             Dim TmpStr As String = String.Empty
             Select Case SpliteByOr.Length
                 Case 1
-                    ExStr = GetSqlByNot(DbKey, SpliteByOr(0))
+                    ExStr = GetSqlByAnd(DbKey, SpliteByOr(0))
                     Return ExStr
                 Case Else
-                    Dim NotStr As String = GetSqlByNot(DbKey, SpliteByOr(0))
+                    Dim NotStr As String = GetSqlByAnd(DbKey, SpliteByOr(0))
                     '判断第一位是否为空
                     If NotStr <> String.Empty Then
                         ExStr = String.Format("{0} Or ", NotStr)
                         If SpliteByOr.Length > 2 Then
                             ExStr += " "
                             For i As Integer = 1 To SpliteByOr.Length - 1
-                                TmpStr += String.Format("{0} Or ", String.Format("{0} ", GetSqlByNot(DbKey, SpliteByOr(i))))
+                                TmpStr += String.Format("{0} Or ", String.Format("{0} ", GetSqlByAnd(DbKey, SpliteByOr(i))))
                             Next
                             ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 3))
                         Else
-                            ExStr += String.Format("{0} ", GetSqlByNot(DbKey, SpliteByOr(1)))
+                            ExStr += String.Format("{0} ", GetSqlByAnd(DbKey, SpliteByOr(1)))
                         End If
                     Else
                         ExStr = String.Empty
                         For i As Integer = 1 To SpliteByOr.Length - 1
-                            TmpStr += String.Format("{0} Or ", String.Format("{0} ", GetSqlByNot(DbKey, SpliteByOr(i))))
+                            TmpStr += String.Format("{0} Or ", String.Format("{0} ", GetSqlByAnd(DbKey, SpliteByOr(i))))
                         Next
                         If TmpStr.Length > 3 Then
                             ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 3))
@@ -136,6 +92,53 @@ Namespace Utils.FileSystem.String
         End Function
 
         ''' <summary>
+        ''' 02、拼接AND条件（私有）
+        ''' </summary>
+        ''' <param name="DbKey">字段名</param>
+        ''' <param name="ExStr">待转换表达式</param>
+        ''' <returns>转换后的SQL</returns>
+        ''' <remarks>02、拼接AND条件（私有）</remarks>
+        Private Shared Function GetSqlByAnd(ByVal DbKey As String, ByVal ExStr As String) As String
+            Dim SpliteByAnd() As String = ExStr.Trim.Split(New String() {"&&", "＆＆", "＆&", "&＆"}, StringSplitOptions.None)
+            Dim TmpStr As String = String.Empty
+            '判断是否存在And条件
+            Select Case SpliteByAnd.Length
+                Case 1
+                    ExStr = GetSqlByNot(DbKey, SpliteByAnd(0))
+                    Return ExStr
+                Case Else
+                    Dim OrStr As String = GetSqlByNot(DbKey, SpliteByAnd(0))
+                    '判断第一位是否为空
+                    If OrStr <> String.Empty Then
+                        ExStr = String.Format("{0} And ", OrStr)
+                        If SpliteByAnd.Length > 2 Then
+                            ExStr += " "
+                            For i As Integer = 1 To SpliteByAnd.Length - 1
+                                TmpStr += String.Format("{0} And ", String.Format("{0} ", GetSqlByNot(DbKey, SpliteByAnd(i))))
+                            Next
+                            ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 4))
+                        Else
+                            ExStr += String.Format("{0} ", GetSqlByNot(DbKey, SpliteByAnd(1)))
+                        End If
+                    Else
+                        ExStr = String.Empty
+                        For i As Integer = 1 To SpliteByAnd.Length - 1
+                            TmpStr += String.Format("{0} And ", String.Format("{0} ", GetSqlByNot(DbKey, SpliteByAnd(i))))
+                        Next
+                        If TmpStr.Length > 4 Then
+                            ExStr += String.Format("{0} ", Mid(TmpStr, 1, TmpStr.Length - 4))
+                        End If
+                    End If
+                    If ExStr.Trim <> String.Empty Then
+                        ExStr = String.Format("({0})", ExStr.Trim)
+                    End If
+                    Return ExStr.Trim
+            End Select
+        End Function
+
+
+
+        ''' <summary>
         ''' 03、拼接Not条件（私有）
         ''' </summary>
         ''' <param name="DbKey">字段名</param>
@@ -143,7 +146,7 @@ Namespace Utils.FileSystem.String
         ''' <returns>转换后的SQL</returns>
         ''' <remarks>03、拼接Not条件（私有）</remarks>
         Private Shared Function GetSqlByNot(ByVal DbKey As String, ByVal ExStr As String) As String
-            Dim SpliteByNot() As String = ExStr.Trim.Split(New String() {"!="}, StringSplitOptions.None)
+            Dim SpliteByNot() As String = ExStr.Trim.Split(New String() {"!=", "！＝", "！=", "!＝"}, StringSplitOptions.None)
             Dim TmpStr As String = String.Empty
             Select Case SpliteByNot.Length
                 Case 1

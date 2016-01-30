@@ -20,7 +20,7 @@ Namespace Impl
                     SqlBuff.AppendLine(String.Format("  `UploadDate` varchar(255) DEFAULT NULL,"))
                     SqlBuff.AppendLine(String.Format("  `Abstract` text,"))
                     SqlBuff.AppendLine(String.Format("  `DownloadAddr` text,"))
-                    SqlBuff.AppendLine(String.Format("  `IsRead` int(11) DEFAULT NULL"))
+                    SqlBuff.AppendLine(String.Format("  `IsRead` int(1) DEFAULT NULL"))
                     SqlBuff.AppendLine(String.Format(") ENGINE=MyISAM DEFAULT CHARSET=utf8;"))
                 Case DBTypeEnum.SQLITE
                     SqlBuff.AppendLine(String.Format("DROP TABLE IF EXISTS {0};", TableName))
@@ -34,7 +34,7 @@ Namespace Impl
                     SqlBuff.AppendLine(String.Format("UploadDate  TEXT(255),"))
                     SqlBuff.AppendLine(String.Format("Abstract  TEXT,"))
                     SqlBuff.AppendLine(String.Format("DownloadAddr  TEXT,"))
-                    SqlBuff.AppendLine(String.Format("IsRead  INTEGER(11)"))
+                    SqlBuff.AppendLine(String.Format("IsRead  INTEGER(1)"))
                     SqlBuff.AppendLine(String.Format(");"))
                 Case Else
 

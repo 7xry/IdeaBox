@@ -240,6 +240,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <None Include="Resources\Register.png" />
+    <None Include="Resources\Help.png" />
+    <None Include="Resources\CloseWindow.png" />
+    <None Include="Resources\Moive.png" />
+    <None Include="Resources\Book.png" />
+    <None Include="Resources\Shield.png" />
+    <None Include="Resources\Scan.png" />
+    <None Include="Resources\DownLoad.png" />
+    <None Include="Resources\Collect.png" />
     <None Include="Resources\Logo.png" />
     <None Include="Resources\TopBanner.png" />
     <None Include="Resources\MainBg.png" />

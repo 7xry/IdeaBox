@@ -26,8 +26,8 @@
             Me.ToolBar = New DevExpress.XtraBars.Bar()
             Me.DoScanBtn = New DevExpress.XtraBars.BarButtonItem()
             Me.DoDownBtn = New DevExpress.XtraBars.BarButtonItem()
-            Me.DoReLoadBtn = New DevExpress.XtraBars.BarButtonItem()
-            Me.DoDeleteBtn = New DevExpress.XtraBars.BarButtonItem()
+            Me.DoCollectBtn = New DevExpress.XtraBars.BarButtonItem()
+            Me.DoShieldBtn = New DevExpress.XtraBars.BarButtonItem()
             Me.SpcaceItem = New DevExpress.XtraBars.BarStaticItem()
             Me.DownNowStat = New DevExpress.XtraBars.BarHeaderItem()
             Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
@@ -35,9 +35,8 @@
             Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
             Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
             Me.ImageLs = New DevExpress.Utils.ImageCollection(Me.components)
-            Me.ScanDateBox = New DevExpress.XtraEditors.Repository.RepositoryItemDateEdit()
-            Me.DownProBar = New DevExpress.XtraEditors.Repository.RepositoryItemProgressBar()
             Me.GBox = New DevExpress.XtraEditors.GroupControl()
+            Me.ShieldBox = New DevExpress.XtraEditors.ComboBoxEdit()
             Me.CategoryBox = New DevExpress.XtraEditors.ComboBoxEdit()
             Me.BookNameBox = New DevExpress.XtraEditors.ButtonEdit()
             Me.AuthorBox = New DevExpress.XtraEditors.ButtonEdit()
@@ -47,6 +46,7 @@
             Me.AbstractLbl = New DevExpress.XtraEditors.LabelControl()
             Me.BookNameLbl = New DevExpress.XtraEditors.LabelControl()
             Me.AuthorLbl = New DevExpress.XtraEditors.LabelControl()
+            Me.ShieldLbl = New DevExpress.XtraEditors.LabelControl()
             Me.RatingLbl = New DevExpress.XtraEditors.LabelControl()
             Me.MainTree = New DevExpress.XtraTreeList.TreeList()
             Me.DataObjCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
@@ -62,11 +62,9 @@
             Me.IsReadCol = New DevExpress.XtraTreeList.Columns.TreeListColumn()
             CType(Me.XtraBar, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.ImageLs, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.ScanDateBox, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.ScanDateBox.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-            CType(Me.DownProBar, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.GBox, System.ComponentModel.ISupportInitialize).BeginInit()
             Me.GBox.SuspendLayout()
+            CType(Me.ShieldBox.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.CategoryBox.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.BookNameBox.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
             CType(Me.AuthorBox.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,10 +85,9 @@
             Me.XtraBar.DockControls.Add(Me.barDockControlRight)
             Me.XtraBar.Form = Me
             Me.XtraBar.Images = Me.ImageLs
-            Me.XtraBar.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.DoDownBtn, Me.DoReLoadBtn, Me.DoDeleteBtn, Me.SpcaceItem, Me.DoScanBtn, Me.DownNowStat})
+            Me.XtraBar.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.DoDownBtn, Me.DoCollectBtn, Me.DoShieldBtn, Me.SpcaceItem, Me.DoScanBtn, Me.DownNowStat})
             Me.XtraBar.LargeImages = Me.ImageLs
-            Me.XtraBar.MaxItemId = 15
-            Me.XtraBar.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.ScanDateBox, Me.DownProBar})
+            Me.XtraBar.MaxItemId = 16
             '
             'ToolBar
             '
@@ -99,7 +96,7 @@
             Me.ToolBar.DockCol = 0
             Me.ToolBar.DockRow = 0
             Me.ToolBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom
-            Me.ToolBar.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoScanBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoDownBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoReLoadBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoDeleteBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(Me.SpcaceItem), New DevExpress.XtraBars.LinkPersistInfo(Me.DownNowStat)})
+            Me.ToolBar.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoScanBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoDownBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoCollectBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoShieldBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(Me.SpcaceItem), New DevExpress.XtraBars.LinkPersistInfo(Me.DownNowStat)})
             Me.ToolBar.OptionsBar.AllowQuickCustomization = False
             Me.ToolBar.OptionsBar.MinHeight = 30
             Me.ToolBar.Text = "工具条"
@@ -107,34 +104,30 @@
             'DoScanBtn
             '
             Me.DoScanBtn.Caption = "查询"
+            Me.DoScanBtn.Glyph = Global.IdeaBox.My.Resources.Resources.Scan
             Me.DoScanBtn.Id = 3
-            Me.DoScanBtn.ImageIndex = 5
-            Me.DoScanBtn.LargeImageIndex = 0
             Me.DoScanBtn.Name = "DoScanBtn"
             '
             'DoDownBtn
             '
             Me.DoDownBtn.Caption = "下载"
+            Me.DoDownBtn.Glyph = Global.IdeaBox.My.Resources.Resources.DownLoad
             Me.DoDownBtn.Id = 3
-            Me.DoDownBtn.ImageIndex = 1
-            Me.DoDownBtn.LargeImageIndex = 1
             Me.DoDownBtn.Name = "DoDownBtn"
             '
-            'DoReLoadBtn
+            'DoCollectBtn
             '
-            Me.DoReLoadBtn.Caption = "采集"
-            Me.DoReLoadBtn.Id = 3
-            Me.DoReLoadBtn.ImageIndex = 2
-            Me.DoReLoadBtn.LargeImageIndex = 0
-            Me.DoReLoadBtn.Name = "DoReLoadBtn"
+            Me.DoCollectBtn.Caption = "采集"
+            Me.DoCollectBtn.Glyph = Global.IdeaBox.My.Resources.Resources.Collect
+            Me.DoCollectBtn.Id = 3
+            Me.DoCollectBtn.Name = "DoCollectBtn"
             '
-            'DoDeleteBtn
+            'DoShieldBtn
             '
-            Me.DoDeleteBtn.Caption = "删除"
-            Me.DoDeleteBtn.Id = 3
-            Me.DoDeleteBtn.ImageIndex = 3
-            Me.DoDeleteBtn.LargeImageIndex = 0
-            Me.DoDeleteBtn.Name = "DoDeleteBtn"
+            Me.DoShieldBtn.Caption = "屏蔽"
+            Me.DoShieldBtn.Glyph = Global.IdeaBox.My.Resources.Resources.Shield
+            Me.DoShieldBtn.Id = 3
+            Me.DoShieldBtn.Name = "DoShieldBtn"
             '
             'SpcaceItem
             '
@@ -190,33 +183,13 @@
             Me.ImageLs.Images.SetKeyName(4, "Clear.png")
             Me.ImageLs.Images.SetKeyName(5, "Search.png")
             '
-            'ScanDateBox
-            '
-            Me.ScanDateBox.Appearance.Options.UseTextOptions = True
-            Me.ScanDateBox.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center
-            Me.ScanDateBox.AutoHeight = False
-            Me.ScanDateBox.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-            Me.ScanDateBox.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-            Me.ScanDateBox.DisplayFormat.FormatString = "yyyy-MM"
-            Me.ScanDateBox.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-            Me.ScanDateBox.EditFormat.FormatString = "yyyy-MM"
-            Me.ScanDateBox.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime
-            Me.ScanDateBox.Mask.EditMask = "yyyy-MM"
-            Me.ScanDateBox.Name = "ScanDateBox"
-            Me.ScanDateBox.ShowWeekNumbers = True
-            Me.ScanDateBox.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-            '
-            'DownProBar
-            '
-            Me.DownProBar.Name = "DownProBar"
-            Me.DownProBar.Step = 1
-            '
             'GBox
             '
             Me.GBox.Appearance.BackColor = System.Drawing.Color.White
             Me.GBox.Appearance.Options.UseBackColor = True
             Me.GBox.AppearanceCaption.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
             Me.GBox.AppearanceCaption.Options.UseFont = True
+            Me.GBox.Controls.Add(Me.ShieldBox)
             Me.GBox.Controls.Add(Me.CategoryBox)
             Me.GBox.Controls.Add(Me.BookNameBox)
             Me.GBox.Controls.Add(Me.AuthorBox)
@@ -226,13 +199,30 @@
             Me.GBox.Controls.Add(Me.AbstractLbl)
             Me.GBox.Controls.Add(Me.BookNameLbl)
             Me.GBox.Controls.Add(Me.AuthorLbl)
+            Me.GBox.Controls.Add(Me.ShieldLbl)
             Me.GBox.Controls.Add(Me.RatingLbl)
             Me.GBox.Dock = System.Windows.Forms.DockStyle.Bottom
             Me.GBox.Location = New System.Drawing.Point(0, 359)
             Me.GBox.Name = "GBox"
             Me.GBox.Size = New System.Drawing.Size(1138, 129)
             Me.GBox.TabIndex = 4
-            Me.GBox.Text = String.Format("小说查询 —— 支持以下关系表达式：并且（{0}） > 或者（{1}） > 排除（{2}） ", "&&&&", "||", "!=")
+            Me.GBox.Text = "小说查询 —— 支持以下关系表达式：或者（||） > 并且（&&&&） > 排除（!=） "
+            '
+            'ShieldBox
+            '
+            Me.ShieldBox.EditValue = "显示未已屏蔽记录"
+            Me.ShieldBox.Location = New System.Drawing.Point(848, 81)
+            Me.ShieldBox.Name = "ShieldBox"
+            Me.ShieldBox.Properties.AllowFocused = False
+            Me.ShieldBox.Properties.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+            Me.ShieldBox.Properties.Appearance.Options.UseFont = True
+            Me.ShieldBox.Properties.AutoHeight = False
+            Me.ShieldBox.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+            Me.ShieldBox.Properties.DropDownItemHeight = 30
+            Me.ShieldBox.Properties.Items.AddRange(New Object() {"显示全部记录", "显示已屏蔽记录", "显示未已屏蔽记录"})
+            Me.ShieldBox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+            Me.ShieldBox.Size = New System.Drawing.Size(250, 30)
+            Me.ShieldBox.TabIndex = 11
             '
             'CategoryBox
             '
@@ -340,6 +330,16 @@
             Me.AuthorLbl.TabIndex = 2
             Me.AuthorLbl.Text = "作者："
             '
+            'ShieldLbl
+            '
+            Me.ShieldLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+            Me.ShieldLbl.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(27, Byte), Integer), CType(CType(41, Byte), Integer), CType(CType(62, Byte), Integer))
+            Me.ShieldLbl.Location = New System.Drawing.Point(773, 86)
+            Me.ShieldLbl.Name = "ShieldLbl"
+            Me.ShieldLbl.Size = New System.Drawing.Size(42, 19)
+            Me.ShieldLbl.TabIndex = 10
+            Me.ShieldLbl.Text = "屏蔽："
+            '
             'RatingLbl
             '
             Me.RatingLbl.Appearance.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
@@ -360,7 +360,6 @@
             Me.MainTree.Name = "MainTree"
             Me.MainTree.OptionsBehavior.AllowExpandOnDblClick = False
             Me.MainTree.OptionsPrint.AutoRowHeight = False
-            Me.MainTree.OptionsPrint.AutoWidth = False
             Me.MainTree.OptionsPrint.PrintAllNodes = True
             Me.MainTree.OptionsPrint.PrintReportFooter = False
             Me.MainTree.OptionsPrint.PrintTree = False
@@ -368,7 +367,6 @@
             Me.MainTree.OptionsSelection.EnableAppearanceFocusedCell = False
             Me.MainTree.OptionsSelection.MultiSelect = True
             Me.MainTree.OptionsSelection.UseIndicatorForSelection = True
-            Me.MainTree.OptionsView.AutoWidth = False
             Me.MainTree.OptionsView.FocusRectStyle = DevExpress.XtraTreeList.DrawFocusRectStyle.None
             Me.MainTree.RowHeight = 30
             Me.MainTree.Size = New System.Drawing.Size(1138, 359)
@@ -420,7 +418,7 @@
             Me.BookNameCol.OptionsColumn.ShowInCustomizationForm = False
             Me.BookNameCol.Visible = True
             Me.BookNameCol.VisibleIndex = 0
-            Me.BookNameCol.Width = 250
+            Me.BookNameCol.Width = 241
             '
             'AuthorCol
             '
@@ -446,7 +444,7 @@
             Me.AuthorCol.OptionsColumn.ShowInCustomizationForm = False
             Me.AuthorCol.Visible = True
             Me.AuthorCol.VisibleIndex = 1
-            Me.AuthorCol.Width = 100
+            Me.AuthorCol.Width = 91
             '
             'CategoryCol
             '
@@ -472,7 +470,7 @@
             Me.CategoryCol.OptionsColumn.ShowInCustomizationForm = False
             Me.CategoryCol.Visible = True
             Me.CategoryCol.VisibleIndex = 2
-            Me.CategoryCol.Width = 100
+            Me.CategoryCol.Width = 91
             '
             'FileSizeCol
             '
@@ -498,7 +496,7 @@
             Me.FileSizeCol.OptionsColumn.ShowInCustomizationForm = False
             Me.FileSizeCol.Visible = True
             Me.FileSizeCol.VisibleIndex = 3
-            Me.FileSizeCol.Width = 100
+            Me.FileSizeCol.Width = 91
             '
             'RatingCol
             '
@@ -520,7 +518,7 @@
             Me.RatingCol.OptionsColumn.ShowInCustomizationForm = False
             Me.RatingCol.Visible = True
             Me.RatingCol.VisibleIndex = 4
-            Me.RatingCol.Width = 80
+            Me.RatingCol.Width = 72
             '
             'DownloadQuantityCol
             '
@@ -546,7 +544,7 @@
             Me.DownloadQuantityCol.OptionsColumn.ShowInCustomizationForm = False
             Me.DownloadQuantityCol.Visible = True
             Me.DownloadQuantityCol.VisibleIndex = 5
-            Me.DownloadQuantityCol.Width = 100
+            Me.DownloadQuantityCol.Width = 92
             '
             'UploadDateCol
             '
@@ -572,7 +570,7 @@
             Me.UploadDateCol.OptionsColumn.ShowInCustomizationForm = False
             Me.UploadDateCol.Visible = True
             Me.UploadDateCol.VisibleIndex = 6
-            Me.UploadDateCol.Width = 100
+            Me.UploadDateCol.Width = 92
             '
             'AbstractCol
             '
@@ -597,7 +595,7 @@
             Me.AbstractCol.OptionsColumn.ShowInCustomizationForm = False
             Me.AbstractCol.Visible = True
             Me.AbstractCol.VisibleIndex = 7
-            Me.AbstractCol.Width = 260
+            Me.AbstractCol.Width = 350
             '
             'DownloadAddrCol
             '
@@ -669,12 +667,10 @@
             Me.Text = "书籍管理"
             CType(Me.XtraBar, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.ImageLs, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.ScanDateBox.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.ScanDateBox, System.ComponentModel.ISupportInitialize).EndInit()
-            CType(Me.DownProBar, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.GBox, System.ComponentModel.ISupportInitialize).EndInit()
             Me.GBox.ResumeLayout(False)
             Me.GBox.PerformLayout()
+            CType(Me.ShieldBox.Properties, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.CategoryBox.Properties, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.BookNameBox.Properties, System.ComponentModel.ISupportInitialize).EndInit()
             CType(Me.AuthorBox.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -692,8 +688,8 @@
         Friend WithEvents ImageLs As DevExpress.Utils.ImageCollection
         Friend WithEvents ToolBar As DevExpress.XtraBars.Bar
         Friend WithEvents DoDownBtn As DevExpress.XtraBars.BarButtonItem
-        Friend WithEvents DoReLoadBtn As DevExpress.XtraBars.BarButtonItem
-        Friend WithEvents DoDeleteBtn As DevExpress.XtraBars.BarButtonItem
+        Friend WithEvents DoCollectBtn As DevExpress.XtraBars.BarButtonItem
+        Friend WithEvents DoShieldBtn As DevExpress.XtraBars.BarButtonItem
         Friend WithEvents DoScanBtn As DevExpress.XtraBars.BarButtonItem
         Friend WithEvents SpcaceItem As DevExpress.XtraBars.BarStaticItem
         Friend WithEvents GBox As DevExpress.XtraEditors.GroupControl
@@ -703,7 +699,6 @@
         Friend WithEvents BookNameLbl As DevExpress.XtraEditors.LabelControl
         Friend WithEvents AuthorLbl As DevExpress.XtraEditors.LabelControl
         Friend WithEvents RatingLbl As DevExpress.XtraEditors.LabelControl
-        Friend WithEvents ScanDateBox As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
         Friend WithEvents MainTree As DevExpress.XtraTreeList.TreeList
         Friend WithEvents DataObjCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents BookNameCol As DevExpress.XtraTreeList.Columns.TreeListColumn
@@ -716,12 +711,13 @@
         Friend WithEvents AbstractCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents DownloadAddrCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents IsReadCol As DevExpress.XtraTreeList.Columns.TreeListColumn
-        Friend WithEvents DownProBar As DevExpress.XtraEditors.Repository.RepositoryItemProgressBar
         Friend WithEvents DownNowStat As DevExpress.XtraBars.BarHeaderItem
         Friend WithEvents CategoryBox As DevExpress.XtraEditors.ComboBoxEdit
         Friend WithEvents BookNameBox As DevExpress.XtraEditors.ButtonEdit
         Friend WithEvents AuthorBox As DevExpress.XtraEditors.ButtonEdit
         Friend WithEvents AbstractBox As DevExpress.XtraEditors.ButtonEdit
+        Friend WithEvents ShieldBox As DevExpress.XtraEditors.ComboBoxEdit
+        Friend WithEvents ShieldLbl As DevExpress.XtraEditors.LabelControl
     End Class
 
 End Namespace

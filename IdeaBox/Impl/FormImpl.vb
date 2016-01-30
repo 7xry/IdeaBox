@@ -46,7 +46,7 @@ Namespace Impl
                 'dlg.Tag = VaildKey
                 selectedPage = New XtraTabPage
                 selectedPage.Text = tab.PageName
-                selectedPage.ImageIndex = tab.ImageIndex
+                selectedPage.Image = tab.PageImage
                 selectedPage.Tag = tab.PageName
                 selectedPage.ShowCloseButton = tab.ShowCloseButton
                 selectedPage.PageVisible = tab.TabVisiable
