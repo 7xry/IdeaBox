@@ -88,6 +88,34 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property GoFirst() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GoFirst", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property GoLast() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GoLast", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property GoNext() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GoNext", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property GoPrev() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GoPrev", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property Help() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Help", resourceCulture)

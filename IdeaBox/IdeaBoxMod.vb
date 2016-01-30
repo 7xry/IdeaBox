@@ -17,6 +17,7 @@ Module IdeaBoxMod
     Public Property skinMask As String
     Public Property DefaultExportPath As String
     Public Property DefaultImportPath As String
+    Public perPage As Integer = 20
 
 
     Public Sub LoadConfig()

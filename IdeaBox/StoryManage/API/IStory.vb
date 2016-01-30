@@ -10,6 +10,8 @@ Namespace StoryManage.API
         Sub Delete(ByVal sLs As List(Of Story), ByVal TableName As String)
         Sub ResetTable(ByVal TableName As String)
         Function GetList(ByVal s As Story, ByVal TableName As String) As List(Of Story)
+        Function GetList(ByVal s As Story, ByVal TableName As String, ByVal StartRow As Integer) As List(Of Story)
+        Function GetCount(ByVal s As Story, ByVal TableName As String) As Long
         Function IsExist(ByVal s As Story, ByVal TableName As String) As Boolean
     End Interface
 End Namespace

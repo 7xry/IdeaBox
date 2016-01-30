@@ -35,6 +35,11 @@ Namespace StoryManage.View
         ''' </summary>
         ''' <remarks>线程不在工作</remarks>
         Private ThreadIsNotWork As Boolean = True
+        ''' <summary>
+        ''' 分页信息
+        ''' </summary>
+        ''' <remarks></remarks>
+        Private pg As Pagging
 
         ''' <summary>
         ''' 构造方法
@@ -60,14 +65,6 @@ Namespace StoryManage.View
             ThreadTask = New Threading.Thread(addrOf)
             ThreadTask.Start()
         End Sub
-
-        ''' <summary>
-        ''' 委托显示列表
-        ''' </summary>
-        ''' <param name="xScan">查询条件</param>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>委托显示列表</remarks>
-        Private Delegate Function SetLoadList(ByVal xScan As Story) As Boolean
 
         ''' <summary>
         ''' 委托下载文件
@@ -99,25 +96,6 @@ Namespace StoryManage.View
         Private Function GetCallBack(ByVal myIar As IAsyncResult) As Boolean
             Return MainTree.EndInvoke(myIar)
         End Function
-
-        ''' <summary>
-        ''' 委托显示列表事件
-        ''' </summary>
-        ''' <remarks>委托显示列表事件</remarks>
-        Private Sub DoScan()
-            ThreadIsNotWork = False
-            Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.Text, AbstractBox.Text, RatingBox.Text)
-            Select Case ShieldBox.SelectedIndex
-                Case 0
-                    xScan.IsRead = String.Empty
-                Case 1
-                    xScan.IsRead = 1
-                Case 2
-                    xScan.IsRead = 0
-            End Select
-            asyncResult = frMain.BeginInvoke(New SetLoadList(AddressOf LoadList), xScan)
-            ThreadIsNotWork = GetCallBack(asyncResult)
-        End Sub
 
         ''' <summary>
         ''' 委托下载事件
@@ -166,9 +144,9 @@ Namespace StoryManage.View
                 MainTree.EndUnboundLoad()
                 Return True
             End If
-            Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TableName)
+            Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TableName, (pg.CurrentIndex - 1) * perPage)
             If ls IsNot Nothing Then
-                Dim Article As TreeListNode = MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, ls.Count)}, parentForRootNodes)
+                Dim Article As TreeListNode = MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, pg.RowCount)}, parentForRootNodes)
                 '创建根节点
                 For Each xStory As Story In ls
                     MainTree.AppendNode(New Object() {xStory, xStory.BookName, xStory.Author,
@@ -177,7 +155,7 @@ Namespace StoryManage.View
                                                   xStory.IsRead}, Article)
                 Next
             Else
-                MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, ls.Count)}, parentForRootNodes)
+                MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, pg.RowCount)}, parentForRootNodes)
             End If
             MainTree.ExpandAll()
             MainTree.EndUnboundLoad()
@@ -199,6 +177,7 @@ Namespace StoryManage.View
             Dim CurIndex As Integer = 1
             Dim sumTime As Long = 0
             DownNowStat.Visibility = BarItemVisibility.Always
+            PaggingInfo.Visibility = BarItemVisibility.Never
             For Each f As FileDown In fileLs
                 timer = New Stopwatch
                 timer.Start()
@@ -219,6 +198,7 @@ Namespace StoryManage.View
             Next
             Thread.Sleep(1000)
             DownNowStat.Visibility = BarItemVisibility.Never
+            PaggingInfo.Visibility = BarItemVisibility.Always
             Return True
         End Function
 
@@ -236,6 +216,7 @@ Namespace StoryManage.View
             Dim sumTime As Long = 0
             Dim timer As New Stopwatch
             DownNowStat.Visibility = BarItemVisibility.Always
+            PaggingInfo.Visibility = BarItemVisibility.Never
             DownNowStat.Caption = String.Format("正在采集：{0} / {1}，累计耗时：00 小时 00 分 00 秒 ", SumList, RowsCount)
             DownNowStat.Refresh()
             For pageIdx As Integer = 1 To pageCount
@@ -250,6 +231,7 @@ Namespace StoryManage.View
                 sumTime += timer.ElapsedTicks
             Next
             DownNowStat.Visibility = BarItemVisibility.Never
+            PaggingInfo.Visibility = BarItemVisibility.Always
             Return True
         End Function
 
@@ -282,16 +264,8 @@ Namespace StoryManage.View
                     Next
             End Select
             StoryOpt.Update(sLs, TableName)
-            Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.Text, AbstractBox.Text, RatingBox.Text)
-            Select Case ShieldBox.SelectedIndex
-                Case 0
-                    xScan.IsRead = String.Empty
-                Case 1
-                    xScan.IsRead = 1
-                Case 2
-                    xScan.IsRead = 0
-            End Select
-            LoadList(xScan)
+            ResetPagging()
+            LoadList(GetScanCondition)
             Return True
         End Function
 
@@ -336,6 +310,61 @@ Namespace StoryManage.View
         End Sub
 
         ''' <summary>
+        ''' 获取查询条件
+        ''' </summary>
+        ''' <returns>查询条件</returns>
+        ''' <remarks>获取查询条件</remarks>
+        Function GetScanCondition() As Story
+            Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.EditValue, AbstractBox.Text, RatingBox.Text)
+            Select Case ShieldBox.SelectedIndex
+                Case 0
+                    xScan.IsRead = String.Empty
+                Case 1
+                    xScan.IsRead = 1
+                Case 2
+                    xScan.IsRead = 0
+            End Select
+            Return xScan
+        End Function
+
+        ''' <summary>
+        ''' 设置分页按钮
+        ''' </summary>
+        ''' <param name="FirstBol">首页</param>
+        ''' <param name="PrevBol">前页</param>
+        ''' <param name="NextBol">后页</param>
+        ''' <param name="LastBol">末页</param>
+        ''' <remarks>设置分页按钮</remarks>
+        Private Sub SetPaggingBtn(ByVal FirstBol As Boolean, ByVal PrevBol As Boolean, ByVal NextBol As Boolean, ByVal LastBol As Boolean)
+            GoFirstBtn.Enabled = FirstBol
+            GoPrevBtn.Enabled = PrevBol
+            GoNextBtn.Enabled = NextBol
+            GoLastBtn.Enabled = LastBol
+        End Sub
+
+        ''' <summary>
+        ''' 重置分页信息
+        ''' </summary>
+        ''' <remarks>重置分页信息</remarks>
+        Private Sub ResetPagging()
+            pg = New Pagging(StoryOpt.GetCount(GetScanCondition, TableName))
+            ShowPaggingInfo()
+            If pg.RowCount <> 0 Then
+                SetPaggingBtn(False, False, True, True)
+            Else
+                SetPaggingBtn(False, False, False, False)
+            End If
+        End Sub
+
+        ''' <summary>
+        ''' 显示分页信息
+        ''' </summary>
+        ''' <remarks>显示分页信息</remarks>
+        Private Sub ShowPaggingInfo()
+            PaggingInfo.Caption = String.Format("当前第 {0} 页，共 {1} 页", pg.CurrentIndex, pg.PageCount)
+        End Sub
+
+        ''' <summary>
         ''' 窗体初始化
         ''' </summary>
         ''' <param name="sender">发送方</param>
@@ -352,17 +381,49 @@ Namespace StoryManage.View
         ''' <param name="sender">发起方</param>
         ''' <param name="e">事件</param>
         ''' <remarks>按钮事件</remarks>
-        Private Sub Btn_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs) Handles DoScanBtn.ItemClick, DoDownBtn.ItemClick, DoCollectBtn.ItemClick, DoShieldBtn.ItemClick
-
+        Private Sub Btn_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs) Handles DoScanBtn.ItemClick, DoDownBtn.ItemClick, DoCollectBtn.ItemClick, DoShieldBtn.ItemClick, GoFirstBtn.ItemClick, GoPrevBtn.ItemClick, GoNextBtn.ItemClick, GoLastBtn.ItemClick
             Select Case e.Item.Name
                 Case "DoScanBtn"
-                    DoThread(AddressOf DoScan)
+                    pg = New Pagging(StoryOpt.GetCount(GetScanCondition, TableName))
+                    ResetPagging()
+                    LoadList(GetScanCondition)
                 Case "DoDownBtn"
                     DoThread(AddressOf DoDownLoad)
                 Case "DoCollectBtn"
+                    If Log.ShowConfirm("采集将清空现有数据重新从网站同步，是否需要采集？【该操作不可逆，不可取消！】") = False Then
+                        Return
+                    End If
                     DoThread(AddressOf DoCollect)
                 Case "DoShieldBtn"
                     DoThread(AddressOf DoShield)
+                Case "GoFirstBtn"
+                    pg.CurrentIndex = 1
+                    SetPaggingBtn(False, False, True, True)
+                    ShowPaggingInfo()
+                    LoadList(GetScanCondition)
+                Case "GoPrevBtn"
+                    pg.CurrentIndex -= 1
+                    If pg.CurrentIndex = 1 Then
+                        SetPaggingBtn(False, False, True, True)
+                    Else
+                        SetPaggingBtn(True, True, True, True)
+                    End If
+                    ShowPaggingInfo()
+                    LoadList(GetScanCondition)
+                Case "GoNextBtn"
+                    pg.CurrentIndex += 1
+                    If pg.CurrentIndex = pg.PageCount - 1 Then
+                        SetPaggingBtn(True, True, False, False)
+                    Else
+                        SetPaggingBtn(True, True, True, True)
+                    End If
+                    ShowPaggingInfo()
+                    LoadList(GetScanCondition)
+                Case "GoLastBtn"
+                    pg.CurrentIndex = pg.PageCount
+                    SetPaggingBtn(True, True, False, False)
+                    ShowPaggingInfo()
+                    LoadList(GetScanCondition)
             End Select
         End Sub
 
@@ -379,6 +440,12 @@ Namespace StoryManage.View
             End If
         End Sub
 
+        ''' <summary>
+        ''' 列表焦点变换事件
+        ''' </summary>
+        ''' <param name="sender">发起方</param>
+        ''' <param name="e">事件</param>
+        ''' <remarks>列表焦点变换事件</remarks>
         Private Sub MainTree_FocusedNodeChanged(ByVal sender As System.Object, ByVal e As DevExpress.XtraTreeList.FocusedNodeChangedEventArgs) Handles MainTree.FocusedNodeChanged
             DoShieldBtn.Caption = "屏蔽"
             If e.Node Is Nothing Then
@@ -390,6 +457,18 @@ Namespace StoryManage.View
             If CType(e.Node.GetValue(0), Story).IsRead = 1 Then
                 DoShieldBtn.Caption = "解除屏蔽"
             End If
+        End Sub
+
+        ''' <summary>
+        ''' 分类框关闭事件
+        ''' </summary>
+        ''' <param name="sender">发起方</param>
+        ''' <param name="e">事件</param>
+        ''' <remarks>分类框关闭事件</remarks>
+        Private Sub CategoryBox_Properties_Closed(ByVal sender As System.Object, ByVal e As DevExpress.XtraEditors.Controls.ClosedEventArgs) Handles CategoryBox.Properties.Closed
+            ResetPagging()
+            LoadList(GetScanCondition)
+            MainTree.Focus()
         End Sub
     End Class
 End Namespace

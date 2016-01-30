@@ -2,28 +2,38 @@
 Imports IdeaBox.Utils.FileSystem.Path
 Imports IdeaBox.Utils.FileSystem.String
 Imports IdeaBox.Utils.FileSystem.Dict
+Imports DevExpress.XtraEditors
 
 
 Namespace Utils.FileSystem
     Public Class Log
         Private Shared loginfo As ILog = LogManager.GetLogger(My.Application.Info.Title)
 
+        Public Shared Function ShowConfirm(ByVal Msg As String) As Boolean
+            If XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+                Log.WriteLog(String.Format("{0}→→→取消", Msg))
+                Return False
+            End If
+            Log.WriteLog(String.Format("{0}→→→确认", Msg))
+            Return True
+        End Function
+
         Public Shared Sub Showlog(ByVal Msg As String, ByVal mType As MsgType)
             Select Case mType
                 Case MsgType.DebugMsg
-                    MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Log.WriteLog(Msg, MsgType.DebugMsg)
                 Case MsgType.ErrorMsg
-                    MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Log.WriteLog(Msg, MsgType.ErrorMsg)
                 Case MsgType.FatalMsg
-                    MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Log.WriteLog(Msg, MsgType.FatalMsg)
                 Case MsgType.InfoMsg
-                    MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Log.WriteLog(Msg, MsgType.InfoMsg)
                 Case MsgType.WarnMsg
-                    MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Log.WriteLog(Msg, MsgType.WarnMsg)
             End Select
         End Sub
@@ -33,19 +43,19 @@ Namespace Utils.FileSystem
                 Case True
                     Select Case mType
                         Case MsgType.DebugMsg
-                            MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             Log.WriteLog(Msg, MsgType.DebugMsg)
                         Case MsgType.ErrorMsg
-                            MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
                             Log.WriteLog(Msg, MsgType.ErrorMsg)
                         Case MsgType.FatalMsg
-                            MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                            XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                             Log.WriteLog(Msg, MsgType.FatalMsg)
                         Case MsgType.InfoMsg
-                            MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
                             Log.WriteLog(Msg, MsgType.InfoMsg)
                         Case MsgType.WarnMsg
-                            MessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            XtraMessageBox.Show(Msg, My.Application.Info.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             Log.WriteLog(Msg, MsgType.WarnMsg)
                     End Select
                 Case Else

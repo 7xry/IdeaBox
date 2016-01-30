@@ -245,6 +245,78 @@ Namespace StoryManage.Impl
             Return StoryLs
         End Function
 
+        Public Function GetList(ByVal s As Story, ByVal TableName As String, ByVal StartRow As Integer) As List(Of Story) Implements IStory.GetList
+            Dim dt As New DataTable
+            Dim data As IDataAccess = DBFactory.Create
+            Dim sql As String = String.Empty
+            sql = "Select "
+            sql += "     BookName, Author, Category, "
+            sql += "     FileSize, Rating, DownloadQuantity, "
+            sql += "     UploadDate, Abstract, DownloadAddr, IsRead "
+            sql += "From "
+            sql += String.Format("     {0} ", TableName)
+            sql += "Where "
+            sql += "     1=1 "
+            Dim TmpStr As String = SqlConvert.GetSql("BookName", s.BookName)
+            If s.BookName <> String.Empty And TmpStr <> String.Empty Then
+                sql += "And "
+                sql += TmpStr
+            End If
+            TmpStr = SqlConvert.GetSql("Author", s.Author)
+            If s.Author <> String.Empty And TmpStr <> String.Empty Then
+                sql += "And "
+                sql += SqlConvert.GetSql("Author", s.Author)
+            End If
+            If s.Category <> "全部小说" Then
+                sql += "And "
+                sql += String.Format("Category like '%{0}%' ", s.Category)
+            End If
+            TmpStr = SqlConvert.GetSql("Rating", s.Rating)
+            If s.Rating <> String.Empty Then
+                sql += "And "
+                sql += SqlConvert.GetSql("Rating", s.Rating)
+            End If
+            TmpStr = SqlConvert.GetSql("Abstract", s.Abstract)
+            If s.Abstract <> String.Empty And TmpStr <> String.Empty Then
+                sql += "And "
+                sql += SqlConvert.GetSql("Abstract", s.Abstract)
+            End If
+            If s.IsRead <> String.Empty Then
+                sql += "And "
+                sql += String.Format("IsRead = '{0}' ", s.IsRead)
+            End If
+            sql += "Order By "
+            sql += "     UploadDate desc, Rating desc, BookName "
+            sql += String.Format("Limit {0},{1}", StartRow, perPage)
+            Try
+                data.Open()
+                dt = data.GetTable(sql)
+            Catch ex As Exception
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
+            Finally
+                data.Close()
+            End Try
+            Dim StoryLs As New List(Of Story)
+            If dt.Rows.Count <= 0 Then
+                Return StoryLs
+            End If
+            For Each dr As DataRow In dt.Rows
+                Dim st As New Story
+                st.BookName = dr("BookName")
+                st.Author = dr("Author")
+                st.Category = dr("Category")
+                st.FileSize = dr("FileSize")
+                st.Rating = dr("Rating")
+                st.DownloadQuantity = dr("DownloadQuantity")
+                st.UploadDate = dr("UploadDate")
+                st.Abstract = dr("Abstract")
+                st.DownloadAddr = dr("DownloadAddr")
+                st.IsRead = dr("IsRead")
+                StoryLs.Add(st)
+            Next
+            Return StoryLs
+        End Function
+
         Public Function GetCategory(ByVal TableName As String) As List(Of String)
             Dim dt As New DataTable
             Dim data As IDataAccess = DBFactory.Create
@@ -271,6 +343,11 @@ Namespace StoryManage.Impl
                 End If
             Next
             Return ls
+        End Function
+
+        Public Function GetCount(ByVal s As Story, ByVal TableName As String) As Long Implements API.IStory.GetCount
+            Dim dt As List(Of Story) = GetList(s, TableName)
+            Return dt.Count
         End Function
 
         Public Function IsExist(ByVal s As Story, ByVal TableName As String) As Boolean Implements IStory.IsExist
@@ -304,5 +381,6 @@ Namespace StoryManage.Impl
             End If
             Return True
         End Function
+
     End Class
 End Namespace
