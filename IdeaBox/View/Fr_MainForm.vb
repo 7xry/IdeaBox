@@ -11,7 +11,8 @@ Imports IdeaBox.Dict
 Imports IdeaBox.Model
 Imports IdeaBox.Utils.FileSystem.Dict
 Imports DevExpress.XtraBars
-
+Imports IdeaBox.Utils.Database.API
+Imports IdeaBox.Utils.Database
 Namespace View
     Partial Public Class Fr_MainForm
         Private CurrentPage As DevExpress.XtraTab.XtraTabPage = Nothing
@@ -22,12 +23,34 @@ Namespace View
             FormImpl.RemoveAllPage(New TabForm(MainTab))
             SayHello()
         End Sub
-
-
+        '自定义一个委托
+        Private Delegate Sub GetBookCount(ByVal myString As String)
+        Private Sub GetBookCountBack(ByVal myString As String) '与委托过程
+            AqTxtBtn.Caption = String.Format("爱奇小说网(共{0})", myString)
+        End Sub
         Sub SayHello()
             WelComeLbl.Caption = String.Format("欢迎使用 {0} ", My.Application.Info.Title)
+            '启动线程查询记录数
+            Dim ThreadWork As New System.Threading.Thread(AddressOf BookCount)
+            ThreadWork.Start() ' 启动新线程。
         End Sub
+        Private Sub BookCount()
+            '委托返回爱奇电子书总数量
+            Dim data As IDataAccess = DBFactory.Create
+            Dim dt As New DataTable
+            Dim Sql As String = "select BookName from DS_TB_AQTXT"
+            Try
+                data.Open()
+                dt = data.GetTable(Sql)
+                Me.Invoke(New GetBookCount(AddressOf GetBookCountBack), dt.Rows.Count.ToString) '委托的调用
+            Catch ex As Exception
+                Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
+            Finally
+                data.Close()
+            End Try
 
+
+        End Sub
         Private Sub MainTab_HotTrackedPageChanged(ByVal sender As Object, ByVal e As DevExpress.XtraTab.TabPageChangedEventArgs) Handles MainTab.HotTrackedPageChanged
             Try
                 CurrentPage = e.Page
