@@ -11,7 +11,8 @@ Imports IdeaBox.Dict
 Imports IdeaBox.Model
 Imports IdeaBox.Utils.FileSystem.Dict
 Imports DevExpress.XtraBars
-
+Imports IdeaBox.Utils.Database.API
+Imports IdeaBox.Utils.Database
 Namespace View
     Partial Public Class Fr_MainForm
         Private CurrentPage As DevExpress.XtraTab.XtraTabPage = Nothing
@@ -22,12 +23,9 @@ Namespace View
             FormImpl.RemoveAllPage(New TabForm(MainTab))
             SayHello()
         End Sub
-
-
         Sub SayHello()
             WelComeLbl.Caption = String.Format("欢迎使用 {0} ", My.Application.Info.Title)
         End Sub
-
         Private Sub MainTab_HotTrackedPageChanged(ByVal sender As Object, ByVal e As DevExpress.XtraTab.TabPageChangedEventArgs) Handles MainTab.HotTrackedPageChanged
             Try
                 CurrentPage = e.Page
