@@ -7,7 +7,7 @@ Namespace Utils.FileSystem.Files
         ''' <param name="RARSavePath">解压到目标目录</param>
         ''' <param name="RARCMD">补充RAR命令行</param>
         ''' <remarks>解压文件到当前目录</remarks>
-    Public Shared Sub RARFile(ByVal RARfilePath As String,ByVal RARSavePath As String, Optional ByVal RARCMD As String = Nothing) As String
+        Public Shared Sub RARFile(ByVal RARfilePath As String, ByVal RARSavePath As String, Optional ByVal RARCMD As String = Nothing)
             '解压缩
             If Mid(RARCMD, 1, 1) <> "" Then RARCMD = " " & RARCMD
             Dim sEnPWD As String = Nothing
