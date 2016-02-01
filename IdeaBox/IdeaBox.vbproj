@@ -150,6 +150,7 @@
     <Compile Include="Impl\FormImpl.vb" />
     <Compile Include="Model\TabForm.vb" />
     <Compile Include="StoryManage\Model\Pagging.vb" />
+    <Compile Include="Utils\FileSystem\Net\HttpHelper.vb" />
     <Compile Include="Utils\FileSystem\String\SqlConvert.vb" />
     <Compile Include="View\Fr_BaseForm.Designer.vb">
       <DependentUpon>Fr_BaseForm.vb</DependentUpon>
