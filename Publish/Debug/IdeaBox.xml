@@ -6,7 +6,47 @@ IdeaBox
 </name>
 </assembly>
 <members>
-<member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
+<member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<param name="Encode">编码</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeStr(HtmlAgilityPack.HtmlNode,System.String,System.Int32)">
+	<summary>
+ 获取节点文本
+ </summary>
+	<param name="Node">节点</param>
+	<param name="xpathStr">XPath</param>
+	<param name="NodeType">节点类型</param>
+	<returns>节点文本</returns>
+	<remarks>获取节点文本</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNode(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns></returns>
+	<remarks>获取节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeCollection(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点集
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns>节点集</returns>
+	<remarks>获取节点集</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
 	<summary>
  生成缩略图
  </summary>

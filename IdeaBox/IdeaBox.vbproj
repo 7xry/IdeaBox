@@ -111,6 +111,10 @@
       <HintPath>..\Publish\Resource\Dll\DevExpress.XtraTreeList.v14.2.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Publish\Debug\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Publish\Resource\Dll\log4net.dll</HintPath>
@@ -149,6 +153,7 @@
     <Compile Include="Impl\DBImpl.vb" />
     <Compile Include="Impl\FormImpl.vb" />
     <Compile Include="Model\TabForm.vb" />
+    <Compile Include="StoryManage\Impl\WebAqTxtImpl.vb" />
     <Compile Include="StoryManage\Model\Pagging.vb" />
     <Compile Include="Utils\FileSystem\Net\HttpHelper.vb" />
     <Compile Include="Utils\FileSystem\String\SqlConvert.vb" />

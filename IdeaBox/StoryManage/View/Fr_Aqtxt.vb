@@ -208,26 +208,33 @@ Namespace StoryManage.View
         ''' <returns>成功与否</returns>
         ''' <remarks>采集事件</remarks>
         Function Collect() As Boolean
-            AqtxtImplOpt = New AqtxtImpl
+            DownNowStat.Visibility = BarItemVisibility.Always
+            PaggingInfo.Visibility = BarItemVisibility.Never
+            AqtxtImplOpt = New WebAqTxtImpl()
             StoryOpt.ResetTable(TableName)
-            Dim pageCount As Integer = AqtxtImplOpt.GetPageCount
-            Dim RowsCount As Integer = AqtxtImplOpt.GetRowsCount
+            DownNowStat.Caption = String.Format("正在准备采集，请稍后……")
+            DownNowStat.Refresh()
+            Dim BookLs As List(Of Story) = AqtxtImplOpt.GetBooks
             Dim SumList As Integer = 0
             Dim sumTime As Long = 0
             Dim timer As New Stopwatch
-            DownNowStat.Visibility = BarItemVisibility.Always
-            PaggingInfo.Visibility = BarItemVisibility.Never
-            DownNowStat.Caption = String.Format("正在采集：{0} / {1}，累计耗时：00 小时 00 分 00 秒 ", SumList, RowsCount)
+            DownNowStat.Caption = String.Format("正在初始化数据表，请稍后……")
             DownNowStat.Refresh()
-            For pageIdx As Integer = 1 To pageCount
-                DownNowStat.Caption = String.Format("正在采集：{0} / {1}，累计耗时：{2}", SumList, RowsCount, TimeSpan.FromTicks(sumTime).ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ "))
+            StoryOpt.ResetTable(TableName)
+            Dim ls As New List(Of Story)
+            For Each book As Story In BookLs
+                DownNowStat.Caption = String.Format("正在采集：{0} / {1} - {2}，累计耗时：{3}", SumList, BookLs.Count, book.BookName, TimeSpan.FromTicks(sumTime).ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ "))
                 DownNowStat.Refresh()
                 timer = New Stopwatch
                 timer.Start()
-                Dim tmpLs As List(Of Story) = AqtxtImplOpt.GetCollect(pageIdx)
-                StoryOpt.Add(tmpLs, TableName)
+                book = AqtxtImplOpt.GetCollect(book)
+                ls.Add(book)
+                If ls.Count >= 300 Then
+                    StoryOpt.Add(ls, TableName)
+                    ls = New List(Of Story)
+                End If
                 timer.Stop()
-                SumList += tmpLs.Count
+                SumList += 1
                 sumTime += timer.ElapsedTicks
             Next
             DownNowStat.Visibility = BarItemVisibility.Never
