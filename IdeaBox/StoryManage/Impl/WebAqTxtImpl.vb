@@ -1,6 +1,7 @@
 ﻿Imports HtmlAgilityPack
 Imports IdeaBox.Utils.FileSystem.Net
 Imports IdeaBox.StoryManage.Model
+Imports IdeaBox.StoryManage.View.Fr_Aqtxt
 
 Namespace StoryManage.Impl
     Public Class WebAqTxtImpl
@@ -12,11 +13,12 @@ Namespace StoryManage.Impl
             Return CInt(PageCount.Replace(".htm", ""))
         End Function
 
-        Public Function GetBooks() As List(Of Story)
-            Dim pageCount As Integer = GetPageCount()
-            Dim bookLs As New List(Of Story)
+        Public Sub GetBooks(ByVal TableName As String)
             Dim tm As New Stopwatch
             tm.Start()
+            Dim pageCount As Integer = GetPageCount()
+            Dim bookLs As New List(Of Story)
+            Dim CostTime As Long = 0
             For page As Integer = 1 To pageCount
                 Dim rootNode As HtmlNode = HttpHelper.OpenUrl(String.Format("{0}/finished/{1}.htm", Url, page))
                 Dim NodeCollection As HtmlNodeCollection = HttpHelper.GetNodeCollection(rootNode, "//*[@id='newbook']/div/ul/li/a")
@@ -24,16 +26,21 @@ Namespace StoryManage.Impl
                     Dim s As New Story
                     s.BookName = node.InnerText
                     s.DownloadAddr = String.Format("{0}{1}", Url, HttpHelper.GetNodeStr(node, 1))
-                    bookLs.Add(s)
+                    GetCollect(s)
+                    StoryOpt.Add(s, TableName)
+                    Dim setStat As SetStatLbl = New SetStatLbl(AddressOf frStory.StatLbl)
+                    setStat.Invoke(page, pageCount, tm.Elapsed.ToString)
                 Next
             Next
             tm.Stop()
-            Return bookLs
-        End Function
+            Log.Showlog(String.Format("采集完成，共计耗时：{0}", tm.Elapsed.ToString), Utils.FileSystem.Dict.MsgType.InfoMsg)
+        End Sub
 
-        Public Function GetCollect(ByRef book As Story) As Story
+        Public Sub GetCollect(ByRef book As Story)
             Try
                 Dim rootNode As HtmlNode = HttpHelper.OpenUrl(book.DownloadAddr)
+                '书名
+                book.BookName = book.BookName.Replace("《", "").Replace("》", "").Trim
                 '作者
                 book.Author = HttpHelper.GetNodeStr(rootNode, "//*[@id='author']").Replace("作者：", "").Trim
                 '分类
@@ -54,9 +61,7 @@ Namespace StoryManage.Impl
                 book.IsRead = 0
             Catch ex As Exception
                 Log.Showlog(ex.ToString, Utils.FileSystem.Dict.MsgType.ErrorMsg, False)
-                Return New Story
             End Try
-            Return book
-        End Function
+        End Sub
     End Class
 End Namespace

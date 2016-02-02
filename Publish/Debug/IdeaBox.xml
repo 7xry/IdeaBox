@@ -243,6 +243,11 @@ IdeaBox
  </summary>
 	<returns>成功与否</returns>
 	<remarks>委托屏蔽</remarks>
+</member><member name="T:IdeaBox.StoryManage.View.Fr_Aqtxt.SetStatLbl">
+	<summary>
+ 委托状态
+ </summary>
+	<remarks>委托状态</remarks>
 </member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.GetCallBack(System.IAsyncResult)">
 	<summary>
  获取委托结果
@@ -261,6 +266,11 @@ IdeaBox
  </summary>
 	<remarks>委托采集事件</remarks>
 </member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoShield">
+	<summary>
+ 委托屏蔽事件
+ </summary>
+	<remarks>委托屏蔽事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.StatLbl(System.String,System.String,System.String)">
 	<summary>
  委托屏蔽事件
  </summary>

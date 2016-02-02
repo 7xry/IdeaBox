@@ -88,6 +88,12 @@ Namespace StoryManage.View
         Private Delegate Function SetShield() As Boolean
 
         ''' <summary>
+        ''' 委托状态
+        ''' </summary>
+        ''' <remarks>委托状态</remarks>
+        Public Delegate Sub SetStatLbl(ByVal CurIndex As String, ByVal AllCount As String, ByVal CostTime As String)
+
+        ''' <summary>
         ''' 获取委托结果
         ''' </summary>
         ''' <param name="myIar">委托返回值</param>
@@ -125,6 +131,15 @@ Namespace StoryManage.View
             ThreadIsNotWork = False
             asyncResult = frMain.BeginInvoke(New SetShield(AddressOf Shield))
             ThreadIsNotWork = GetCallBack(asyncResult)
+        End Sub
+
+        ''' <summary>
+        ''' 委托屏蔽事件
+        ''' </summary>
+        ''' <remarks>委托屏蔽事件</remarks>
+        Public Sub StatLbl(ByVal CurIndex As String, ByVal AllCount As String, ByVal CostTime As String)
+            DownNowStat.Caption = String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", CurIndex, AllCount, CostTime)
+            DownNowStat.Refresh()
         End Sub
 
         ''' <summary>
@@ -210,33 +225,13 @@ Namespace StoryManage.View
         Function Collect() As Boolean
             DownNowStat.Visibility = BarItemVisibility.Always
             PaggingInfo.Visibility = BarItemVisibility.Never
+            SetPaggingBtnVisiable(BarItemVisibility.Never)
             AqtxtImplOpt = New WebAqTxtImpl()
             StoryOpt.ResetTable(TableName)
-            DownNowStat.Caption = String.Format("正在准备采集，请稍后……")
+            DownNowStat.Caption = String.Format("正在准备开始采集，请稍后……")
             DownNowStat.Refresh()
-            Dim BookLs As List(Of Story) = AqtxtImplOpt.GetBooks
-            Dim SumList As Integer = 0
-            Dim sumTime As Long = 0
-            Dim timer As New Stopwatch
-            DownNowStat.Caption = String.Format("正在初始化数据表，请稍后……")
-            DownNowStat.Refresh()
-            StoryOpt.ResetTable(TableName)
-            Dim ls As New List(Of Story)
-            For Each book As Story In BookLs
-                DownNowStat.Caption = String.Format("正在采集：{0} / {1} - {2}，累计耗时：{3}", SumList, BookLs.Count, book.BookName, TimeSpan.FromTicks(sumTime).ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ "))
-                DownNowStat.Refresh()
-                timer = New Stopwatch
-                timer.Start()
-                book = AqtxtImplOpt.GetCollect(book)
-                ls.Add(book)
-                If ls.Count >= 300 Then
-                    StoryOpt.Add(ls, TableName)
-                    ls = New List(Of Story)
-                End If
-                timer.Stop()
-                SumList += 1
-                sumTime += timer.ElapsedTicks
-            Next
+            AqtxtImplOpt.GetBooks(TableName)
+            SetPaggingBtnVisiable(BarItemVisibility.Always)
             DownNowStat.Visibility = BarItemVisibility.Never
             PaggingInfo.Visibility = BarItemVisibility.Always
             Return True
@@ -347,6 +342,13 @@ Namespace StoryManage.View
             GoPrevBtn.Enabled = PrevBol
             GoNextBtn.Enabled = NextBol
             GoLastBtn.Enabled = LastBol
+        End Sub
+
+        Private Sub SetPaggingBtnVisiable(ByVal bol As BarItemVisibility)
+            GoFirstBtn.Visibility = bol
+            GoPrevBtn.Visibility = bol
+            GoNextBtn.Visibility = bol
+            GoLastBtn.Visibility = bol
         End Sub
 
         ''' <summary>
