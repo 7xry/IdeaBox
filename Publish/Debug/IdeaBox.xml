@@ -6,46 +6,34 @@ IdeaBox
 </name>
 </assembly>
 <members>
-<member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
+<member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
 	<summary>
- 打开网址，获取HTML节点
+ 记录日志
  </summary>
-	<param name="URL">网址</param>
-	<param name="Encode">编码</param>
-	<returns>HTML节点</returns>
-	<remarks>打开网址，获取HTML节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String)">
+	<param name="msg">日志内容</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
 	<summary>
- 打开网址，获取HTML节点
+ 记录日志
  </summary>
-	<param name="URL">网址</param>
-	<returns>HTML节点</returns>
-	<remarks>打开网址，获取HTML节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeStr(HtmlAgilityPack.HtmlNode,System.String,System.Int32)">
+	<param name="msg">日志内容</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
 	<summary>
- 获取节点文本
+ 记录日志
  </summary>
-	<param name="Node">节点</param>
-	<param name="xpathStr">XPath</param>
-	<param name="NodeType">节点类型</param>
-	<returns>节点文本</returns>
-	<remarks>获取节点文本</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNode(HtmlAgilityPack.HtmlNode,System.String)">
+	<param name="msg">日志内容</param>
+	<param name="msgType">日志类型</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
 	<summary>
- 获取节点
+ 记录日志
  </summary>
-	<param name="rootNode">根节点</param>
-	<param name="xpathStr">XPath</param>
-	<returns></returns>
-	<remarks>获取节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeCollection(HtmlAgilityPack.HtmlNode,System.String)">
-	<summary>
- 获取节点集
- </summary>
-	<param name="rootNode">根节点</param>
-	<param name="xpathStr">XPath</param>
-	<returns>节点集</returns>
-	<remarks>获取节点集</remarks>
+	<param name="msg">日志内容</param>
+	<param name="msgType">信息类型</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
 	<summary>
  生成缩略图
@@ -80,71 +68,6 @@ IdeaBox
 	<param name="ImagePath">源图片路径</param>
 	<returns>图片对象</returns>
 	<remarks>获取图像</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">日志类型</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">信息类型</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Program.#ctor">
-	<summary>
- The main entry point for the application.
- </summary>
-</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownloadFile(IdeaBox.StoryManage.Model.FileDown)">
-	<summary>
- 下载文件
- </summary>
-	<param name="fDown">文件对象</param>
-	<returns>成功与否</returns>
-	<remarks>下载文件</remarks>
-</member><member name="M:IdeaBox.Impl.FormImpl.LoadTabPageForm(IdeaBox.Model.TabForm)">
-	<summary>
- 加载或者激活指定类型的对话框
- </summary>
-	<param name="tab">TabForm对象</param>
-</member><member name="F:IdeaBox.View.Fr_MainForm.components">
-	<summary>
- Required designer variable.
- </summary>
-</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
-	<summary>
- Clean up any resources being used.
- </summary>
-	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
-	<summary>
- Required method for Designer support - do not modify
- the contents of this method with the code editor.
- </summary>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
-	<summary>
- 获取文件的MD5值
- </summary>
-	<param name="filePath">文件的绝对路径</param>
-	<returns>返回32位MD5值</returns>
-	<remarks></remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
 	<summary>
  根据条件表达式，获取SQL语句
@@ -186,6 +109,87 @@ IdeaBox
 	<param name="ExStr">待转换表达式</param>
 	<returns>转换后的SQL</returns>
 	<remarks>03、拼接Not条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
+	<summary>
+ 获取文件的MD5值
+ </summary>
+	<param name="filePath">文件的绝对路径</param>
+	<returns>返回32位MD5值</returns>
+	<remarks></remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
+	<summary>
+ IP地址输入格式化
+ </summary>
+	<param name="IpAddr">IP地址</param>
+	<returns>格式化的IP地址</returns>
+	<remarks>IP地址输入格式化，例：080.096.121.6  →  80.96.121.6</remarks>
+</member><member name="F:IdeaBox.View.Fr_MainForm.components">
+	<summary>
+ Required designer variable.
+ </summary>
+</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
+	<summary>
+ Clean up any resources being used.
+ </summary>
+	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
+	<summary>
+ Required method for Designer support - do not modify
+ the contents of this method with the code editor.
+ </summary>
+</member><member name="P:IdeaBox.My.Resources.Resources.ResourceManager">
+	<summary>
+  返回此类使用的缓存的 ResourceManager 实例。
+</summary>
+</member><member name="P:IdeaBox.My.Resources.Resources.Culture">
+	<summary>
+  使用此强类型资源类，为所有资源查找
+  重写当前线程的 CurrentUICulture 属性。
+</summary>
+</member><member name="T:IdeaBox.My.Resources.Resources">
+	<summary>
+  一个强类型的资源类，用于查找本地化的字符串等。
+</summary>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<param name="Encode">编码</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeStr(HtmlAgilityPack.HtmlNode,System.String,System.Int32)">
+	<summary>
+ 获取节点文本
+ </summary>
+	<param name="Node">节点</param>
+	<param name="xpathStr">XPath</param>
+	<param name="NodeType">节点类型</param>
+	<returns>节点文本</returns>
+	<remarks>获取节点文本</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNode(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns></returns>
+	<remarks>获取节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeCollection(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点集
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns>节点集</returns>
+	<remarks>获取节点集</remarks>
 </member><member name="P:IdeaBox.StoryManage.View.Fr_Aqtxt.TableName">
 	<summary>
  表名属性
@@ -270,7 +274,7 @@ IdeaBox
  委托屏蔽事件
  </summary>
 	<remarks>委托屏蔽事件</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.StatLbl(System.String,System.String,System.String)">
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.StatLbl(System.String)">
 	<summary>
  委托屏蔽事件
  </summary>
@@ -371,26 +375,22 @@ IdeaBox
 	<param name="sender">发起方</param>
 	<param name="e">事件</param>
 	<remarks>分类框关闭事件</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
+</member><member name="M:IdeaBox.Program.#ctor">
 	<summary>
- IP地址输入格式化
+ The main entry point for the application.
  </summary>
-	<param name="IpAddr">IP地址</param>
-	<returns>格式化的IP地址</returns>
-	<remarks>IP地址输入格式化，例：080.096.121.6  →  80.96.121.6</remarks>
-</member><member name="P:IdeaBox.My.Resources.Resources.ResourceManager">
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownloadFile(IdeaBox.StoryManage.Model.FileDown)">
 	<summary>
-  返回此类使用的缓存的 ResourceManager 实例。
-</summary>
-</member><member name="P:IdeaBox.My.Resources.Resources.Culture">
+ 下载文件
+ </summary>
+	<param name="fDown">文件对象</param>
+	<returns>成功与否</returns>
+	<remarks>下载文件</remarks>
+</member><member name="M:IdeaBox.Impl.FormImpl.LoadTabPageForm(IdeaBox.Model.TabForm)">
 	<summary>
-  使用此强类型资源类，为所有资源查找
-  重写当前线程的 CurrentUICulture 属性。
-</summary>
-</member><member name="T:IdeaBox.My.Resources.Resources">
-	<summary>
-  一个强类型的资源类，用于查找本地化的字符串等。
-</summary>
+ 加载或者激活指定类型的对话框
+ </summary>
+	<param name="tab">TabForm对象</param>
 </member>
 </members>
 </doc>

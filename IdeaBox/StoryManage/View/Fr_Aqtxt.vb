@@ -91,7 +91,7 @@ Namespace StoryManage.View
         ''' 委托状态
         ''' </summary>
         ''' <remarks>委托状态</remarks>
-        Public Delegate Sub SetStatLbl(ByVal CurIndex As String, ByVal AllCount As String, ByVal CostTime As String)
+        Public Delegate Sub SetStatLbl(ByVal CaptionStr As String)
 
         ''' <summary>
         ''' 获取委托结果
@@ -137,8 +137,8 @@ Namespace StoryManage.View
         ''' 委托屏蔽事件
         ''' </summary>
         ''' <remarks>委托屏蔽事件</remarks>
-        Public Sub StatLbl(ByVal CurIndex As String, ByVal AllCount As String, ByVal CostTime As String)
-            DownNowStat.Caption = String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", CurIndex, AllCount, CostTime)
+        Public Sub StatLbl(ByVal CaptionStr As String)
+            DownNowStat.Caption = CaptionStr
             DownNowStat.Refresh()
         End Sub
 
@@ -183,37 +183,41 @@ Namespace StoryManage.View
         ''' <returns>成功与否</returns>
         ''' <remarks>下载文件事件</remarks>
         Private Function DownLoadFile() As Boolean
-            Dim fileLs As List(Of FileDown) = GetSelectFiles()
+            DownNowStat.Visibility = BarItemVisibility.Always
+            PaggingInfo.Visibility = BarItemVisibility.Never
+            SetPaggingBtnVisiable(BarItemVisibility.Never)
+            Dim timer As New Stopwatch
+            Dim setStat As SetStatLbl = New SetStatLbl(AddressOf frStory.StatLbl)
+            timer.Start()
+            setStat.Invoke("正在获取下载列表，请稍后……")
+            Dim fileLs As List(Of Story) = GetSelectFiles()
             If fileLs.Count <= 0 Then
                 Log.Showlog("请选择要下载的记录！", MsgType.WarnMsg)
                 Return True
             End If
-            Dim timer As New Stopwatch
             Dim CurIndex As Integer = 1
-            Dim sumTime As Long = 0
-            DownNowStat.Visibility = BarItemVisibility.Always
-            PaggingInfo.Visibility = BarItemVisibility.Never
-            For Each f As FileDown In fileLs
-                timer = New Stopwatch
-                timer.Start()
-                f.SourceFile = f.fileInfo.DownloadAddr
-                f.TargetFile = String.Format("{0}\{1}", AppPath.GetRunPath, f.fileInfo.Category)
-                If Directory.Exists(f.TargetFile) = False Then
-                    Directory.CreateDirectory(f.TargetFile)
+            For Each f As Story In fileLs
+                Dim fDown As New FileDown
+                fDown.fileInfo = AqtxtImplOpt.GetCollect(f)
+                fDown.SourceFile = fDown.fileInfo.DownloadAddr
+                fDown.TargetFile = String.Format("{0}\{1}", AppPath.GetRunPath, fDown.fileInfo.Category)
+                If Directory.Exists(fDown.TargetFile) = False Then
+                    Directory.CreateDirectory(fDown.TargetFile)
                 End If
-                f.FileExtension = Mid(f.SourceFile, f.SourceFile.LastIndexOf(".") + 2)
-                f.TargetFile = String.Format("{0}\{1}.{2}", f.TargetFile, f.fileInfo.BookName, f.FileExtension)
-                DownNowStat.Caption = String.Format("正在下载：{0}/{1} - {2}.{3}，累计耗时：{4}", CurIndex, fileLs.Count, f.fileInfo.BookName, f.FileExtension, TimeSpan.FromTicks(sumTime).ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ "))
-                FileDownOpt.DownLoadFiles(f)
-                timer.Stop()
-                sumTime += timer.ElapsedTicks
-                DownNowStat.Caption = String.Format("正在下载：{0}/{1} - {2}.{3}，累计耗时：{4}", CurIndex, fileLs.Count, f.fileInfo.BookName, f.FileExtension, TimeSpan.FromTicks(sumTime).ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ "))
-                DownNowStat.Refresh()
+                fDown.FileExtension = Mid(fDown.SourceFile, fDown.SourceFile.LastIndexOf(".") + 2)
+                fDown.TargetFile = String.Format("{0}\{1}.{2}", fDown.TargetFile, fDown.fileInfo.BookName, fDown.FileExtension)
+                fDown.CurrentIndex = CurIndex
+                fDown.AllCount = fileLs.Count
+                fDown.timer = timer
+                FileDownOpt.DownLoadFiles(fDown)
+                'setStat.Invoke(String.Format("正在下载：{0}/{1} - {2}.{3}，累计耗时：{4}", CurIndex, fileLs.Count, fDown.fileInfo.BookName, fDown.FileExtension, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
                 CurIndex += 1
             Next
-            Thread.Sleep(1000)
+            timer.Stop()
             DownNowStat.Visibility = BarItemVisibility.Never
             PaggingInfo.Visibility = BarItemVisibility.Always
+            SetPaggingBtnVisiable(BarItemVisibility.Always)
+            Log.Showlog(String.Format("下载完成，共计下载：{0} 本，累计耗时：{1}", fileLs.Count, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
             Return True
         End Function
 
@@ -226,11 +230,11 @@ Namespace StoryManage.View
             DownNowStat.Visibility = BarItemVisibility.Always
             PaggingInfo.Visibility = BarItemVisibility.Never
             SetPaggingBtnVisiable(BarItemVisibility.Never)
-            AqtxtImplOpt = New WebAqTxtImpl()
+            AqtxtImplOpt = New WebAqTxtImpl(TableName)
             StoryOpt.ResetTable(TableName)
             DownNowStat.Caption = String.Format("正在准备开始采集，请稍后……")
             DownNowStat.Refresh()
-            AqtxtImplOpt.GetBooks(TableName)
+            AqtxtImplOpt.GetBooks()
             SetPaggingBtnVisiable(BarItemVisibility.Always)
             DownNowStat.Visibility = BarItemVisibility.Never
             PaggingInfo.Visibility = BarItemVisibility.Always
@@ -243,7 +247,7 @@ Namespace StoryManage.View
         ''' <returns>成功与否</returns>
         ''' <remarks>屏蔽事件</remarks>
         Function Shield() As Boolean
-            Dim fileLs As List(Of FileDown) = GetSelectFiles()
+            Dim fileLs As List(Of Story) = GetSelectFiles()
             Dim sLs As New List(Of Story)
             Select Case DoShieldBtn.Caption
                 Case "屏蔽"
@@ -251,18 +255,18 @@ Namespace StoryManage.View
                         Log.Showlog("请选择要屏蔽的记录！", MsgType.WarnMsg)
                         Return True
                     End If
-                    For Each f As FileDown In fileLs
-                        f.fileInfo.IsRead = 1
-                        sLs.Add(f.fileInfo)
+                    For Each f As Story In fileLs
+                        f.IsRead = 1
+                        sLs.Add(f)
                     Next
                 Case "解除屏蔽"
                     If fileLs.Count <= 0 Then
                         Log.Showlog("请选择要解除屏蔽的记录！", MsgType.WarnMsg)
                         Return True
                     End If
-                    For Each f As FileDown In fileLs
-                        f.fileInfo.IsRead = 0
-                        sLs.Add(f.fileInfo)
+                    For Each f As Story In fileLs
+                        f.IsRead = 0
+                        sLs.Add(f)
                     Next
             End Select
             StoryOpt.Update(sLs, TableName)
@@ -276,19 +280,18 @@ Namespace StoryManage.View
         ''' </summary>
         ''' <returns>选择文件信息</returns>
         ''' <remarks>获取选择的记录</remarks>
-        Function GetSelectFiles() As List(Of FileDown)
-            Dim fileLs As New List(Of FileDown)
+        Function GetSelectFiles() As List(Of Story)
+            Dim fileLs As New List(Of Story)
             Dim dr As TreeListMultiSelection = MainTree.Selection
             If dr.Count <= 0 Then
                 Return fileLs
             End If
             For Each r As TreeListNode In dr
-                Dim f As New FileDown
-                f.fileInfo = r.GetValue(0)
-                If f.fileInfo Is Nothing Then
+                Dim book As Story = r.GetValue(0)
+                If book Is Nothing Then
                     Continue For
                 End If
-                fileLs.Add(f)
+                fileLs.Add(book)
             Next
             Return fileLs
         End Function

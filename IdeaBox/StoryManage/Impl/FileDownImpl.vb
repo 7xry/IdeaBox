@@ -2,13 +2,17 @@
 Imports IdeaBox.StoryManage.Model
 Imports System.IO
 Imports IdeaBox.Utils.FileSystem.Dict
+Imports IdeaBox.StoryManage.View.Fr_Aqtxt
 
 Namespace StoryManage.Impl
     Public Class FileDownImpl
         Dim DownFileOK As Boolean = False
+        Dim DownInfo As FileDown
         Public Sub DownLoadFiles(ByVal fDown As FileDown)
+            DownInfo = fDown
             Dim myWebClient As New WebClient
             AddHandler myWebClient.DownloadFileCompleted, AddressOf DownloadFileCompleted
+            AddHandler myWebClient.DownloadProgressChanged, AddressOf ShowDownProgress
             DownFileOK = False
             myWebClient.DownloadFileAsync(New Uri(fDown.SourceFile), fDown.TargetFile)
             '如果还没有完成下载就等待吧
@@ -16,8 +20,14 @@ Namespace StoryManage.Impl
                 Application.DoEvents()
             Loop
         End Sub
+
         Public Sub DownloadFileCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
             DownFileOK = True
+        End Sub
+
+        Public Sub ShowDownProgress(ByVal sender As Object, ByVal e As System.Net.DownloadProgressChangedEventArgs)
+            Dim setStat As SetStatLbl = New SetStatLbl(AddressOf frStory.StatLbl)
+            setStat.Invoke(String.Format("正在下载：{0}/{1} - {2}.{3}，进度：{4}%，累计耗时：{5} ", DownInfo.CurrentIndex, DownInfo.AllCount, DownInfo.fileInfo.BookName, DownInfo.FileExtension, e.ProgressPercentage, DownInfo.timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
         End Sub
 
         Public Function getFileSize(ByVal fDown As FileDown)

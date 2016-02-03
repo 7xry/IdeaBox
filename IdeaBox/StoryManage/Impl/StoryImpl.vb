@@ -77,6 +77,7 @@ Namespace StoryManage.Impl
                 data.CommitTran()
             Catch ex As Exception
                 Log.Showlog(ex.ToString, MsgType.ErrorMsg, False)
+                Log.Showlog(sql, MsgType.ErrorMsg, False)
                 data.RollBackTran()
             Finally
                 data.Close()

@@ -6,6 +6,9 @@ Namespace StoryManage.Model
         Property SourceFile As String
         Property TargetFile As String
         Property FileExtension As String
+        Property CurrentIndex As String
+        Property AllCount As String
+        Property timer As Stopwatch
 
         Sub New()
         End Sub
