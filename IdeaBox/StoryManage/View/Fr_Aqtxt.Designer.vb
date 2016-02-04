@@ -29,9 +29,9 @@
             Me.DoCollectBtn = New DevExpress.XtraBars.BarButtonItem()
             Me.DoShieldBtn = New DevExpress.XtraBars.BarButtonItem()
             Me.SpacePanel1 = New DevExpress.XtraBars.BarStaticItem()
-            Me.DownNowStat = New DevExpress.XtraBars.BarHeaderItem()
+            Me.StatLbl = New DevExpress.XtraBars.BarHeaderItem()
             Me.SpacePanel2 = New DevExpress.XtraBars.BarStaticItem()
-            Me.PaggingInfo = New DevExpress.XtraBars.BarHeaderItem()
+            Me.PaggingLbl = New DevExpress.XtraBars.BarHeaderItem()
             Me.SpacePanel3 = New DevExpress.XtraBars.BarStaticItem()
             Me.GoFirstBtn = New DevExpress.XtraBars.BarButtonItem()
             Me.GoPrevBtn = New DevExpress.XtraBars.BarButtonItem()
@@ -89,7 +89,7 @@
             Me.XtraBar.DockControls.Add(Me.barDockControlLeft)
             Me.XtraBar.DockControls.Add(Me.barDockControlRight)
             Me.XtraBar.Form = Me
-            Me.XtraBar.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.DoScanBtn, Me.DoDownBtn, Me.DoCollectBtn, Me.DoShieldBtn, Me.SpacePanel1, Me.GoFirstBtn, Me.GoPrevBtn, Me.GoNextBtn, Me.GoLastBtn, Me.DownNowStat, Me.SpacePanel2, Me.PaggingInfo, Me.SpacePanel3})
+            Me.XtraBar.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.DoScanBtn, Me.DoDownBtn, Me.DoCollectBtn, Me.DoShieldBtn, Me.SpacePanel1, Me.GoFirstBtn, Me.GoPrevBtn, Me.GoNextBtn, Me.GoLastBtn, Me.StatLbl, Me.SpacePanel2, Me.PaggingLbl, Me.SpacePanel3})
             Me.XtraBar.MaxItemId = 20
             '
             'ToolBar
@@ -99,7 +99,7 @@
             Me.ToolBar.DockCol = 0
             Me.ToolBar.DockRow = 0
             Me.ToolBar.DockStyle = DevExpress.XtraBars.BarDockStyle.Bottom
-            Me.ToolBar.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoScanBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoDownBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoCollectBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoShieldBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel1), New DevExpress.XtraBars.LinkPersistInfo(Me.DownNowStat), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel2), New DevExpress.XtraBars.LinkPersistInfo(Me.PaggingInfo), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel3), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoFirstBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoPrevBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoNextBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoLastBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)})
+            Me.ToolBar.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoScanBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoDownBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoCollectBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.DoShieldBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel1), New DevExpress.XtraBars.LinkPersistInfo(Me.StatLbl), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel2), New DevExpress.XtraBars.LinkPersistInfo(Me.PaggingLbl), New DevExpress.XtraBars.LinkPersistInfo(Me.SpacePanel3), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoFirstBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoPrevBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoNextBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph), New DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, Me.GoLastBtn, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)})
             Me.ToolBar.OptionsBar.AllowQuickCustomization = False
             Me.ToolBar.OptionsBar.MinHeight = 30
             Me.ToolBar.Text = "工具条"
@@ -141,13 +141,13 @@
             Me.SpacePanel1.TextAlignment = System.Drawing.StringAlignment.Near
             Me.SpacePanel1.Width = 10
             '
-            'DownNowStat
+            'StatLbl
             '
-            Me.DownNowStat.AllowRightClickInMenu = False
-            Me.DownNowStat.Caption = "正在下载：{f}"
-            Me.DownNowStat.Id = 10
-            Me.DownNowStat.Name = "DownNowStat"
-            Me.DownNowStat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            Me.StatLbl.AllowRightClickInMenu = False
+            Me.StatLbl.Caption = "正在下载：{f}"
+            Me.StatLbl.Id = 10
+            Me.StatLbl.Name = "StatLbl"
+            Me.StatLbl.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             '
             'SpacePanel2
             '
@@ -158,11 +158,11 @@
             Me.SpacePanel2.TextAlignment = System.Drawing.StringAlignment.Near
             Me.SpacePanel2.Width = 32
             '
-            'PaggingInfo
+            'PaggingLbl
             '
-            Me.PaggingInfo.Caption = "当前第 0 页，共 0 页"
-            Me.PaggingInfo.Id = 18
-            Me.PaggingInfo.Name = "PaggingInfo"
+            Me.PaggingLbl.Caption = "当前第 0 页，共 0 页"
+            Me.PaggingLbl.Id = 18
+            Me.PaggingLbl.Name = "PaggingLbl"
             '
             'SpacePanel3
             '
@@ -758,7 +758,7 @@
         Friend WithEvents AbstractCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents DownloadAddrCol As DevExpress.XtraTreeList.Columns.TreeListColumn
         Friend WithEvents IsReadCol As DevExpress.XtraTreeList.Columns.TreeListColumn
-        Friend WithEvents DownNowStat As DevExpress.XtraBars.BarHeaderItem
+        Friend WithEvents StatLbl As DevExpress.XtraBars.BarHeaderItem
         Friend WithEvents CategoryBox As DevExpress.XtraEditors.ComboBoxEdit
         Friend WithEvents BookNameBox As DevExpress.XtraEditors.ButtonEdit
         Friend WithEvents AuthorBox As DevExpress.XtraEditors.ButtonEdit
@@ -769,7 +769,7 @@
         Friend WithEvents GoPrevBtn As DevExpress.XtraBars.BarButtonItem
         Friend WithEvents GoNextBtn As DevExpress.XtraBars.BarButtonItem
         Friend WithEvents GoLastBtn As DevExpress.XtraBars.BarButtonItem
-        Friend WithEvents PaggingInfo As DevExpress.XtraBars.BarHeaderItem
+        Friend WithEvents PaggingLbl As DevExpress.XtraBars.BarHeaderItem
         Friend WithEvents SpacePanel1 As DevExpress.XtraBars.BarStaticItem
         Friend WithEvents SpacePanel2 As DevExpress.XtraBars.BarStaticItem
         Friend WithEvents SpacePanel3 As DevExpress.XtraBars.BarStaticItem

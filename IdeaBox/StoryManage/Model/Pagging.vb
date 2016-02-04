@@ -8,13 +8,18 @@ Namespace StoryManage.Model
 
         Sub New(ByVal xRowCount As Integer)
             RowCount = xRowCount
-            Dim TempInt As Integer = RowCount Mod perPage
-            If TempInt > 0 Then
-                PageCount = RowCount \ perPage + 1
+            If RowCount > 0 Then
+                Dim TempInt As Integer = RowCount Mod perPage
+                If TempInt > 0 Then
+                    PageCount = RowCount \ perPage + 1
+                Else
+                    PageCount = RowCount \ perPage
+                End If
+                CurrentIndex = 1
             Else
-                PageCount = RowCount \ perPage
+                PageCount = 1
+                CurrentIndex = 1
             End If
-            CurrentIndex = 1
         End Sub
 
     End Class

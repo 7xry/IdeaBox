@@ -8,272 +8,226 @@ Imports IdeaBox.Utils.FileSystem.Path
 Imports System.IO
 Imports IdeaBox.StoryManage.Impl
 Imports IdeaBox.Utils.FileSystem.Dict
-Imports IdeaBox.Utils.FileSystem.String
 Imports System.Threading
 
 Namespace StoryManage.View
     Public Class Fr_Aqtxt
-        ''' <summary>
-        ''' 表名属性
-        ''' </summary>
-        ''' <value>表名</value>
-        ''' <returns>表名</returns>
-        ''' <remarks>表名属性</remarks>
-        Property TableName As String
-        ''' <summary>
-        ''' 线程任务
-        ''' </summary>
-        ''' <remarks>线程任务</remarks>
-        Dim ThreadTask As Threading.Thread
-        ''' <summary>
-        ''' 异步结果
-        ''' </summary>
-        ''' <remarks>异步结果</remarks>
-        Private asyncResult As IAsyncResult
-        ''' <summary>
-        ''' 线程不在工作
-        ''' </summary>
-        ''' <remarks>线程不在工作</remarks>
-        Private ThreadIsNotWork As Boolean = True
-        ''' <summary>
-        ''' 分页信息
-        ''' </summary>
-        ''' <remarks></remarks>
-        Private pg As Pagging
 
-        ''' <summary>
-        ''' 构造方法
-        ''' </summary>
-        ''' <param name="TName">表名</param>
-        ''' <remarks>构造方法</remarks>
-        Sub New(ByVal TName As String)
-            ' 此调用是设计器所必需的。
-            InitializeComponent()
-            TableName = TName
+#Region "变量"
+        '多线程
+        Dim ThreadTask As Thread
+        '分页信息
+        Private page As Pagging
+#End Region
+
+#Region "属性"
+        '设置动态表名
+        Property TName As String
+        '当前线程是否已经完成
+        Property IsCompleted As Boolean = True
+#End Region
+
+#Region "委托"
+        '安全委托
+        Public Delegate Sub InvokeHandler()
+        Public Shared Sub SafeInvoke(ByVal control As Control, ByVal handler As InvokeHandler)
+            If control.InvokeRequired Then
+                control.Invoke(handler)
+            Else
+                handler()
+            End If
         End Sub
 
+        '委托设置状态栏
+        Public Sub SetStatInvoke(ByVal Caption As String)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 StatLbl.Caption = Caption
+                                             End Sub))
+        End Sub
+
+        '委托设置分页按钮是否可见
+        Public Sub SetStatVisibilityInvoke(ByVal bol As BarItemVisibility)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 StatLbl.Visibility = bol
+                                             End Sub))
+        End Sub
+
+        '委托设置分页按钮是否可用
+        Public Sub SetStatEnableInvoke(ByVal bol As Boolean)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 StatLbl.Enabled = bol
+                                             End Sub))
+        End Sub
+
+        '委托分页状态栏
+        Public Sub SetPaggingInvoke()
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 PaggingLbl.Caption = String.Format("当前第 {0} 页，共 {1} 页", page.CurrentIndex, page.PageCount)
+                                             End Sub))
+        End Sub
+
+        '委托设置分页状态栏是否可见
+        Public Sub SetPaggingVisibilityInvoke(ByVal bol As BarItemVisibility)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 PaggingLbl.Visibility = bol
+                                             End Sub))
+        End Sub
+
+        '委托设置分页状态栏是否可用
+        Public Sub SetPaggingEnableInvoke(ByVal bol As Boolean)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 PaggingLbl.Enabled = bol
+                                             End Sub))
+        End Sub
+
+        '委托设置分页按钮是否可见
+        Public Sub SetPaggingBtnVisibilityInvoke(ByVal bol As BarItemVisibility)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 GoFirstBtn.Visibility = bol
+                                                 GoPrevBtn.Visibility = bol
+                                                 GoNextBtn.Visibility = bol
+                                                 GoLastBtn.Visibility = bol
+                                             End Sub))
+        End Sub
+
+        '委托设置分页按钮是否可用
+        Public Sub SetPaggingBtnEnableInvoke(ByVal FirstBol As Boolean, ByVal PrevBol As Boolean, ByVal NextBol As Boolean, ByVal LastBol As Boolean)
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 GoFirstBtn.Enabled = FirstBol
+                                                 GoPrevBtn.Enabled = PrevBol
+                                                 GoNextBtn.Enabled = NextBol
+                                                 GoLastBtn.Enabled = LastBol
+                                             End Sub))
+        End Sub
+
+        '委托加载列表信息
+        Public Sub SetTreeStartInvoke()
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 MainTree.BeginUnboundLoad()
+                                             End Sub))
+        End Sub
+
+        '委托加载列表信息
+        Public Sub SetTreeEndInvoke()
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 MainTree.ExpandAll()
+                                                 MainTree.EndUnboundLoad()
+                                                 MainTree.Focus()
+                                             End Sub))
+        End Sub
+
+        '委托加载列表信息
+        Public Sub SetTreeInvoke()
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 MainTree.Nodes.Clear()
+                                             End Sub))
+        End Sub
+
+        '委托加载列表信息
+        Public Function SetTreeInvoke(ByVal nodeDate As Object, ByVal parentNode As TreeListNode) As TreeListNode
+            Dim Article As TreeListNode = Nothing
+            SafeInvoke(Me, New InvokeHandler(Sub()
+                                                 Article = MainTree.AppendNode(nodeDate, parentNode)
+                                             End Sub))
+            Return Article
+        End Function
+
+        
+#End Region
+
+#Region "构造方法"
+        Sub New(ByVal TableName As String)
+            ' 此调用是设计器所必需的。
+            InitializeComponent()
+            ' 在 InitializeComponent() 调用之后添加任何初始化。
+            TName = TableName
+            '新增网站时，请对应增加控制对象
+            Select Case TName
+                Case "DS_TB_AQTXT"
+                    StoryImplOpt = New AqTxtImpl(TName)
+            End Select
+            LoadCategoryList()
+        End Sub
+#End Region
+
+#Region "多线程"
         ''' <summary>
-        ''' 执行线程
+        ''' 执行线程（无参数）
         ''' </summary>
         ''' <param name="addrOf">线程事件</param>
-        ''' <remarks>执行线程</remarks>
-        Sub DoThread(ByVal addrOf As Threading.ParameterizedThreadStart)
-            If ThreadIsNotWork <> True Then
+        ''' <remarks>执行线程（无参数）</remarks>
+        Sub DoThread(ByVal addrOf As ThreadStart)
+            If IsCompleted <> True Then
+                Log.Showlog("当前有任务正在执行，请稍后……", MsgType.WarnMsg)
                 Return
             End If
             '创建线程加载showloadlist子程序加载内容
-            ThreadTask = New Threading.Thread(addrOf)
+            ThreadTask = New Thread(addrOf)
             ThreadTask.Start()
         End Sub
 
         ''' <summary>
-        ''' 委托下载文件
+        ''' 执行线程（有参数）
         ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>委托下载文件</remarks>
-        Private Delegate Function SetDownLoad() As Boolean
-
-        ''' <summary>
-        ''' 委托采集
-        ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>委托采集</remarks>
-        Private Delegate Function SetCollect() As Boolean
-
-        ''' <summary>
-        ''' 委托屏蔽
-        ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>委托屏蔽</remarks>
-        Private Delegate Function SetShield() As Boolean
-
-        ''' <summary>
-        ''' 委托状态
-        ''' </summary>
-        ''' <remarks>委托状态</remarks>
-        Public Delegate Sub SetStatLbl(ByVal CaptionStr As String)
-
-        ''' <summary>
-        ''' 获取委托结果
-        ''' </summary>
-        ''' <param name="myIar">委托返回值</param>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>获取委托结果</remarks>
-        Private Function GetCallBack(ByVal myIar As IAsyncResult) As Boolean
-            Return MainTree.EndInvoke(myIar)
-        End Function
-
-        ''' <summary>
-        ''' 委托下载事件
-        ''' </summary>
-        ''' <remarks>委托下载事件</remarks>
-        Private Sub DoDownLoad()
-            ThreadIsNotWork = False
-            asyncResult = frMain.BeginInvoke(New SetDownLoad(AddressOf DownLoadFile))
-            ThreadIsNotWork = GetCallBack(asyncResult)
-        End Sub
-
-        ''' <summary>
-        ''' 委托采集事件
-        ''' </summary>
-        ''' <remarks>委托采集事件</remarks>
-        Private Sub DoCollect()
-            ThreadIsNotWork = False
-            asyncResult = frMain.BeginInvoke(New SetCollect(AddressOf Collect))
-            ThreadIsNotWork = GetCallBack(asyncResult)
-        End Sub
-
-        ''' <summary>
-        ''' 委托屏蔽事件
-        ''' </summary>
-        ''' <remarks>委托屏蔽事件</remarks>
-        Private Sub DoShield()
-            ThreadIsNotWork = False
-            asyncResult = frMain.BeginInvoke(New SetShield(AddressOf Shield))
-            ThreadIsNotWork = GetCallBack(asyncResult)
-        End Sub
-
-        ''' <summary>
-        ''' 委托屏蔽事件
-        ''' </summary>
-        ''' <remarks>委托屏蔽事件</remarks>
-        Public Sub StatLbl(ByVal CaptionStr As String)
-            DownNowStat.Caption = CaptionStr
-            DownNowStat.Refresh()
-        End Sub
-
-        ''' <summary>
-        ''' 加载列表事件
-        ''' </summary>
-        ''' <param name="xScan">查询条件</param>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>加载列表事件</remarks>
-        Private Function LoadList(ByVal xScan As Story) As Boolean
-            MainTree.BeginUnboundLoad()
-            '清除列表显示
-            MainTree.Nodes.Clear()
-            Dim parentForRootNodes As TreeListNode = Nothing
-            If xScan Is Nothing Then
-                MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, 0)}, parentForRootNodes)
-                MainTree.ExpandAll()
-                MainTree.EndUnboundLoad()
-                Return True
+        ''' <param name="addrOf">线程事件</param>
+        ''' <param name="obj">参数</param>
+        ''' <remarks>执行线程（有参数）</remarks>
+        Sub DoThread(ByVal addrOf As ParameterizedThreadStart, ByVal obj As Object)
+            If IsCompleted <> True Then
+                Return
             End If
-            Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TableName, (pg.CurrentIndex - 1) * perPage)
-            If ls IsNot Nothing Then
-                Dim Article As TreeListNode = MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, pg.RowCount)}, parentForRootNodes)
-                '创建根节点
-                For Each xStory As Story In ls
-                    MainTree.AppendNode(New Object() {xStory, xStory.BookName, xStory.Author,
-                                                  xStory.Category, xStory.FileSize, xStory.Rating,
-                                                  xStory.DownloadQuantity, xStory.UploadDate, xStory.Abstract, xStory.DownloadAddr,
-                                                  xStory.IsRead}, Article)
-                Next
-            Else
-                MainTree.AppendNode(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, pg.RowCount)}, parentForRootNodes)
+            '创建线程加载showloadlist子程序加载内容
+            ThreadTask = New Thread(addrOf)
+            ThreadTask.Start(obj)
+        End Sub
+
+        ''' <summary>
+        ''' 关闭线程
+        ''' </summary>
+        ''' <remarks>关闭线程</remarks>
+        Sub DoThreadDispose()
+            If ThreadTask.IsAlive Then
+                ThreadTask.Abort()
             End If
-            MainTree.ExpandAll()
-            MainTree.EndUnboundLoad()
-            Return True
-        End Function
+        End Sub
+#End Region
 
+#Region "公用函数"
         ''' <summary>
-        ''' 下载文件事件
+        ''' 获取查询条件
         ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>下载文件事件</remarks>
-        Private Function DownLoadFile() As Boolean
-            DownNowStat.Visibility = BarItemVisibility.Always
-            PaggingInfo.Visibility = BarItemVisibility.Never
-            SetPaggingBtnVisiable(BarItemVisibility.Never)
-            Dim timer As New Stopwatch
-            Dim setStat As SetStatLbl = New SetStatLbl(AddressOf frStory.StatLbl)
-            timer.Start()
-            setStat.Invoke("正在获取下载列表，请稍后……")
-            Dim fileLs As List(Of Story) = GetSelectFiles()
-            If fileLs.Count <= 0 Then
-                Log.Showlog("请选择要下载的记录！", MsgType.WarnMsg)
-                Return True
-            End If
-            Dim CurIndex As Integer = 1
-            For Each f As Story In fileLs
-                Dim fDown As New FileDown
-                fDown.fileInfo = AqtxtImplOpt.GetCollect(f)
-                fDown.SourceFile = fDown.fileInfo.DownloadAddr
-                fDown.TargetFile = String.Format("{0}\{1}", AppPath.GetRunPath, fDown.fileInfo.Category)
-                If Directory.Exists(fDown.TargetFile) = False Then
-                    Directory.CreateDirectory(fDown.TargetFile)
-                End If
-                fDown.FileExtension = Mid(fDown.SourceFile, fDown.SourceFile.LastIndexOf(".") + 2)
-                fDown.TargetFile = String.Format("{0}\{1}.{2}", fDown.TargetFile, fDown.fileInfo.BookName, fDown.FileExtension)
-                fDown.CurrentIndex = CurIndex
-                fDown.AllCount = fileLs.Count
-                fDown.timer = timer
-                FileDownOpt.DownLoadFiles(fDown)
-                'setStat.Invoke(String.Format("正在下载：{0}/{1} - {2}.{3}，累计耗时：{4}", CurIndex, fileLs.Count, fDown.fileInfo.BookName, fDown.FileExtension, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
-                CurIndex += 1
-            Next
-            timer.Stop()
-            DownNowStat.Visibility = BarItemVisibility.Never
-            PaggingInfo.Visibility = BarItemVisibility.Always
-            SetPaggingBtnVisiable(BarItemVisibility.Always)
-            Log.Showlog(String.Format("下载完成，共计下载：{0} 本，累计耗时：{1}", fileLs.Count, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
-            Return True
-        End Function
-
-        ''' <summary>
-        ''' 采集事件
-        ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>采集事件</remarks>
-        Function Collect() As Boolean
-            DownNowStat.Visibility = BarItemVisibility.Always
-            PaggingInfo.Visibility = BarItemVisibility.Never
-            SetPaggingBtnVisiable(BarItemVisibility.Never)
-            AqtxtImplOpt = New WebAqTxtImpl(TableName)
-            StoryOpt.ResetTable(TableName)
-            DownNowStat.Caption = String.Format("正在准备开始采集，请稍后……")
-            DownNowStat.Refresh()
-            AqtxtImplOpt.GetBooks()
-            SetPaggingBtnVisiable(BarItemVisibility.Always)
-            DownNowStat.Visibility = BarItemVisibility.Never
-            PaggingInfo.Visibility = BarItemVisibility.Always
-            Return True
-        End Function
-
-        ''' <summary>
-        ''' 屏蔽事件
-        ''' </summary>
-        ''' <returns>成功与否</returns>
-        ''' <remarks>屏蔽事件</remarks>
-        Function Shield() As Boolean
-            Dim fileLs As List(Of Story) = GetSelectFiles()
-            Dim sLs As New List(Of Story)
-            Select Case DoShieldBtn.Caption
-                Case "屏蔽"
-                    If fileLs.Count <= 0 Then
-                        Log.Showlog("请选择要屏蔽的记录！", MsgType.WarnMsg)
-                        Return True
-                    End If
-                    For Each f As Story In fileLs
-                        f.IsRead = 1
-                        sLs.Add(f)
-                    Next
-                Case "解除屏蔽"
-                    If fileLs.Count <= 0 Then
-                        Log.Showlog("请选择要解除屏蔽的记录！", MsgType.WarnMsg)
-                        Return True
-                    End If
-                    For Each f As Story In fileLs
-                        f.IsRead = 0
-                        sLs.Add(f)
-                    Next
+        ''' <returns>查询条件</returns>
+        ''' <remarks>获取查询条件</remarks>
+        Function GetScanCondition() As Story
+            Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.EditValue, AbstractBox.Text, RatingBox.Text)
+            Select Case ShieldBox.SelectedIndex
+                Case 0
+                    xScan.IsRead = String.Empty
+                Case 1
+                    xScan.IsRead = 1
+                Case 2
+                    xScan.IsRead = 0
             End Select
-            StoryOpt.Update(sLs, TableName)
-            ResetPagging()
-            LoadList(GetScanCondition)
-            Return True
+            Return xScan
         End Function
+
+        ''' <summary>
+        ''' 重置分页信息
+        ''' </summary>
+        ''' <remarks>重置分页信息</remarks>
+        Private Sub ResetPagging(ByVal xScan As Story)
+            If xScan.IsNothing = False Then
+                page = New Pagging(StoryOpt.GetCount(xScan, TName))
+            Else
+                page = New Pagging(0)
+            End If
+            SetPaggingInvoke()
+            If page.PageCount > 1 Then
+                SetPaggingBtnEnableInvoke(False, False, True, True)
+            Else
+                SetPaggingBtnEnableInvoke(False, False, False, False)
+            End If
+        End Sub
 
         ''' <summary>
         ''' 获取选择的记录
@@ -295,7 +249,9 @@ Namespace StoryManage.View
             Next
             Return fileLs
         End Function
+#End Region
 
+#Region "公用方法"
         ''' <summary>
         ''' 加载小说分类
         ''' </summary>
@@ -304,78 +260,139 @@ Namespace StoryManage.View
             CategoryBox.Properties.BeginUpdate()
             CategoryBox.Properties.Items.Clear()
             CategoryBox.Properties.Items.Add("全部小说")
-            For Each Category In StoryOpt.GetCategory(TableName)
+            For Each Category In StoryOpt.GetCategory(TName)
                 CategoryBox.Properties.Items.Add(Category)
             Next
             If CategoryBox.Properties.Items.Count > 1 Then
                 CategoryBox.SelectedItem = CategoryBox.Properties.Items(1)
             End If
             '除了数据库中类型，新增全部小说筛选
-            AbstractBox.Properties.EndUpdate()
+            CategoryBox.Properties.EndUpdate()
         End Sub
+#End Region
+        
+#Region "事件"
 
-        ''' <summary>
-        ''' 获取查询条件
-        ''' </summary>
-        ''' <returns>查询条件</returns>
-        ''' <remarks>获取查询条件</remarks>
-        Function GetScanCondition() As Story
-            Dim xScan As New Story(BookNameBox.Text, AuthorBox.Text, CategoryBox.EditValue, AbstractBox.Text, RatingBox.Text)
-            Select Case ShieldBox.SelectedIndex
-                Case 0
-                    xScan.IsRead = String.Empty
-                Case 1
-                    xScan.IsRead = 1
-                Case 2
-                    xScan.IsRead = 0
-            End Select
-            Return xScan
-        End Function
-
-        ''' <summary>
-        ''' 设置分页按钮
-        ''' </summary>
-        ''' <param name="FirstBol">首页</param>
-        ''' <param name="PrevBol">前页</param>
-        ''' <param name="NextBol">后页</param>
-        ''' <param name="LastBol">末页</param>
-        ''' <remarks>设置分页按钮</remarks>
-        Private Sub SetPaggingBtn(ByVal FirstBol As Boolean, ByVal PrevBol As Boolean, ByVal NextBol As Boolean, ByVal LastBol As Boolean)
-            GoFirstBtn.Enabled = FirstBol
-            GoPrevBtn.Enabled = PrevBol
-            GoNextBtn.Enabled = NextBol
-            GoLastBtn.Enabled = LastBol
-        End Sub
-
-        Private Sub SetPaggingBtnVisiable(ByVal bol As BarItemVisibility)
-            GoFirstBtn.Visibility = bol
-            GoPrevBtn.Visibility = bol
-            GoNextBtn.Visibility = bol
-            GoLastBtn.Visibility = bol
-        End Sub
-
-        ''' <summary>
-        ''' 重置分页信息
-        ''' </summary>
-        ''' <remarks>重置分页信息</remarks>
-        Private Sub ResetPagging()
-            pg = New Pagging(StoryOpt.GetCount(GetScanCondition, TableName))
-            ShowPaggingInfo()
-            If pg.RowCount <> 0 Then
-                SetPaggingBtn(False, False, True, True)
-            Else
-                SetPaggingBtn(False, False, False, False)
+        Private Sub Scan(ByVal xScan As Story)
+            IsCompleted = False
+            SetTreeStartInvoke()
+            SetTreeInvoke()
+            Dim parentForRootNodes As TreeListNode = Nothing
+            If xScan.IsNothing Then
+                SetTreeInvoke(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, 0)}, parentForRootNodes)
+                SetTreeEndInvoke()
+                IsCompleted = True
+                Return
             End If
+            Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TName, (page.CurrentIndex - 1) * perPage)
+            If ls IsNot Nothing Then
+                Dim Article As TreeListNode = SetTreeInvoke(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, page.RowCount)}, parentForRootNodes)
+                '创建根节点
+                For Each xStory As Story In ls
+                    SetTreeInvoke(New Object() {xStory, xStory.BookName, xStory.Author,
+                                                  xStory.Category, xStory.FileSize, xStory.Rating,
+                                                  xStory.DownloadQuantity, xStory.UploadDate, xStory.Abstract, xStory.DownloadAddr,
+                                                  xStory.IsRead}, Article)
+                Next
+            Else
+                SetTreeInvoke(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, page.RowCount)}, parentForRootNodes)
+            End If
+            SetTreeEndInvoke()
+            IsCompleted = True
         End Sub
 
-        ''' <summary>
-        ''' 显示分页信息
-        ''' </summary>
-        ''' <remarks>显示分页信息</remarks>
-        Private Sub ShowPaggingInfo()
-            PaggingInfo.Caption = String.Format("当前第 {0} 页，共 {1} 页", pg.CurrentIndex, pg.PageCount)
+        Private Sub Download()
+            IsCompleted = False
+            Dim timer As New Stopwatch
+            timer.Start()
+            Dim fileLs As List(Of Story) = GetSelectFiles()
+            If fileLs.Count <= 0 Then
+                Log.Showlog("请选择要下载的记录！", MsgType.WarnMsg)
+                IsCompleted = True
+                Return
+            End If
+            SetStatInvoke(String.Format("正在获取下载列表，请稍后……"))
+            SetStatVisibilityInvoke(BarItemVisibility.Always)
+            SetPaggingVisibilityInvoke(BarItemVisibility.Never)
+            SetPaggingBtnVisibilityInvoke(BarItemVisibility.Never)
+            Dim CurIndex As Integer = 1
+            For Each f As Story In fileLs
+                Dim fDown As New FileDown
+                fDown.fileInfo = StoryImplOpt.GetBookInfo(f)
+                fDown.SourceFile = fDown.fileInfo.DownloadAddr
+                fDown.TargetFile = String.Format("{0}\{1}", AppPath.GetRunPath, fDown.fileInfo.Category)
+                If Directory.Exists(fDown.TargetFile) = False Then
+                    Directory.CreateDirectory(fDown.TargetFile)
+                End If
+                fDown.FileExtension = Mid(fDown.SourceFile, fDown.SourceFile.LastIndexOf(".") + 2)
+                fDown.TargetFile = String.Format("{0}\{1}.{2}", fDown.TargetFile, fDown.fileInfo.BookName, fDown.FileExtension)
+                fDown.CurrentIndex = CurIndex
+                fDown.AllCount = fileLs.Count
+                fDown.timer = timer
+                FileDownOpt.DownLoadFiles(fDown)
+                CurIndex += 1
+            Next
+            timer.Stop()
+            SetStatVisibilityInvoke(BarItemVisibility.Never)
+            SetPaggingVisibilityInvoke(BarItemVisibility.Always)
+            SetPaggingBtnVisibilityInvoke(BarItemVisibility.Always)
+            Log.Showlog(String.Format("下载完成，共计下载：{0} 本，累计耗时：{1}", fileLs.Count, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
+            IsCompleted = True
         End Sub
 
+        Private Sub Collect()
+            IsCompleted = False
+            SetStatInvoke(String.Format("正在准备开始采集，请稍后……"))
+            SetStatVisibilityInvoke(BarItemVisibility.Always)
+            SetPaggingVisibilityInvoke(BarItemVisibility.Never)
+            SetPaggingBtnVisibilityInvoke(BarItemVisibility.Never)
+            Dim timer As New Stopwatch
+            timer.Start()
+            StoryOpt.ResetTable(TName)
+            StoryImplOpt.GetBooks(timer)
+            timer.Stop()
+            SetStatVisibilityInvoke(BarItemVisibility.Never)
+            SetPaggingVisibilityInvoke(BarItemVisibility.Always)
+            SetPaggingBtnVisibilityInvoke(BarItemVisibility.Always)
+            Log.Showlog(String.Format("采集完成，共计耗时：{0}", timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
+            Scan(GetScanCondition)
+            IsCompleted = True
+        End Sub
+
+        Private Sub Shield()
+            IsCompleted = False
+            Dim fileLs As List(Of Story) = GetSelectFiles()
+            Dim sLs As New List(Of Story)
+            Select Case DoShieldBtn.Caption
+                Case "屏蔽"
+                    If fileLs.Count <= 0 Then
+                        Log.Showlog("请选择要屏蔽的记录！", MsgType.WarnMsg)
+                        Return
+                        IsCompleted = True
+                    End If
+                    For Each f As Story In fileLs
+                        f.IsRead = 1
+                        sLs.Add(f)
+                    Next
+                Case "解除屏蔽"
+                    If fileLs.Count <= 0 Then
+                        Log.Showlog("请选择要解除屏蔽的记录！", MsgType.WarnMsg)
+                        Return
+                        IsCompleted = True
+                    End If
+                    For Each f As Story In fileLs
+                        f.IsRead = 0
+                        sLs.Add(f)
+                    Next
+            End Select
+            StoryOpt.Update(sLs, TName)
+            ResetPagging(GetScanCondition)
+            Scan(GetScanCondition)
+            IsCompleted = True
+        End Sub
+#End Region
+
+#Region "窗体事件"
         ''' <summary>
         ''' 窗体初始化
         ''' </summary>
@@ -383,8 +400,18 @@ Namespace StoryManage.View
         ''' <param name="e">事件</param>
         ''' <remarks>窗体初始化</remarks>
         Private Sub Fr_User_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-            LoadCategoryList()
-            LoadList(Nothing)
+            ResetPagging(New Story)
+            DoThread(AddressOf Scan, New Story)
+        End Sub
+
+        ''' <summary>
+        ''' 窗体关闭事件
+        ''' </summary>
+        ''' <param name="sender">发送方</param>
+        ''' <param name="e">事件</param>
+        ''' <remarks>关闭窗体时自动终止后台线程</remarks>
+        Private Sub Fr_Aqtxt_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles MyBase.FormClosed
+            DoThreadDispose()
         End Sub
 
         ''' <summary>
@@ -396,60 +423,62 @@ Namespace StoryManage.View
         Private Sub Btn_ItemClick(ByVal sender As Object, ByVal e As ItemClickEventArgs) Handles DoScanBtn.ItemClick, DoDownBtn.ItemClick, DoCollectBtn.ItemClick, DoShieldBtn.ItemClick, GoFirstBtn.ItemClick, GoPrevBtn.ItemClick, GoNextBtn.ItemClick, GoLastBtn.ItemClick
             Select Case e.Item.Name
                 Case "DoScanBtn"
-                    pg = New Pagging(StoryOpt.GetCount(GetScanCondition, TableName))
-                    ResetPagging()
-                    LoadList(GetScanCondition)
+                    ResetPagging(GetScanCondition)
+                    DoThread(AddressOf Scan, GetScanCondition)
                 Case "DoDownBtn"
-                    DoThread(AddressOf DoDownLoad)
+                    DoThread(AddressOf Download)
                 Case "DoCollectBtn"
                     If Log.ShowConfirm("采集将清空现有数据重新从网站同步，是否需要采集？【该操作不可逆，不可取消！】") = False Then
                         Return
                     End If
-                    DoThread(AddressOf DoCollect)
+                    DoThread(AddressOf Collect)
                 Case "DoShieldBtn"
-                    DoThread(AddressOf DoShield)
+                    DoThread(AddressOf Shield)
                 Case "GoFirstBtn"
-                    pg.CurrentIndex = 1
-                    SetPaggingBtn(False, False, True, True)
-                    ShowPaggingInfo()
-                    LoadList(GetScanCondition)
+                    page.CurrentIndex = 1
+                    If page.PageCount > 1 Then
+                        SetPaggingBtnEnableInvoke(False, False, True, True)
+                    Else
+                        SetPaggingBtnEnableInvoke(False, False, False, False)
+                    End If
+                    SetPaggingInvoke()
+                    DoThread(AddressOf Scan, GetScanCondition)
                 Case "GoPrevBtn"
-                    pg.CurrentIndex -= 1
-                    If pg.CurrentIndex = 1 Then
-                        SetPaggingBtn(False, False, True, True)
+                    If page.CurrentIndex > 1 Then
+                        page.CurrentIndex -= 1
                     Else
-                        SetPaggingBtn(True, True, True, True)
+                        page.CurrentIndex = 1
                     End If
-                    ShowPaggingInfo()
-                    LoadList(GetScanCondition)
+                    If page.CurrentIndex = 1 Then
+                        SetPaggingBtnEnableInvoke(False, False, True, True)
+                    Else
+                        SetPaggingBtnEnableInvoke(True, True, True, True)
+                    End If
+                    SetPaggingInvoke()
+                    DoThread(AddressOf Scan, GetScanCondition)
                 Case "GoNextBtn"
-                    pg.CurrentIndex += 1
-                    If pg.CurrentIndex = pg.PageCount - 1 Then
-                        SetPaggingBtn(True, True, False, False)
+                    If page.CurrentIndex < page.PageCount Then
+                        page.CurrentIndex += 1
                     Else
-                        SetPaggingBtn(True, True, True, True)
+                        page.CurrentIndex = page.PageCount
                     End If
-                    ShowPaggingInfo()
-                    LoadList(GetScanCondition)
+                    If page.CurrentIndex = page.PageCount Then
+                        SetPaggingBtnEnableInvoke(True, True, False, False)
+                    Else
+                        SetPaggingBtnEnableInvoke(True, True, True, True)
+                    End If
+                    SetPaggingInvoke()
+                    DoThread(AddressOf Scan, GetScanCondition)
                 Case "GoLastBtn"
-                    pg.CurrentIndex = pg.PageCount
-                    SetPaggingBtn(True, True, False, False)
-                    ShowPaggingInfo()
-                    LoadList(GetScanCondition)
+                    page.CurrentIndex = page.PageCount
+                    If page.PageCount > 1 Then
+                        SetPaggingBtnEnableInvoke(True, True, False, False)
+                    Else
+                        SetPaggingBtnEnableInvoke(False, False, False, False)
+                    End If
+                    SetPaggingInvoke()
+                    DoThread(AddressOf Scan, GetScanCondition)
             End Select
-        End Sub
-
-        ''' <summary>
-        ''' 清除按钮事件
-        ''' </summary>
-        ''' <param name="sender">发起方</param>
-        ''' <param name="e">事件</param>
-        ''' <remarks>清除按钮事件</remarks>
-        Private Sub ClearBtn_ButtonClick(ByVal sender As Object, ByVal e As ButtonPressedEventArgs) Handles RatingBox.ButtonClick, AuthorBox.ButtonClick, BookNameBox.ButtonClick, AbstractBox.ButtonClick
-            If e.Button.Kind = ButtonPredefines.Delete Then
-                CType(sender, ButtonEdit).Text = String.Empty
-                CType(sender, ButtonEdit).EditValue = Nothing
-            End If
         End Sub
 
         ''' <summary>
@@ -458,7 +487,7 @@ Namespace StoryManage.View
         ''' <param name="sender">发起方</param>
         ''' <param name="e">事件</param>
         ''' <remarks>列表焦点变换事件</remarks>
-        Private Sub MainTree_FocusedNodeChanged(ByVal sender As System.Object, ByVal e As DevExpress.XtraTreeList.FocusedNodeChangedEventArgs) Handles MainTree.FocusedNodeChanged
+        Private Sub MainTree_FocusedNodeChanged(ByVal sender As Object, ByVal e As FocusedNodeChangedEventArgs) Handles MainTree.FocusedNodeChanged
             DoShieldBtn.Caption = "屏蔽"
             If e.Node Is Nothing Then
                 Return
@@ -477,10 +506,24 @@ Namespace StoryManage.View
         ''' <param name="sender">发起方</param>
         ''' <param name="e">事件</param>
         ''' <remarks>分类框关闭事件</remarks>
-        Private Sub CategoryBox_Properties_Closed(ByVal sender As System.Object, ByVal e As DevExpress.XtraEditors.Controls.ClosedEventArgs) Handles CategoryBox.Properties.Closed
-            ResetPagging()
-            LoadList(GetScanCondition)
-            MainTree.Focus()
+        Private Sub CategoryBox_Properties_Closed(ByVal sender As Object, ByVal e As ClosedEventArgs) Handles CategoryBox.Properties.Closed
+            ResetPagging(GetScanCondition)
+            DoThread(AddressOf Scan, GetScanCondition)
         End Sub
+
+        ''' <summary>
+        ''' 清除按钮事件
+        ''' </summary>
+        ''' <param name="sender">发起方</param>
+        ''' <param name="e">事件</param>
+        ''' <remarks>清除按钮事件</remarks>
+        Private Sub ClearBtn_ButtonClick(ByVal sender As Object, ByVal e As ButtonPressedEventArgs) Handles RatingBox.ButtonClick, AuthorBox.ButtonClick, BookNameBox.ButtonClick, AbstractBox.ButtonClick
+            If e.Button.Kind = ButtonPredefines.Delete Then
+                CType(sender, ButtonEdit).Text = String.Empty
+                CType(sender, ButtonEdit).EditValue = Nothing
+            End If
+        End Sub
+#End Region
+
     End Class
 End Namespace

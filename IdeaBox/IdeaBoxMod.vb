@@ -9,7 +9,7 @@ Module IdeaBoxMod
     '操作类实例
     Public StoryOpt As New StoryImpl
     Public FileDownOpt As New FileDownImpl
-    Public AqtxtImplOpt As New WebAqTxtImpl
+    Public StoryImplOpt As AqTxtImpl
     '窗体实例
     Public frMain As Fr_MainForm
     Public frStory As Fr_Aqtxt

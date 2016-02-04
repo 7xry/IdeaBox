@@ -61,9 +61,15 @@ Namespace Impl
             If tab.PageName <> String.Empty Then
                 Dim selectPage As XtraTabPage = GetSelectPage(tab)
                 If selectPage IsNot Nothing Then
+                    If selectPage.Controls.Count > 0 Then
+                        CType(selectPage.Controls(0), XtraForm).Close()
+                    End If
                     tab.TabCtrl.TabPages.Remove(selectPage)
                 End If
             Else
+                If tab.TabCtrl.SelectedTabPage.Controls.Count > 0 Then
+                    CType(tab.TabCtrl.SelectedTabPage.Controls(0), XtraForm).Close()
+                End If
                 tab.TabCtrl.TabPages.Remove(tab.TabCtrl.SelectedTabPage)
             End If
         End Sub

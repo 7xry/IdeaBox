@@ -13,6 +13,8 @@ Imports IdeaBox.Utils.FileSystem.Dict
 Imports DevExpress.XtraBars
 Imports IdeaBox.Utils.Database.API
 Imports IdeaBox.Utils.Database
+Imports System.Threading.Tasks
+
 Namespace View
     Partial Public Class Fr_MainForm
         Private CurrentPage As DevExpress.XtraTab.XtraTabPage = Nothing
@@ -93,6 +95,7 @@ Namespace View
         Private Sub iPaintStyle_CloseUp(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles iPaintStyle.CloseUp
             Me.Refresh()
         End Sub
-    End Class
 
+
+    End Class
 End Namespace

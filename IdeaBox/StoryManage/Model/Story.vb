@@ -44,6 +44,25 @@ Namespace StoryManage.Model
             Return strBuff.ToString
         End Function
 
+        Function IsNothing() As Boolean
+            If BookName Is Nothing Then
+                Return True
+            End If
+            If Author Is Nothing Then
+                Return True
+            End If
+            If Category Is Nothing Then
+                Return True
+            End If
+            If Rating Is Nothing Then
+                Return True
+            End If
+            If Abstract Is Nothing Then
+                Return True
+            End If
+            Return False
+        End Function
+
 
     End Class
 End Namespace

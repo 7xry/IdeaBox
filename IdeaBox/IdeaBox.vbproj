@@ -153,10 +153,16 @@
     <Compile Include="Impl\DBImpl.vb" />
     <Compile Include="Impl\FormImpl.vb" />
     <Compile Include="Model\TabForm.vb" />
-    <Compile Include="StoryManage\Impl\WebAqTxtImpl.vb" />
+    <Compile Include="StoryManage\Impl\AqTxtImpl.vb" />
     <Compile Include="StoryManage\Model\Pagging.vb" />
     <Compile Include="Utils\FileSystem\Net\HttpHelper.vb" />
     <Compile Include="Utils\FileSystem\String\SqlConvert.vb" />
+    <Compile Include="StoryManage\View\Fr_Aqtxt1.Designer.vb">
+      <DependentUpon>Fr_Aqtxt1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="StoryManage\View\Fr_Aqtxt1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\Fr_BaseForm.Designer.vb">
       <DependentUpon>Fr_BaseForm.vb</DependentUpon>
     </Compile>
@@ -178,7 +184,6 @@
     <Compile Include="StoryManage\Impl\StoryImpl.vb" />
     <Compile Include="StoryManage\Model\BaseVo.vb" />
     <Compile Include="StoryManage\Model\Story.vb" />
-    <Compile Include="StoryManage\Impl\AqtxtImpl.vb" />
     <Compile Include="StoryManage\View\Fr_Aqtxt.Designer.vb">
       <DependentUpon>Fr_Aqtxt.vb</DependentUpon>
     </Compile>
@@ -210,6 +215,9 @@
     <Compile Include="Utils\Security\MD5.vb" />
     <Compile Include="Utils\Windows\NetWork.vb" />
     <Compile Include="Utils\Windows\SysOpt.vb" />
+    <EmbeddedResource Include="StoryManage\View\Fr_Aqtxt1.resx">
+      <DependentUpon>Fr_Aqtxt1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Fr_BaseForm.resx">
       <DependentUpon>Fr_BaseForm.vb</DependentUpon>
     </EmbeddedResource>
