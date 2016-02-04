@@ -14,6 +14,7 @@ Imports DevExpress.XtraBars
 Imports IdeaBox.Utils.Database.API
 Imports IdeaBox.Utils.Database
 Imports System.Threading.Tasks
+Imports IdeaBox.StoryManage.Impl
 
 Namespace View
     Partial Public Class Fr_MainForm
@@ -54,14 +55,14 @@ Namespace View
             Application.Exit()
         End Sub
 
-        Private Sub Btn_LinkClicked(ByVal sender As Object, ByVal e As NavBarLinkEventArgs) Handles AqTxtBtn.LinkClicked, UserManagerBtn.LinkClicked
+        Private Sub Btn_LinkClicked(ByVal sender As Object, ByVal e As NavBarLinkEventArgs) Handles AqTxtBtn.LinkClicked, BookBaoBtn.LinkClicked, UserManagerBtn.LinkClicked
             Select Case e.Link.ItemName
                 Case "AqTxtBtn"
-                    frStory = New Fr_Aqtxt("DS_TB_AQTXT")
+                    frStory = New Fr_Story("DS_TB_AQTXT", New AqTxtImpl)
                     FormImpl.LoadTabPageForm(New TabForm(MainTab, TabModEnum.窗体, frStory, "爱奇小说网", e.Link.GetImage, True, DefaultBoolean.True))
-                Case "UserManagerBtn"
-                    'frUser = New Fr_User()
-                    'FormImpl.LoadTabPageForm(New TabForm(MainTab, TabModEnum.窗体, frUser, "员工管理", 2, True, DefaultBoolean.True))
+                Case "BookBaoBtn"
+                    frStory = New Fr_Story("DS_TB_BOOKBAO", New BookBaoImpl)
+                    FormImpl.LoadTabPageForm(New TabForm(MainTab, TabModEnum.窗体, frStory, "书包小说网", e.Link.GetImage, True, DefaultBoolean.True))
             End Select
 
         End Sub

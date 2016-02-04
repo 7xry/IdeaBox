@@ -1,21 +1,22 @@
 ﻿Imports HtmlAgilityPack
 Imports IdeaBox.Utils.FileSystem.Net
 Imports IdeaBox.StoryManage.Model
+Imports IdeaBox.StoryManage.API
 
 Namespace StoryManage.Impl
     Public Class AqTxtImpl
+        Implements IStoryWeb
+
+
         '采集网站网址
-        Const Url As String = "http://www.aqtxt.com"
-        '数据库表名
-        Dim TName As String
+        Property Url As String Implements API.IStoryWeb.Url
 
         ''' <summary>
         ''' 构造函数
         ''' </summary>
-        ''' <param name="TableName"></param>
         ''' <remarks></remarks>
-        Sub New(ByVal TableName As String)
-            TName = TableName
+        Sub New()
+            Url = "http://www.aqtxt.com"
         End Sub
 
         ''' <summary>
@@ -23,7 +24,7 @@ Namespace StoryManage.Impl
         ''' </summary>
         ''' <returns>最大页数</returns>
         ''' <remarks>获取网站书籍页数</remarks>
-        Public Function GetPageCount() As Integer
+        Public Function GetPageCount() As Integer Implements API.IStoryWeb.GetPageCount
             Dim rootNode As HtmlNode = HttpHelper.OpenUrl(String.Format("{0}/finished/1.htm", Url))
             Dim PageCount As String = HttpHelper.GetNodeStr(rootNode, "//*[@id='newbook']/div[16]/a[11]", 1)
             Return CInt(PageCount.Replace(".htm", ""))
@@ -34,7 +35,7 @@ Namespace StoryManage.Impl
         ''' </summary>
         ''' <param name="timer">计时器</param>
         ''' <remarks>采集书籍列表</remarks>
-        Public Sub GetBooks(ByVal timer As Stopwatch)
+        Public Function GetBooks(ByVal timer As Stopwatch, ByVal TableName As String) As Boolean Implements API.IStoryWeb.GetBooks
             Dim pageCount As Integer = GetPageCount()
             Dim bookLs As New List(Of Story)
             For page As Integer = 1 To pageCount
@@ -62,11 +63,12 @@ Namespace StoryManage.Impl
                     frStory.SetStatInvoke(String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", page, pageCount, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
                 Next
                 If bookLs.Count >= 300 Or page = pageCount Then
-                    StoryOpt.Add(bookLs, TName)
+                    storyOpt.Add(bookLs, TableName)
                     bookLs = New List(Of Story)
                 End If
             Next
-        End Sub
+            Return True
+        End Function
 
         ''' <summary>
         ''' 获取书籍详情
@@ -74,7 +76,7 @@ Namespace StoryManage.Impl
         ''' <param name="book">书记对象</param>
         ''' <returns>书籍详情信息</returns>
         ''' <remarks>获取书籍详情</remarks>
-        Public Function GetBookInfo(ByVal book As Story) As Story
+        Public Function GetBookInfo(ByVal book As Story) As Story Implements API.IStoryWeb.GetBookInfo
             Dim newBook As New Story
             Try
                 Dim rootNode As HtmlNode = HttpHelper.OpenUrl(book.DownloadAddr)

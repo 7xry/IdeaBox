@@ -6,34 +6,189 @@ IdeaBox
 </name>
 </assembly>
 <members>
-<member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
+<member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.#ctor">
 	<summary>
- 记录日志
+ 构造函数
  </summary>
-	<param name="msg">日志内容</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
+	<remarks></remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetPageCount">
 	<summary>
- 记录日志
+ 获取网站书籍页数
  </summary>
-	<param name="msg">日志内容</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
+	<returns>最大页数</returns>
+	<remarks>获取网站书籍页数</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetBooks(System.Diagnostics.Stopwatch,System.String)">
 	<summary>
- 记录日志
+ 采集书籍列表
  </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">日志类型</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
+	<param name="timer">计时器</param>
+	<remarks>采集书籍列表</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetBookInfo(IdeaBox.StoryManage.Model.Story)">
 	<summary>
- 记录日志
+ 获取书籍详情
  </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">信息类型</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
+	<param name="book">书记对象</param>
+	<returns>书籍详情信息</returns>
+	<remarks>获取书籍详情</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetBookAbstract(IdeaBox.StoryManage.Model.Story)">
+	<summary>
+ 获取书籍详情
+ </summary>
+	<param name="book">书记对象</param>
+	<returns>书籍详情信息</returns>
+	<remarks>获取书籍详情</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.DoThread(System.Threading.ThreadStart)">
+	<summary>
+ 执行线程（无参数）
+ </summary>
+	<param name="addrOf">线程事件</param>
+	<remarks>执行线程（无参数）</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.DoThread(System.Threading.ParameterizedThreadStart,System.Object)">
+	<summary>
+ 执行线程（有参数）
+ </summary>
+	<param name="addrOf">线程事件</param>
+	<param name="obj">参数</param>
+	<remarks>执行线程（有参数）</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.DoThreadDispose">
+	<summary>
+ 关闭线程
+ </summary>
+	<remarks>关闭线程</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.GetScanCondition">
+	<summary>
+ 获取查询条件
+ </summary>
+	<returns>查询条件</returns>
+	<remarks>获取查询条件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.ResetPagging(IdeaBox.StoryManage.Model.Story)">
+	<summary>
+ 重置分页信息
+ </summary>
+	<remarks>重置分页信息</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.GetSelectFiles">
+	<summary>
+ 获取选择的记录
+ </summary>
+	<returns>选择文件信息</returns>
+	<remarks>获取选择的记录</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.ThreadTaskIsRun">
+	<summary>
+ 检查多线程是否正在工作
+ </summary>
+	<returns>是否工作</returns>
+	<remarks>检查多线程是否正在工作</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.LoadCategoryList">
+	<summary>
+ 加载小说分类
+ </summary>
+	<remarks>加载小说分类</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.Fr_User_Load(System.Object,System.EventArgs)">
+	<summary>
+ 窗体初始化
+ </summary>
+	<param name="sender">发送方</param>
+	<param name="e">事件</param>
+	<remarks>窗体初始化</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.Fr_Aqtxt_FormClosed(System.Object,System.Windows.Forms.FormClosedEventArgs)">
+	<summary>
+ 窗体关闭事件
+ </summary>
+	<param name="sender">发送方</param>
+	<param name="e">事件</param>
+	<remarks>关闭窗体时自动终止后台线程</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.Btn_ItemClick(System.Object,DevExpress.XtraBars.ItemClickEventArgs)">
+	<summary>
+ 按钮事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>按钮事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.MainTree_FocusedNodeChanged(System.Object,DevExpress.XtraTreeList.FocusedNodeChangedEventArgs)">
+	<summary>
+ 列表焦点变换事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>列表焦点变换事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.CategoryBox_Properties_Closed(System.Object,DevExpress.XtraEditors.Controls.ClosedEventArgs)">
+	<summary>
+ 分类框关闭事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>分类框关闭事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.View.Fr_Story.ClearBtn_ButtonClick(System.Object,DevExpress.XtraEditors.Controls.ButtonPressedEventArgs)">
+	<summary>
+ 清除按钮事件
+ </summary>
+	<param name="sender">发起方</param>
+	<param name="e">事件</param>
+	<remarks>清除按钮事件</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<param name="Encode">编码</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String)">
+	<summary>
+ 打开网址，获取HTML节点
+ </summary>
+	<param name="URL">网址</param>
+	<returns>HTML节点</returns>
+	<remarks>打开网址，获取HTML节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeStr(HtmlAgilityPack.HtmlNode,System.String,System.Int32)">
+	<summary>
+ 获取节点文本
+ </summary>
+	<param name="Node">节点</param>
+	<param name="xpathStr">XPath</param>
+	<param name="NodeType">节点类型</param>
+	<returns>节点文本</returns>
+	<remarks>获取节点文本</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNode(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns></returns>
+	<remarks>获取节点</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeCollection(HtmlAgilityPack.HtmlNode,System.String)">
+	<summary>
+ 获取节点集
+ </summary>
+	<param name="rootNode">根节点</param>
+	<param name="xpathStr">XPath</param>
+	<returns>节点集</returns>
+	<remarks>获取节点集</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.#ctor">
+	<summary>
+ 构造函数
+ </summary>
+	<remarks></remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetPageCount">
+	<summary>
+ 获取网站书籍页数
+ </summary>
+	<returns>最大页数</returns>
+	<remarks>获取网站书籍页数</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBooks(System.Diagnostics.Stopwatch,System.String)">
+	<summary>
+ 采集书籍列表
+ </summary>
+	<param name="timer">计时器</param>
+	<remarks>采集书籍列表</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBookInfo(IdeaBox.StoryManage.Model.Story)">
+	<summary>
+ 获取书籍详情
+ </summary>
+	<param name="book">书记对象</param>
+	<returns>书籍详情信息</returns>
+	<remarks>获取书籍详情</remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
 	<summary>
  生成缩略图
@@ -68,6 +223,98 @@ IdeaBox
 	<param name="ImagePath">源图片路径</param>
 	<returns>图片对象</returns>
 	<remarks>获取图像</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="msgType">日志类型</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="msgType">信息类型</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Program.#ctor">
+	<summary>
+ The main entry point for the application.
+ </summary>
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownLoadFiles(IdeaBox.StoryManage.Model.FileDown)">
+	<summary>
+ 异步下载文件
+ </summary>
+	<param name="fDown">下载文件信息</param>
+	<remarks>异步下载文件</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownloadFileCompleted(System.Object,System.ComponentModel.AsyncCompletedEventArgs)">
+	<summary>
+ 下载完成事件
+ </summary>
+	<param name="sender">发送方</param>
+	<param name="e">事件</param>
+	<remarks>下载完成事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.ShowDownProgress(System.Object,System.Net.DownloadProgressChangedEventArgs)">
+	<summary>
+ 显示进度事件
+ </summary>
+	<param name="sender">发送方</param>
+	<param name="e">事件</param>
+	<remarks>显示进度事件</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.getFileSize(IdeaBox.StoryManage.Model.FileDown)">
+	<summary>
+ 获取文件大小
+ </summary>
+	<param name="fDown">下载文件信息</param>
+	<returns>文件大小</returns>
+	<remarks>获取文件大小</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownloadFile(IdeaBox.StoryManage.Model.FileDown)">
+	<summary>
+ 下载文件
+ </summary>
+	<param name="fDown">文件对象</param>
+	<returns>成功与否</returns>
+	<remarks>下载文件</remarks>
+</member><member name="M:IdeaBox.Impl.FormImpl.LoadTabPageForm(IdeaBox.Model.TabForm)">
+	<summary>
+ 加载或者激活指定类型的对话框
+ </summary>
+	<param name="tab">TabForm对象</param>
+</member><member name="F:IdeaBox.View.Fr_MainForm.components">
+	<summary>
+ Required designer variable.
+ </summary>
+</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
+	<summary>
+ Clean up any resources being used.
+ </summary>
+	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
+	<summary>
+ Required method for Designer support - do not modify
+ the contents of this method with the code editor.
+ </summary>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
+	<summary>
+ 获取文件的MD5值
+ </summary>
+	<param name="filePath">文件的绝对路径</param>
+	<returns>返回32位MD5值</returns>
+	<remarks></remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
 	<summary>
  根据条件表达式，获取SQL语句
@@ -109,13 +356,6 @@ IdeaBox
 	<param name="ExStr">待转换表达式</param>
 	<returns>转换后的SQL</returns>
 	<remarks>03、拼接Not条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
-	<summary>
- 获取文件的MD5值
- </summary>
-	<param name="filePath">文件的绝对路径</param>
-	<returns>返回32位MD5值</returns>
-	<remarks></remarks>
 </member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
 	<summary>
  IP地址输入格式化
@@ -123,20 +363,6 @@ IdeaBox
 	<param name="IpAddr">IP地址</param>
 	<returns>格式化的IP地址</returns>
 	<remarks>IP地址输入格式化，例：080.096.121.6  →  80.96.121.6</remarks>
-</member><member name="F:IdeaBox.View.Fr_MainForm.components">
-	<summary>
- Required designer variable.
- </summary>
-</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
-	<summary>
- Clean up any resources being used.
- </summary>
-	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
-	<summary>
- Required method for Designer support - do not modify
- the contents of this method with the code editor.
- </summary>
 </member><member name="P:IdeaBox.My.Resources.Resources.ResourceManager">
 	<summary>
   返回此类使用的缓存的 ResourceManager 实例。
@@ -150,144 +376,6 @@ IdeaBox
 	<summary>
   一个强类型的资源类，用于查找本地化的字符串等。
 </summary>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
-	<summary>
- 打开网址，获取HTML节点
- </summary>
-	<param name="URL">网址</param>
-	<param name="Encode">编码</param>
-	<returns>HTML节点</returns>
-	<remarks>打开网址，获取HTML节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String)">
-	<summary>
- 打开网址，获取HTML节点
- </summary>
-	<param name="URL">网址</param>
-	<returns>HTML节点</returns>
-	<remarks>打开网址，获取HTML节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeStr(HtmlAgilityPack.HtmlNode,System.String,System.Int32)">
-	<summary>
- 获取节点文本
- </summary>
-	<param name="Node">节点</param>
-	<param name="xpathStr">XPath</param>
-	<param name="NodeType">节点类型</param>
-	<returns>节点文本</returns>
-	<remarks>获取节点文本</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNode(HtmlAgilityPack.HtmlNode,System.String)">
-	<summary>
- 获取节点
- </summary>
-	<param name="rootNode">根节点</param>
-	<param name="xpathStr">XPath</param>
-	<returns></returns>
-	<remarks>获取节点</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.GetNodeCollection(HtmlAgilityPack.HtmlNode,System.String)">
-	<summary>
- 获取节点集
- </summary>
-	<param name="rootNode">根节点</param>
-	<param name="xpathStr">XPath</param>
-	<returns>节点集</returns>
-	<remarks>获取节点集</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoThread(System.Threading.ThreadStart)">
-	<summary>
- 执行线程（无参数）
- </summary>
-	<param name="addrOf">线程事件</param>
-	<remarks>执行线程（无参数）</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoThread(System.Threading.ParameterizedThreadStart,System.Object)">
-	<summary>
- 执行线程（有参数）
- </summary>
-	<param name="addrOf">线程事件</param>
-	<param name="obj">参数</param>
-	<remarks>执行线程（有参数）</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.DoThreadDispose">
-	<summary>
- 关闭线程
- </summary>
-	<remarks>关闭线程</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.GetScanCondition">
-	<summary>
- 获取查询条件
- </summary>
-	<returns>查询条件</returns>
-	<remarks>获取查询条件</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.ResetPagging(IdeaBox.StoryManage.Model.Story)">
-	<summary>
- 重置分页信息
- </summary>
-	<remarks>重置分页信息</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.GetSelectFiles">
-	<summary>
- 获取选择的记录
- </summary>
-	<returns>选择文件信息</returns>
-	<remarks>获取选择的记录</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.LoadCategoryList">
-	<summary>
- 加载小说分类
- </summary>
-	<remarks>加载小说分类</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Fr_User_Load(System.Object,System.EventArgs)">
-	<summary>
- 窗体初始化
- </summary>
-	<param name="sender">发送方</param>
-	<param name="e">事件</param>
-	<remarks>窗体初始化</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Fr_Aqtxt_FormClosed(System.Object,System.Windows.Forms.FormClosedEventArgs)">
-	<summary>
- 窗体关闭事件
- </summary>
-	<param name="sender">发送方</param>
-	<param name="e">事件</param>
-	<remarks>关闭窗体时自动终止后台线程</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.Btn_ItemClick(System.Object,DevExpress.XtraBars.ItemClickEventArgs)">
-	<summary>
- 按钮事件
- </summary>
-	<param name="sender">发起方</param>
-	<param name="e">事件</param>
-	<remarks>按钮事件</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.MainTree_FocusedNodeChanged(System.Object,DevExpress.XtraTreeList.FocusedNodeChangedEventArgs)">
-	<summary>
- 列表焦点变换事件
- </summary>
-	<param name="sender">发起方</param>
-	<param name="e">事件</param>
-	<remarks>列表焦点变换事件</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.CategoryBox_Properties_Closed(System.Object,DevExpress.XtraEditors.Controls.ClosedEventArgs)">
-	<summary>
- 分类框关闭事件
- </summary>
-	<param name="sender">发起方</param>
-	<param name="e">事件</param>
-	<remarks>分类框关闭事件</remarks>
-</member><member name="M:IdeaBox.StoryManage.View.Fr_Aqtxt.ClearBtn_ButtonClick(System.Object,DevExpress.XtraEditors.Controls.ButtonPressedEventArgs)">
-	<summary>
- 清除按钮事件
- </summary>
-	<param name="sender">发起方</param>
-	<param name="e">事件</param>
-	<remarks>清除按钮事件</remarks>
-</member><member name="M:IdeaBox.Program.#ctor">
-	<summary>
- The main entry point for the application.
- </summary>
-</member><member name="M:IdeaBox.StoryManage.Impl.FileDownImpl.DownloadFile(IdeaBox.StoryManage.Model.FileDown)">
-	<summary>
- 下载文件
- </summary>
-	<param name="fDown">文件对象</param>
-	<returns>成功与否</returns>
-	<remarks>下载文件</remarks>
-</member><member name="M:IdeaBox.Impl.FormImpl.LoadTabPageForm(IdeaBox.Model.TabForm)">
-	<summary>
- 加载或者激活指定类型的对话框
- </summary>
-	<param name="tab">TabForm对象</param>
 </member>
 </members>
 </doc>

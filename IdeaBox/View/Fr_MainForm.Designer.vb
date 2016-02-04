@@ -43,7 +43,7 @@
             Me.NavBar = New DevExpress.XtraNavBar.NavBarControl()
             Me.BookGroup = New DevExpress.XtraNavBar.NavBarGroup()
             Me.AqTxtBtn = New DevExpress.XtraNavBar.NavBarItem()
-            Me.ScanExpress = New DevExpress.XtraNavBar.NavBarItem()
+            Me.BookBaoBtn = New DevExpress.XtraNavBar.NavBarItem()
             Me.InputExpressForIn = New DevExpress.XtraNavBar.NavBarItem()
             Me.InputExpressForOut = New DevExpress.XtraNavBar.NavBarItem()
             Me.CollectReport = New DevExpress.XtraNavBar.NavBarItem()
@@ -214,7 +214,7 @@
             Me.NavBar.ActiveGroup = Me.BookGroup
             Me.NavBar.Dock = System.Windows.Forms.DockStyle.Left
             Me.NavBar.Groups.AddRange(New DevExpress.XtraNavBar.NavBarGroup() {Me.BookGroup, Me.MovieGroup})
-            Me.NavBar.Items.AddRange(New DevExpress.XtraNavBar.NavBarItem() {Me.UserManagerBtn, Me.DeptManager, Me.ScanExpress, Me.InputExpressForIn, Me.ExComManager, Me.InputExpressForOut, Me.StatusManager, Me.CollectReport, Me.AqTxtBtn})
+            Me.NavBar.Items.AddRange(New DevExpress.XtraNavBar.NavBarItem() {Me.UserManagerBtn, Me.DeptManager, Me.BookBaoBtn, Me.InputExpressForIn, Me.ExComManager, Me.InputExpressForOut, Me.StatusManager, Me.CollectReport, Me.AqTxtBtn})
             Me.NavBar.Location = New System.Drawing.Point(0, 80)
             Me.NavBar.Name = "NavBar"
             Me.NavBar.OptionsNavPane.ExpandedWidth = 150
@@ -233,7 +233,7 @@
             Me.BookGroup.Caption = "小说管理"
             Me.BookGroup.Expanded = True
             Me.BookGroup.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.LargeIconsText
-            Me.BookGroup.ItemLinks.AddRange(New DevExpress.XtraNavBar.NavBarItemLink() {New DevExpress.XtraNavBar.NavBarItemLink(Me.AqTxtBtn), New DevExpress.XtraNavBar.NavBarItemLink(Me.ScanExpress), New DevExpress.XtraNavBar.NavBarItemLink(Me.InputExpressForIn), New DevExpress.XtraNavBar.NavBarItemLink(Me.InputExpressForOut), New DevExpress.XtraNavBar.NavBarItemLink(Me.CollectReport)})
+            Me.BookGroup.ItemLinks.AddRange(New DevExpress.XtraNavBar.NavBarItemLink() {New DevExpress.XtraNavBar.NavBarItemLink(Me.AqTxtBtn), New DevExpress.XtraNavBar.NavBarItemLink(Me.BookBaoBtn), New DevExpress.XtraNavBar.NavBarItemLink(Me.InputExpressForIn), New DevExpress.XtraNavBar.NavBarItemLink(Me.InputExpressForOut), New DevExpress.XtraNavBar.NavBarItemLink(Me.CollectReport)})
             Me.BookGroup.LargeImage = Global.IdeaBox.My.Resources.Resources.Book
             Me.BookGroup.Name = "BookGroup"
             Me.BookGroup.SmallImage = Global.IdeaBox.My.Resources.Resources.Book
@@ -245,11 +245,12 @@
             Me.AqTxtBtn.Name = "AqTxtBtn"
             Me.AqTxtBtn.SmallImage = Global.IdeaBox.My.Resources.Resources.Book
             '
-            'ScanExpress
+            'BookBaoBtn
             '
-            Me.ScanExpress.Caption = "查询快件"
-            Me.ScanExpress.Name = "ScanExpress"
-            Me.ScanExpress.Visible = False
+            Me.BookBaoBtn.Caption = "书包小说网"
+            Me.BookBaoBtn.LargeImage = Global.IdeaBox.My.Resources.Resources.Book
+            Me.BookBaoBtn.Name = "BookBaoBtn"
+            Me.BookBaoBtn.SmallImage = Global.IdeaBox.My.Resources.Resources.Book
             '
             'InputExpressForIn
             '
@@ -357,7 +358,7 @@
         Friend WithEvents MovieGroup As DevExpress.XtraNavBar.NavBarGroup
         Friend WithEvents BannerBox As DevExpress.XtraEditors.PanelControl
         Friend WithEvents BookGroup As DevExpress.XtraNavBar.NavBarGroup
-        Friend WithEvents ScanExpress As DevExpress.XtraNavBar.NavBarItem
+        Friend WithEvents BookBaoBtn As DevExpress.XtraNavBar.NavBarItem
         Friend WithEvents InputExpressForIn As DevExpress.XtraNavBar.NavBarItem
         Friend WithEvents UserManagerBtn As DevExpress.XtraNavBar.NavBarItem
         Friend WithEvents DeptManager As DevExpress.XtraNavBar.NavBarItem

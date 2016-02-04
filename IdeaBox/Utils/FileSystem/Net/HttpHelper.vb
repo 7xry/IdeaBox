@@ -57,6 +57,8 @@ Namespace Utils.FileSystem.Net
                         RtStr = nodeCollect(0).GetAttributeValue("href", "").Trim.ToString()
                     Case 2  '返回src Text
                         RtStr = nodeCollect(0).GetAttributeValue("src", "").Trim.ToString()
+                    Case 3  '返回src Text
+                        RtStr = nodeCollect(0).InnerHtml.Trim.ToString()
                     Case Else
                         RtStr = nodeCollect(0).InnerText.Trim.ToString
                 End Select
