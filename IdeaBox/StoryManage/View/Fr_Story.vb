@@ -183,8 +183,12 @@ Namespace StoryManage.View
         ''' </summary>
         ''' <remarks>关闭线程</remarks>
         Sub DoThreadDispose()
-            If ThreadTask.IsAlive Then
-                ThreadTask.Abort()
+            If ThreadTask IsNot Nothing Then
+                If ThreadTask.IsAlive Then
+                    ThreadTask.Abort()
+                    IsCompleted = True
+                    ThreadIsCompleted = True
+                End If
             End If
         End Sub
 #End Region
@@ -257,6 +261,10 @@ Namespace StoryManage.View
                 Log.Showlog("当前有任务正在执行，请稍后……", MsgType.WarnMsg)
                 Return True
             End If
+            If ThreadIsCompleted <> True Then
+                Log.Showlog("当前有任务正在执行，请稍后……", MsgType.WarnMsg)
+                Return True
+            End If
             Return False
         End Function
 #End Region
@@ -285,6 +293,7 @@ Namespace StoryManage.View
 
         Private Sub Scan(ByVal xScan As Story)
             IsCompleted = False
+            ThreadIsCompleted = False
             SetTreeStartInvoke()
             SetTreeInvoke()
             Dim parentForRootNodes As TreeListNode = Nothing
@@ -292,6 +301,7 @@ Namespace StoryManage.View
                 SetTreeInvoke(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, 0)}, parentForRootNodes)
                 SetTreeEndInvoke()
                 IsCompleted = True
+                ThreadIsCompleted = True
                 Return
             End If
             Dim ls As List(Of Story) = StoryOpt.GetList(xScan, TName, (page.CurrentIndex - 1) * perPage)
@@ -309,16 +319,19 @@ Namespace StoryManage.View
             End If
             SetTreeEndInvoke()
             IsCompleted = True
+            ThreadIsCompleted = True
         End Sub
 
         Private Sub Download()
             IsCompleted = False
+            ThreadIsCompleted = False
             Dim timer As New Stopwatch
             timer.Start()
             Dim fileLs As List(Of Story) = GetSelectFiles()
             If fileLs.Count <= 0 Then
                 Log.Showlog("请选择要下载的记录！", MsgType.WarnMsg)
                 IsCompleted = True
+                ThreadIsCompleted = True
                 Return
             End If
             SetStatInvoke(String.Format("正在获取下载列表，请稍后……"))
@@ -335,6 +348,7 @@ Namespace StoryManage.View
                     Directory.CreateDirectory(fDown.TargetFile)
                 End If
                 fDown.FileExtension = Mid(fDown.SourceFile, fDown.SourceFile.LastIndexOf(".") + 2)
+                fDown.fr = Me
                 If fDown.FileExtension.StartsWith("aspx") Then
                     fDown.FileExtension = "txt"
                 End If
@@ -351,10 +365,12 @@ Namespace StoryManage.View
             SetPaggingBtnVisibilityInvoke(BarItemVisibility.Always)
             Log.Showlog(String.Format("下载完成，共计下载：{0} 本，累计耗时：{1}", fileLs.Count, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
             IsCompleted = True
+            ThreadIsCompleted = True
         End Sub
 
         Private Sub Collect()
             IsCompleted = False
+            ThreadIsCompleted = False
             SetStatInvoke(String.Format("正在准备开始采集，请稍后……"))
             SetStatVisibilityInvoke(BarItemVisibility.Always)
             SetPaggingVisibilityInvoke(BarItemVisibility.Never)
@@ -362,17 +378,19 @@ Namespace StoryManage.View
             Dim timer As New Stopwatch
             timer.Start()
             StoryOpt.ResetTable(TName)
-            StoryImplOpt.GetBooks(timer, TName)
+            StoryImplOpt.GetBooks(timer, Me, TName)
             timer.Stop()
             SetStatVisibilityInvoke(BarItemVisibility.Never)
             SetPaggingVisibilityInvoke(BarItemVisibility.Always)
             SetPaggingBtnVisibilityInvoke(BarItemVisibility.Always)
             Log.Showlog(String.Format("采集完成，共计耗时：{0}", timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")), Utils.FileSystem.Dict.MsgType.InfoMsg)
             IsCompleted = True
+            ThreadIsCompleted = True
         End Sub
 
         Private Sub Shield()
             IsCompleted = False
+            ThreadIsCompleted = False
             Dim fileLs As List(Of Story) = GetSelectFiles()
             Dim sLs As New List(Of Story)
             Select Case DoShieldBtn.Caption
@@ -381,6 +399,7 @@ Namespace StoryManage.View
                         Log.Showlog("请选择要屏蔽的记录！", MsgType.WarnMsg)
                         Return
                         IsCompleted = True
+                        ThreadIsCompleted = True
                     End If
                     For Each f As Story In fileLs
                         f.IsRead = 1
@@ -391,6 +410,7 @@ Namespace StoryManage.View
                         Log.Showlog("请选择要解除屏蔽的记录！", MsgType.WarnMsg)
                         Return
                         IsCompleted = True
+                        ThreadIsCompleted = True
                     End If
                     For Each f As Story In fileLs
                         f.IsRead = 0
@@ -401,6 +421,7 @@ Namespace StoryManage.View
             ResetPagging(GetScanCondition)
             Scan(GetScanCondition)
             IsCompleted = True
+            ThreadIsCompleted = True
         End Sub
 #End Region
 
@@ -413,7 +434,11 @@ Namespace StoryManage.View
         ''' <remarks>窗体初始化</remarks>
         Private Sub Fr_User_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
             ResetPagging(New Story)
-            DoThread(AddressOf Scan, New Story)
+            SetTreeStartInvoke()
+            Dim parentForRootNodes As TreeListNode = Nothing
+            SetTreeInvoke(New Object() {Nothing, String.Format("所有{0}  [ 共 {1} 本 ]", CategoryBox.Text, 0)}, parentForRootNodes)
+            SetTreeEndInvoke()
+            Return
         End Sub
 
         ''' <summary>

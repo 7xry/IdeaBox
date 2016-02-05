@@ -1,4 +1,5 @@
 ﻿Imports IdeaBox.Utils.FileSystem.Files
+Imports IdeaBox.StoryManage.View
 
 Namespace StoryManage.Model
     Public Class FileDown
@@ -9,6 +10,7 @@ Namespace StoryManage.Model
         Property CurrentIndex As String
         Property AllCount As String
         Property timer As Stopwatch
+        Property fr As Fr_Story
 
         Sub New()
         End Sub

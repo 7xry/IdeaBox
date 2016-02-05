@@ -11,12 +11,14 @@ Module IdeaBoxMod
     Public FileDownOpt As New FileDownImpl
     '窗体实例
     Public frMain As Fr_MainForm
-    Public frStory As Fr_Story
+    'Public frStory As Fr_Story
+    'Public frStory1 As Fr_Story1
     '全局参数
     Public Property skinMask As String
     Public Property DefaultExportPath As String
     Public Property DefaultImportPath As String
     Public perPage As Integer = 20
+    Public ThreadIsCompleted As Boolean = True
 
 
     Public Sub LoadConfig()

@@ -544,6 +544,8 @@
             Me.FileSizeCol.OptionsColumn.AllowSize = False
             Me.FileSizeCol.OptionsColumn.AllowSort = False
             Me.FileSizeCol.OptionsColumn.ShowInCustomizationForm = False
+            Me.FileSizeCol.Visible = True
+            Me.FileSizeCol.VisibleIndex = 3
             Me.FileSizeCol.Width = 91
             '
             'RatingCol
@@ -565,7 +567,7 @@
             Me.RatingCol.OptionsColumn.AllowSort = False
             Me.RatingCol.OptionsColumn.ShowInCustomizationForm = False
             Me.RatingCol.Visible = True
-            Me.RatingCol.VisibleIndex = 3
+            Me.RatingCol.VisibleIndex = 4
             Me.RatingCol.Width = 72
             '
             'DownloadQuantityCol
@@ -591,7 +593,7 @@
             Me.DownloadQuantityCol.OptionsColumn.AllowSort = False
             Me.DownloadQuantityCol.OptionsColumn.ShowInCustomizationForm = False
             Me.DownloadQuantityCol.Visible = True
-            Me.DownloadQuantityCol.VisibleIndex = 4
+            Me.DownloadQuantityCol.VisibleIndex = 5
             Me.DownloadQuantityCol.Width = 92
             '
             'UploadDateCol
@@ -616,6 +618,8 @@
             Me.UploadDateCol.OptionsColumn.AllowSize = False
             Me.UploadDateCol.OptionsColumn.AllowSort = False
             Me.UploadDateCol.OptionsColumn.ShowInCustomizationForm = False
+            Me.UploadDateCol.Visible = True
+            Me.UploadDateCol.VisibleIndex = 6
             Me.UploadDateCol.Width = 92
             '
             'AbstractCol
@@ -640,7 +644,7 @@
             Me.AbstractCol.OptionsColumn.AllowSort = False
             Me.AbstractCol.OptionsColumn.ShowInCustomizationForm = False
             Me.AbstractCol.Visible = True
-            Me.AbstractCol.VisibleIndex = 5
+            Me.AbstractCol.VisibleIndex = 7
             Me.AbstractCol.Width = 350
             '
             'DownloadAddrCol

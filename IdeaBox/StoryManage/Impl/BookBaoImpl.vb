@@ -2,6 +2,8 @@
 Imports IdeaBox.Utils.FileSystem.Net
 Imports IdeaBox.StoryManage.Model
 Imports IdeaBox.StoryManage.API
+Imports DevExpress.XtraEditors
+Imports IdeaBox.StoryManage.View
 
 Namespace StoryManage.Impl
     Public Class BookBaoImpl
@@ -34,7 +36,7 @@ Namespace StoryManage.Impl
         ''' </summary>
         ''' <param name="timer">计时器</param>
         ''' <remarks>采集书籍列表</remarks>
-        Public Function GetBooks(ByVal timer As Stopwatch, ByVal TableName As String) As Boolean Implements API.IStoryWeb.GetBooks
+        Public Function GetBooks(ByVal timer As Stopwatch, ByVal fr As Fr_Story, ByVal TableName As String) As Boolean Implements API.IStoryWeb.GetBooks
             Dim pageCount As Integer = GetPageCount()
             Dim bookLs As New List(Of Story)
             For page As Integer = 1 To pageCount
@@ -42,26 +44,18 @@ Namespace StoryManage.Impl
                 Dim NodeCollection As HtmlNodeCollection = HttpHelper.GetNodeCollection(rootNode, "//li[@class='am-g']")
                 For i As Integer = 1 To NodeCollection.Count
                     Dim book As New Story
-                    Dim TmpStr As String = HttpHelper.GetNodeStr(rootNode, String.Format("//li[@class='am-g'][{0}]/a", i)).Trim
-                    '书名
-                    book.BookName = Mid(TmpStr, TmpStr.IndexOf("]") + 2, TmpStr.IndexOf("(") - TmpStr.IndexOf("]") - 1).Trim
-                    '作者
-                    book.Author = Mid(TmpStr, TmpStr.IndexOf("(") + 2, TmpStr.IndexOf(")") - TmpStr.IndexOf("(") - 1)
-                    '分类
-                    book.Category = Mid(TmpStr, TmpStr.IndexOf("[") + 2, TmpStr.IndexOf("]") - TmpStr.IndexOf("[") - 1)
                     '下载地址
                     book.DownloadAddr = String.Format("{0}{1}", Url, HttpHelper.GetNodeStr(rootNode, String.Format("//li[@class='am-g'][{0}]/a", i), 1)).Trim
-                    Dim tmpBook As Story = GetBookInfo(book)
-                    '小说简介
-                    book.Abstract = tmpBook.Abstract
-                    
-                    '生成是否已读
-                    book.IsRead = 0
-                    bookLs.Add(book)
-                    frStory.SetStatInvoke(String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", page, pageCount, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
+                    Dim tmpDownLoadStr As String = book.DownloadAddr
+                    book = GetBookInfo(book)
+                    book.DownloadAddr = tmpDownLoadStr
+                    If book.BookName <> String.Empty And book.Category <> String.Empty And book.Author <> String.Empty Then
+                        bookLs.Add(book)
+                    End If
+                    fr.SetStatInvoke(String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", page, pageCount, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
                 Next
                 If bookLs.Count >= 300 Or page = pageCount Then
-                    storyOpt.Add(bookLs, TableName)
+                    StoryOpt.Add(bookLs, TableName)
                     bookLs = New List(Of Story)
                 End If
             Next
@@ -89,7 +83,7 @@ Namespace StoryManage.Impl
                 '上传日期
                 newBook.UploadDate = HttpHelper.GetNodeStr(rootNode, "//*[@class='am-list-main']/p[4]").Replace("更新时间: ", "").Trim
                 '小说简介
-                newBook.Abstract = HttpHelper.GetNodeStr(rootNode, "//div[@class='content']").Trim
+                newBook.Abstract = HttpHelper.GetNodeStr(rootNode, "//div[@class='content']").Replace("&lt;", "").Replace("br/", "").Replace("&gt;", "").Replace("&amp;", "").Replace("nbsp;", "").Replace("'", "").Replace("&quot;", "").Replace("关键字：", "").Replace("/div", "").Replace("u", "").Replace("header", "").Replace("/", "").Replace("**", "").Replace("金牌vip", "").Replace("银牌vip", "").Replace("铜牌vip", "").Replace(String.Format("div class={0}xx_ts{0}", Chr(34)), "").Trim
                 '下载地址
                 newBook.DownloadAddr = String.Format("{0}{1}", Url, HttpHelper.GetNodeStr(rootNode, "//div[@class='book_readbtn']/span[2]/a", 1)).Trim
                 '生成是否已读

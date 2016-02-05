@@ -17,7 +17,7 @@ IdeaBox
  </summary>
 	<returns>最大页数</returns>
 	<remarks>获取网站书籍页数</remarks>
-</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetBooks(System.Diagnostics.Stopwatch,System.String)">
+</member><member name="M:IdeaBox.StoryManage.Impl.BookBaoImpl.GetBooks(System.Diagnostics.Stopwatch,IdeaBox.StoryManage.View.Fr_Story,System.String)">
 	<summary>
  采集书籍列表
  </summary>
@@ -37,6 +37,116 @@ IdeaBox
 	<param name="book">书记对象</param>
 	<returns>书籍详情信息</returns>
 	<remarks>获取书籍详情</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="msgType">日志类型</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
+	<summary>
+ 记录日志
+ </summary>
+	<param name="msg">日志内容</param>
+	<param name="msgType">信息类型</param>
+	<param name="ex">异常</param>
+	<remarks>记录日志</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
+	<summary>
+ 生成缩略图
+ </summary>
+	<param name="ImgPath">源图片路径</param>
+	<param name="WInt">缩放宽度</param>
+	<param name="HInt">缩放高度</param>
+	<returns>图像二进制流</returns>
+	<remarks>生成缩略图</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.String,System.Int32,System.Int32)">
+	<summary>
+ 生成缩略图
+ </summary>
+	<param name="ImgPath">源图片路径</param>
+	<param name="saveImgPath">目标图片路径</param>
+	<param name="WInt">缩放宽度</param>
+	<param name="HInt">缩放高度</param>
+	<remarks>生成缩略图</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.Byte[],System.Int32,System.Int32)">
+	<summary>
+ 生成缩略图
+ </summary>
+	<param name="ImgByte">源图片二进制流</param>
+	<param name="WInt">缩放宽度</param>
+	<param name="HInt">缩放高度</param>
+	<returns>图片二进制流</returns>
+	<remarks>生成缩略图</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.GetImage(System.String)">
+	<summary>
+ 获取图像
+ </summary>
+	<param name="ImagePath">源图片路径</param>
+	<returns>图片对象</returns>
+	<remarks>获取图像</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
+	<summary>
+ 根据条件表达式，获取SQL语句
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>根据条件表达式，获取SQL语句</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByExact(System.String,System.String,System.Boolean)">
+	<summary>
+ 根据条件表达式，获取SQL语句（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<param name="IsExact">是否精确查找</param>
+	<returns>转换后的SQL</returns>
+	<remarks>根据条件表达式，获取SQL语句（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByOr(System.String,System.String)">
+	<summary>
+ 01、拼接Or条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>01、拼接Or条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByAnd(System.String,System.String)">
+	<summary>
+ 02、拼接AND条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>02、拼接AND条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByNot(System.String,System.String)">
+	<summary>
+ 03、拼接Not条件（私有）
+ </summary>
+	<param name="DbKey">字段名</param>
+	<param name="ExStr">待转换表达式</param>
+	<returns>转换后的SQL</returns>
+	<remarks>03、拼接Not条件（私有）</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
+	<summary>
+ 获取文件的MD5值
+ </summary>
+	<param name="filePath">文件的绝对路径</param>
+	<returns>返回32位MD5值</returns>
+	<remarks></remarks>
 </member><member name="M:IdeaBox.StoryManage.View.Fr_Story.DoThread(System.Threading.ThreadStart)">
 	<summary>
  执行线程（无参数）
@@ -125,6 +235,64 @@ IdeaBox
 	<param name="sender">发起方</param>
 	<param name="e">事件</param>
 	<remarks>清除按钮事件</remarks>
+</member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
+	<summary>
+ IP地址输入格式化
+ </summary>
+	<param name="IpAddr">IP地址</param>
+	<returns>格式化的IP地址</returns>
+	<remarks>IP地址输入格式化，例：080.096.121.6  →  80.96.121.6</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.#ctor">
+	<summary>
+ 构造函数
+ </summary>
+	<remarks></remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetPageCount">
+	<summary>
+ 获取网站书籍页数
+ </summary>
+	<returns>最大页数</returns>
+	<remarks>获取网站书籍页数</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBooks(System.Diagnostics.Stopwatch,IdeaBox.StoryManage.View.Fr_Story,System.String)">
+	<summary>
+ 采集书籍列表
+ </summary>
+	<param name="timer">计时器</param>
+	<remarks>采集书籍列表</remarks>
+</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBookInfo(IdeaBox.StoryManage.Model.Story)">
+	<summary>
+ 获取书籍详情
+ </summary>
+	<param name="book">书记对象</param>
+	<returns>书籍详情信息</returns>
+	<remarks>获取书籍详情</remarks>
+</member><member name="F:IdeaBox.View.Fr_MainForm.components">
+	<summary>
+ Required designer variable.
+ </summary>
+</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
+	<summary>
+ Clean up any resources being used.
+ </summary>
+	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
+	<summary>
+ Required method for Designer support - do not modify
+ the contents of this method with the code editor.
+ </summary>
+</member><member name="P:IdeaBox.My.Resources.Resources.ResourceManager">
+	<summary>
+  返回此类使用的缓存的 ResourceManager 实例。
+</summary>
+</member><member name="P:IdeaBox.My.Resources.Resources.Culture">
+	<summary>
+  使用此强类型资源类，为所有资源查找
+  重写当前线程的 CurrentUICulture 属性。
+</summary>
+</member><member name="T:IdeaBox.My.Resources.Resources">
+	<summary>
+  一个强类型的资源类，用于查找本地化的字符串等。
+</summary>
 </member><member name="M:IdeaBox.Utils.FileSystem.Net.HttpHelper.OpenUrl(System.String,System.Text.Encoding)">
 	<summary>
  打开网址，获取HTML节点
@@ -165,92 +333,6 @@ IdeaBox
 	<param name="xpathStr">XPath</param>
 	<returns>节点集</returns>
 	<remarks>获取节点集</remarks>
-</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.#ctor">
-	<summary>
- 构造函数
- </summary>
-	<remarks></remarks>
-</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetPageCount">
-	<summary>
- 获取网站书籍页数
- </summary>
-	<returns>最大页数</returns>
-	<remarks>获取网站书籍页数</remarks>
-</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBooks(System.Diagnostics.Stopwatch,System.String)">
-	<summary>
- 采集书籍列表
- </summary>
-	<param name="timer">计时器</param>
-	<remarks>采集书籍列表</remarks>
-</member><member name="M:IdeaBox.StoryManage.Impl.AqTxtImpl.GetBookInfo(IdeaBox.StoryManage.Model.Story)">
-	<summary>
- 获取书籍详情
- </summary>
-	<param name="book">书记对象</param>
-	<returns>书籍详情信息</returns>
-	<remarks>获取书籍详情</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.Int32,System.Int32)">
-	<summary>
- 生成缩略图
- </summary>
-	<param name="ImgPath">源图片路径</param>
-	<param name="WInt">缩放宽度</param>
-	<param name="HInt">缩放高度</param>
-	<returns>图像二进制流</returns>
-	<remarks>生成缩略图</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.String,System.String,System.Int32,System.Int32)">
-	<summary>
- 生成缩略图
- </summary>
-	<param name="ImgPath">源图片路径</param>
-	<param name="saveImgPath">目标图片路径</param>
-	<param name="WInt">缩放宽度</param>
-	<param name="HInt">缩放高度</param>
-	<remarks>生成缩略图</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.MakeSmallImg(System.Byte[],System.Int32,System.Int32)">
-	<summary>
- 生成缩略图
- </summary>
-	<param name="ImgByte">源图片二进制流</param>
-	<param name="WInt">缩放宽度</param>
-	<param name="HInt">缩放高度</param>
-	<returns>图片二进制流</returns>
-	<remarks>生成缩略图</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Images.ImageOpt.GetImage(System.String)">
-	<summary>
- 获取图像
- </summary>
-	<param name="ImagePath">源图片路径</param>
-	<returns>图片对象</returns>
-	<remarks>获取图像</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,System.Exception)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">日志类型</param>
-	<remarks>记录日志</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.Log.WriteLog(System.String,IdeaBox.Utils.FileSystem.Dict.MsgType,System.Exception)">
-	<summary>
- 记录日志
- </summary>
-	<param name="msg">日志内容</param>
-	<param name="msgType">信息类型</param>
-	<param name="ex">异常</param>
-	<remarks>记录日志</remarks>
 </member><member name="M:IdeaBox.Program.#ctor">
 	<summary>
  The main entry point for the application.
@@ -294,88 +376,6 @@ IdeaBox
  加载或者激活指定类型的对话框
  </summary>
 	<param name="tab">TabForm对象</param>
-</member><member name="F:IdeaBox.View.Fr_MainForm.components">
-	<summary>
- Required designer variable.
- </summary>
-</member><member name="M:IdeaBox.View.Fr_MainForm.Dispose(System.Boolean)">
-	<summary>
- Clean up any resources being used.
- </summary>
-	<param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-</member><member name="M:IdeaBox.View.Fr_MainForm.InitializeComponent">
-	<summary>
- Required method for Designer support - do not modify
- the contents of this method with the code editor.
- </summary>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.FileMd5.getFileMd5Hash(System.String)">
-	<summary>
- 获取文件的MD5值
- </summary>
-	<param name="filePath">文件的绝对路径</param>
-	<returns>返回32位MD5值</returns>
-	<remarks></remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSql(System.String,System.String)">
-	<summary>
- 根据条件表达式，获取SQL语句
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>根据条件表达式，获取SQL语句</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByExact(System.String,System.String,System.Boolean)">
-	<summary>
- 根据条件表达式，获取SQL语句（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<param name="IsExact">是否精确查找</param>
-	<returns>转换后的SQL</returns>
-	<remarks>根据条件表达式，获取SQL语句（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByOr(System.String,System.String)">
-	<summary>
- 01、拼接Or条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>01、拼接Or条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByAnd(System.String,System.String)">
-	<summary>
- 02、拼接AND条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>02、拼接AND条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.SqlConvert.GetSqlByNot(System.String,System.String)">
-	<summary>
- 03、拼接Not条件（私有）
- </summary>
-	<param name="DbKey">字段名</param>
-	<param name="ExStr">待转换表达式</param>
-	<returns>转换后的SQL</returns>
-	<remarks>03、拼接Not条件（私有）</remarks>
-</member><member name="M:IdeaBox.Utils.FileSystem.String.StrConvert.MaskIpAddr(System.String)">
-	<summary>
- IP地址输入格式化
- </summary>
-	<param name="IpAddr">IP地址</param>
-	<returns>格式化的IP地址</returns>
-	<remarks>IP地址输入格式化，例：080.096.121.6  →  80.96.121.6</remarks>
-</member><member name="P:IdeaBox.My.Resources.Resources.ResourceManager">
-	<summary>
-  返回此类使用的缓存的 ResourceManager 实例。
-</summary>
-</member><member name="P:IdeaBox.My.Resources.Resources.Culture">
-	<summary>
-  使用此强类型资源类，为所有资源查找
-  重写当前线程的 CurrentUICulture 属性。
-</summary>
-</member><member name="T:IdeaBox.My.Resources.Resources">
-	<summary>
-  一个强类型的资源类，用于查找本地化的字符串等。
-</summary>
 </member>
 </members>
 </doc>

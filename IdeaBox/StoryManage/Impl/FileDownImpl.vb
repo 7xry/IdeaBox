@@ -43,7 +43,7 @@ Namespace StoryManage.Impl
         ''' <param name="e">事件</param>
         ''' <remarks>显示进度事件</remarks>
         Public Sub ShowDownProgress(ByVal sender As Object, ByVal e As DownloadProgressChangedEventArgs)
-            frStory.SetStatInvoke(String.Format("正在下载：{0}/{1} - {2}.{3}，进度：{4}%，累计耗时：{5} ", DownLoadFileInfo.CurrentIndex, DownLoadFileInfo.AllCount, DownLoadFileInfo.fileInfo.BookName, DownLoadFileInfo.FileExtension, e.ProgressPercentage, DownLoadFileInfo.timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
+            DownLoadFileInfo.fr.SetStatInvoke(String.Format("正在下载：{0}/{1} - {2}.{3}，进度：{4}%，累计耗时：{5} ", DownLoadFileInfo.CurrentIndex, DownLoadFileInfo.AllCount, DownLoadFileInfo.fileInfo.BookName, DownLoadFileInfo.FileExtension, e.ProgressPercentage, DownLoadFileInfo.timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
         End Sub
 
         ''' <summary>

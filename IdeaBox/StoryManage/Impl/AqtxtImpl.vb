@@ -2,6 +2,8 @@
 Imports IdeaBox.Utils.FileSystem.Net
 Imports IdeaBox.StoryManage.Model
 Imports IdeaBox.StoryManage.API
+Imports IdeaBox.StoryManage.View
+Imports System.Threading
 
 Namespace StoryManage.Impl
     Public Class AqTxtImpl
@@ -35,7 +37,7 @@ Namespace StoryManage.Impl
         ''' </summary>
         ''' <param name="timer">计时器</param>
         ''' <remarks>采集书籍列表</remarks>
-        Public Function GetBooks(ByVal timer As Stopwatch, ByVal TableName As String) As Boolean Implements API.IStoryWeb.GetBooks
+        Public Function GetBooks(ByVal timer As Stopwatch, ByVal fr As Fr_Story, ByVal TableName As String) As Boolean Implements API.IStoryWeb.GetBooks
             Dim pageCount As Integer = GetPageCount()
             Dim bookLs As New List(Of Story)
             For page As Integer = 1 To pageCount
@@ -50,7 +52,7 @@ Namespace StoryManage.Impl
                     '分类
                     book.Category = HttpHelper.GetNodeStr(rootNode, String.Format("//*[@id='newbook']/div[{0}]/ul/li[@class='tj']/label[4]/font", i))
                     '评分
-                    book.Rating = HttpHelper.GetNodeStr(rootNode, String.Format("//*[@id='newbook']/div[{0}]/ul/li[@class='title']/span", i)).Trim
+                    book.Rating = HttpHelper.GetNodeStr(rootNode, String.Format("//*[@id='newbook']/div[{0}]/ul/li[@class='title']/span", i)).Replace("分", "").Trim
                     '下载量
                     book.DownloadQuantity = HttpHelper.GetNodeStr(rootNode, String.Format("//*[@id='newbook']/div[{0}]/ul/li[@class='tj']/label[2]/font", i)).Replace("次", "").Trim
                     '小说简介
@@ -60,10 +62,10 @@ Namespace StoryManage.Impl
                     '生成是否已读
                     book.IsRead = 0
                     bookLs.Add(book)
-                    frStory.SetStatInvoke(String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", page, pageCount, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
+                    fr.SetStatInvoke(String.Format("正在采集：第 {0} 页 / 共 {1} 页 , 累计耗时：{2}", page, pageCount, timer.Elapsed.ToString("hh\ \小\时\ mm\ \分\ ss\ \秒\ ")))
                 Next
                 If bookLs.Count >= 300 Or page = pageCount Then
-                    storyOpt.Add(bookLs, TableName)
+                    StoryOpt.Add(bookLs, TableName)
                     bookLs = New List(Of Story)
                 End If
             Next
